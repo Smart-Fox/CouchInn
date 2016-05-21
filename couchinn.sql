@@ -247,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `Username` varchar(12) COLLATE utf8_spanish_ci NOT NULL,
   `Tipo` enum('admin','premium','banned','common') COLLATE utf8_spanish_ci NOT NULL DEFAULT 'common',
   `Email` varchar(25) COLLATE utf8_spanish_ci NOT NULL,
-  `ID_pago` int(11) NOT NULL,
+  `ID_pago` int(11) DEFAULT NULL,
   `Contraseña` varchar(12) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Username` (`Username`),
