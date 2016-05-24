@@ -4,7 +4,6 @@ html, body {
 
 
 h1 {
-    border-left: 2px solid #00f28f;
     font-size: 24px;
     font-weight: 400;
     padding-left: 10px;
@@ -12,6 +11,9 @@ h1 {
 
 .main {
     margin-top: 100px;
+}
+.mainreg {
+    margin-top: 70px;
 }
 
 form input {
