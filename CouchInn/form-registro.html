@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CouchInn - Formulario de Registro</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel='stylesheet' href='style.css'/>
+	<script language= "javascript" src= "js/validation.js"></script>
+
+</head>
+<body>
+	<center>
+	<div class="mainreg">
+		<a href="index.html"><img src=logo.png width=300></a>
+		<form action="registro.php" method="POST" onsubmit="return validacion();">
+			<br><br>
+			<input type="text" name = 'nombre' id='nombre' placeholder='Nombre'>
+			<br><br>
+
+			<input type="text" name = 'apellido' id='apellido' placeholder='Apellido'>
+			<br><br>
+
+			<input type="text" name = 'telefono' id='telefono' placeholder='Teléfono'>
+			<br><br>
+
+			<input type="text" name = 'userName' id = 'userName' placeholder='Nombre de usuario'>
+			<br><br>
+
+			<input type="email" name = 'email' id = 'email' placeholder='E-mail'>
+			<br><br>
+
+			<input type="password" name= 'pass' id = 'pass' placeholder='Contraseña'>
+			<br><br>
+
+			<button type="submit" class="btn">Registrarme</button>
+			
+		</form>
+	</div>
+
+</body>
+</html>
