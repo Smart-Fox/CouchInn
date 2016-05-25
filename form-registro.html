@@ -7,34 +7,51 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel='stylesheet' href='style.css'/>
 </head>
+<script type="text/javascript">
+	window.onload = function () {
+		document.getElementById("pass").onchange = validatePassword;
+		document.getElementById("pass2").onchange = validatePassword;
+	}
+	function validatePassword(){
+	var pass2=document.getElementById("pass").value;
+	var pass1=document.getElementById("pass2").value;
+	if(pass1!=pass2)
+		document.getElementById("pass2").setCustomValidity("Passwords Don't Match");
+	else
+		document.getElementById("pass2").setCustomValidity('');	 
+	//empty string means no validation error
+	}
+</script>
 <body>
 	<center>
 	<div class="mainreg">
 		<img src=logo.png width=300>
 		<form action="registro.php" method="POST" onsubmit="return validacion();">
 			<br><br>
-			<input type="text" name = 'nombre' id='nombre' placeholder='Nombre'>
+			<input type="text" name = 'nombre' id='nombre' placeholder='Nombre' required>
 			<br><br>
 
-			<input type="text" name = 'apellido' id='apellido' placeholder='Apellido'>
+			<input type="text" name = 'apellido' id='apellido' placeholder='Apellido' required>
 			<br><br>
 
-			<input type="text" name = 'telefono' id='telefono' placeholder='Teléfono'>
+			<input type="text" name = 'telefono' id='telefono' placeholder='Teléfono' required>
 			<br><br>
 
-			<input type="text" name = 'userName' id = 'userName' placeholder='Nombre de usuario'>
+			<input type="text" name = 'userName' id = 'userName' placeholder='Nombre de usuario' required>
 			<br><br>
 
-			<input type="email" name = 'email' id = 'email' placeholder='E-mail'>
+			<input type="email" name = 'email' id = 'email' placeholder='E-mail' required>
 			<br><br>
 
-			<input type="password" name= 'pass' id = 'pass' placeholder='Contraseña'>
+			<input type="password" name= 'pass' id = 'pass' placeholder='Contraseña' required>
 			<br><br>
-
+			
+			<input type="password" name= 'pass2' id = 'pass2' placeholder='Confirmar contraseña' required>
+			<br><br>
+			
 			<button type="submit" class="btn">Registrarme</button>
 			
 		</form>
 	</div>
-
 </body>
 </html>

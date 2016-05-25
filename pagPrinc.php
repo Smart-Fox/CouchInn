@@ -9,15 +9,18 @@
 	<script language= "javascript" src= "js/validation.js"></script>
 </head>
 <body>
+	<img src=logo.png width=500>
 	<h1>Página Principal</h1>
 	<?php
 		session_start();
 		if(isset($_SESSION['usuario'])){
-			echo "Bienvenido ", $_SESSION['usuario'], " al sitio";
-			echo "Usted es usuario", $_SESSION['type'];
+			echo "Bienvenido ", $_SESSION['usuario'], " al sitio\n";
+			echo "Usted es usuario", $_SESSION['type'], "\n";
+			echo "<a href='cerrarSesion.php'><button type='button' class='btn'>Cerrar Sesión</button></a>";
 		}else{
-			echo "sesion no iniciada";
+			header('Location:index.html');
 		}
 	?>
+	
 </body>
 </html>
