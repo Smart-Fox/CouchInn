@@ -16,8 +16,8 @@
 		echo 'ERROR: El usuario ya existe en el sistema';
 	}else{
 		$service->registrarUsuario();
-		echo "registro exitoso";
-		#header('Location: pagPrinc.html');
+		#notificar registro exitoso. alert ? 
+		header('Location: index.html');
 	}
 
 

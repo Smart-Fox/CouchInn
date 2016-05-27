@@ -60,9 +60,12 @@ var emailreg = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
     	if( $("#email").val() == "" ||  !emailreg.test($("#email").val())){
 			addAlert("Ingrese un email valido.");
 			return false;
-		} else if(isNaN($('#telefono').val())){ 
-				addAlert("Ingrese un teléfono válido");
-				return false; };		
+		} 
+    	if(isNaN($('#telefono').val()) || $("#telefono").val()== ""){ 
+			addAlert("Ingrese un teléfono válido");
+			return false; };
+    	
+				
 	});
 
 });

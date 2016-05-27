@@ -10,9 +10,6 @@ class Conexion extends mysqli{
 		#unset($x);
 	}
 
-	public function recorrer($y){
-		return mysqli_fetch_array($y);
-	}
 }
 
 ?>

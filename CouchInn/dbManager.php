@@ -12,10 +12,7 @@ class DbManager{
 	
 	public function ejecutarSQL($consulta){
 		$resulBusqueda = $this->db->query($consulta);
-		if (!(is_bool($resulBusqueda))){
-			$dato = $this->db->recorrer($resulBusqueda); 
-			return $dato;
-		}
+		return $resulBusqueda;
 	}
 
 

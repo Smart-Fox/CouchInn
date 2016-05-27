@@ -13,10 +13,10 @@
 			$conec = new dbManager();
 			$conec->conectar();
 
-			$consulta = ("SELECT Email FROM usuario WHERE Email='$this->email' and Telefono='$this->telefono';");
+			$consulta = ("SELECT Email FROM usuario WHERE Email='$this->email' and Telefono='$this->telefono'");
 			$resulSQL= $conec->ejecutarSQL($consulta);
-
-			if($resulSQL['Email'] == $mail ) {
+			$datos = $resulSQL->fetch_row();
+			if($datos[0] == $mail ) {
 				return true;
 			} else {
 				return false;
@@ -28,11 +28,12 @@
 			$conec = new dbManager();
 			$conec->conectar();
 
-			$consulta= ("SELECT Email, Contraseña FROM usuario WHERE Email='$this->email';");
+			$consulta= ("SELECT Email, Contraseña FROM usuario WHERE Email='$this->email'");
 			$resulSQL= $conec->ejecutarSQL($consulta);
-
-			if ($resulSQL['Email'] == $mail) {
-				return $resulSQL['Contraseña'];
+			$dato = $resulSQL->fetch_assoc();
+		
+			if ($dato['Email'] == $mail) {
+				return $dato['Contraseña'];
 			}
 
 		}

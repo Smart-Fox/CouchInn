@@ -36,8 +36,8 @@
 			$consulta = ("SELECT Email FROM usuario WHERE Email= '$this->email';");
 
 			$resulSQL = $conec->ejecutarSQL($consulta);
-
-			if ($resulSQL['Email'] == $pass) {
+			$dato = $resulSQL->fetch_assoc();
+			if ($dato['Email'] == $pass) {
 				return true;
 			}else{
 				return false;

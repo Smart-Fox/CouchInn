@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,16 +9,20 @@
 	<link rel='stylesheet' href='style.css'/>
 	<script language= "javascript" src= "js/validation.js"></script>
 </head>
-<body>
-	<h1>Página Principal</h1>
+<body>	
 	<?php
+		include('header.php');
 		session_start();
 		if(isset($_SESSION['usuario'])){
-			echo "Bienvenido ", $_SESSION['usuario'], " al sitio";
-			echo "Usted es usuario", $_SESSION['type'];
+			$service = new cabecera($_SESSION['usuario']);
+			$service->buildHeader();
+			echo "<a href='publicar.html'><button type=button class='btn'>Publicar anuncio</button></a>";
+
+			
 		}else{
-			echo "sesion no iniciada";
+			header('Location:index.html');
 		}
 	?>
+	
 </body>
 </html>
