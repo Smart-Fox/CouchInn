@@ -33,8 +33,8 @@
 			$conec->conectar();	
 			$consulta = ("SELECT Nombre FROM tipo_hospedaje WHERE Nombre='$this->nombre';");
 			$resulSQL = $conec->ejecutarSQL($consulta);
-			
-			if ($resulSQL['Nombre'] == $this->nombre) {
+			$dato = $resulSQL->fetch_assoc();
+			if ($dato['Nombre'] == $this->nombre) {
 				return true;
 			}else{
 				return false;

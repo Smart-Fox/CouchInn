@@ -29,15 +29,15 @@
 			
 		}
 
-		public function verificarUsuario($pass){
+		public function verificarUsuario($mail){
 			$conec = new dbManager();
 			$conec->conectar();	
 
 			$consulta = ("SELECT Email FROM usuario WHERE Email= '$this->email';");
 
 			$resulSQL = $conec->ejecutarSQL($consulta);
-
-			if ($resulSQL['Password'] == $pass) {
+			$dato = $resulSQL->fetch_assoc();
+			if ($dato['Email'] == $mail) {
 				return true;
 			}else{
 				return false;

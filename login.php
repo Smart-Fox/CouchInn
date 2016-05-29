@@ -10,15 +10,15 @@
 			$pass = crypt($_POST['password'],'radbrulz');
 			$service = new UserService($user, $pass);
 			$dato = $service->dameUsuario();
-			
-			if (is_null($dato)) {
+			$datos = $dato->fetch_row();
+			if (is_null($datos)) {
 				echo "ERROR: no existe el usuario en el sistema/Los datos son incorrectos";
 				#header('Location: index.html');
 			}else{
 				session_start();
-				$_SESSION['usuario'] = $dato[0];
-				$_SESSION['password'] = $dato[1];
-				$_SESSION['type'] = $dato[3];
+				$_SESSION['usuario'] = $datos[0];
+				$_SESSION['password'] = $datos[1];
+				$_SESSION['type'] = $datos[3];
 				header('Location: pagPrinc.php');
 			}
 
