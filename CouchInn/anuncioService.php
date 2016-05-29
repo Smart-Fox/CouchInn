@@ -1,5 +1,6 @@
 <?php
 	include('dbManager.php');
+	session_start();
 	class aService{
 
 		protected $titulo;
@@ -33,6 +34,7 @@
 			$consulta = "SELECT * FROM ciudad WHERE ID_provincia=$idProv";
 			$resulSQL= $conec->ejecutarSQL($consulta);
 			return $resulSQL;
+			// return $consulta;
 
 		}
 		public function levantarTipos(){

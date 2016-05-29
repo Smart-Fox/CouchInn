@@ -56,7 +56,7 @@ function onError() {
     addAlert('Lost connection to server.');
 }
 var emailreg = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
-    $(".btn").click(function(){
+    $("#btn-recuperar").click(function(){
     	if( $("#email").val() == "" ||  !emailreg.test($("#email").val())){
 			addAlert("Ingrese un email valido.");
 			return false;

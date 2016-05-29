@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel='stylesheet' href='style.css'/>
 	<script src="js/jquery.min.js"></script>
+	<script type="text/javascript" src= "js/objeto.js"></script>
 	<script language= "javascript" src= "js/validation.js"></script>
 </head>
 <body>	
@@ -16,21 +17,20 @@
 		if(isset($_SESSION['usuario'])){
 			$service = new cabecera($_SESSION['usuario']);
 			$service->buildHeader();
-
 		}else{
 			header('Location:index.html');
 		}
 	?>
 	<center>
-		<form action="publicarAnuncio.php" method="POST" onsubmit="return validacion();">
+		<form action="publicarAnuncio.php" method="POST" enctype="multipart/form-data" onsubmit="javascript: validacion();">
 			<br><br>
-			<input type="text" name = 'Título' id='titulo' placeholder='Titulo del anuncio' required>
-			<br><br>
-
-			<input type="text" name = 'Descripcion' id='desc' placeholder='Descripcion' required>
+			<input type="text" name = 'titulo' id='titulo' placeholder='Titulo del anuncio' required>
 			<br><br>
 
-			<input type="number" name = 'Capacidad' id='capacidad' min="1" required>
+			<input type="text" name = 'desc' id='desc' placeholder='Descripcion' required>
+			<br><br>
+
+			<input type="number" name = 'capacidad' id='capacidad' min="1" required>
 			<br><br>
 
 			<select class="form-control custom" required>
@@ -46,7 +46,7 @@
 			</select>
 			<br>
 
-			<select id="provSelect" class="form-control custom" required>
+			<select id="provSelect" name="provincia" class="form-control custom " onchange="cambiarCiudad();" required>
 				<option selected="true" disabled="disabled" value=""> Seleccione una provincia </option>
 				<?php
 					
@@ -58,26 +58,17 @@
 			</select>
 			<br>
 
-			<select class="form-control custom" required>
+			<select id="ciudadSelect" class="form-control custom" required>
 				<option selected="true" disabled="disabled" value=""> Seleccione una ciudad </option>
-				
-
 			</select>
-			</form>
+			<br>		   			
+	   			
+    			
+     		<input  type="file" name="fileToUpload" id="fileToUpload">
+    								
+		</form>
 			<br>
 			<button type="submit" class="btn">Publicar</button>
-			<script type="text/javascript"> 
-			$('#provSelect').change( function(){ 
-				var idprov = $('#provSelect option:selected')[0].value;
-				$.ajax({
-    				url: '<?php levantarCiudad('idprov'); ?>anuncioService.php',
-    				data: { "idprov": "1"},
-    				success: function(response) { alert(response); }
-					});
-
-				})
-					
-			</script>
 	</center>
 
 	
