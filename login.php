@@ -10,6 +10,7 @@
 			$pass = crypt($_POST['password'],'radbrulz');
 			$service = new UserService($user, $pass);
 			$dato = $service->dameUsuario();
+			
 			if (is_null($dato)) {
 				echo "ERROR: no existe el usuario en el sistema/Los datos son incorrectos";
 				#header('Location: index.html');

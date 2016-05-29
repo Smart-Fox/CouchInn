@@ -13,11 +13,10 @@
 	$existe = $service->verificarUsuario($email);
 
 	if ($existe) {
-		echo 'ERROR: El usuario ya existe en el sistema';
+		header('Location: registroNoValidado.html');
 	}else{
 		$service->registrarUsuario();
-		echo "registro exitoso";
-		#header('Location: pagPrinc.html');
+		header('Location: registroValidado.html');
 	}
 
 
