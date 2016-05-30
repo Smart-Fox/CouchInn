@@ -16,6 +16,9 @@
 		header('Location: registroNoValidado.html');
 	}else{
 		$service->registrarUsuario();
+		session_start();
+		$_SESSION['usuario'] = $_POST['nombre'];
+		$_SESSION['password'] = $_POST['password'];
 		header('Location: registroValidado.html');
 	}
 

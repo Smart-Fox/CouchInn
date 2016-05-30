@@ -33,14 +33,19 @@ form input {
 }
 
 #tipoHosp {
-    background: #f0f0f0;
-	font-size: 12px;
-    padding: 8px;
+    background: #fff;
+	font-size: 14px;
+    padding: 7px;
     width: 90%;
+	color: #000;
 	transition: none;
+	border-radius: 4px;
 	border-style: solid;
     border-width: 1px;
 	border-color: #ccc;
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	line-height: 1.42857143;
+	margin-top: 7px;
 }
 
 #modTH{
@@ -65,6 +70,27 @@ form input {
 }
 
 .btn:hover {
+    background: #96ac3c;
+    color: #fff;
+}
+
+.btn3 {
+    background: transparent;
+    border: none;
+    color: #96ac3c;
+    cursor: pointer;
+	border-radius: 4px;
+    font-size: 16px;
+    padding: 6px 8px;
+    transition: background 2s, color 2s;
+	margin-top: 5px;
+}
+
+#leftaligned{
+	text-align:left;
+}
+
+.btn3:hover {
     background: #96ac3c;
     color: #fff;
 }
@@ -138,7 +164,14 @@ form input:valid{
 }
 
 select {
+  margin: 5px;
+  width: 250px !important;
+}
+
+select#radb {
 	margin: 5px;
+	margin-top: 8px;
+	margin-left: 20px;
 	width: 375px !important;
 	padding: 8px;
 }
@@ -162,8 +195,11 @@ select.custom {
 }
 
 #vertcentered{
-	text-align: center;
+	color: #96ac3c;
+	font-size: 16px;
+	font-weight: 550;
 	line-height: 50px;
+	text-align: center;
 }
 
 #opcionesuser{

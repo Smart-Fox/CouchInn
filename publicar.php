@@ -33,7 +33,7 @@
 			<input type="number" name = 'capacidad' id='capacidad' min="1" required>
 			<br><br>
 
-			<select class="form-control custom" required>
+			<select class="form-control custom" name="tipo" required>
 				<option selected="true" disabled="disabled" value=""> Tipo de hospedaje </option>
 				<?php
 					include('anuncioService.php');
@@ -58,17 +58,17 @@
 			</select>
 			<br>
 
-			<select id="ciudadSelect" class="form-control custom" required>
+			<select id="ciudadSelect" name="ciudad" class="form-control custom" required>
 				<option selected="true" disabled="disabled" value=""> Seleccione una ciudad </option>
 			</select>
 			<br>		   			
 	   			
     			
      		<input  type="file" name="fileToUpload" id="fileToUpload">
-    								
+    		<button type="submit" class="btn">Publicar</button>						
 		</form>
 			<br>
-			<button type="submit" class="btn">Publicar</button>
+			
 	</center>
 
 	

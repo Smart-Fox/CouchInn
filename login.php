@@ -19,6 +19,8 @@
 				$_SESSION['usuario'] = $datos[0];
 				$_SESSION['password'] = $datos[1];
 				$_SESSION['type'] = $datos[3];
+				$_SESSION['id'] = $datos[4];
+				
 				header('Location: pagPrinc.php');
 			}
 
