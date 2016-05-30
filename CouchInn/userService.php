@@ -15,7 +15,7 @@
 		public function dameUsuario(){
 			$conec = new dbManager();
 			$conec->conectar();	
-			$consulta = ("SELECT Username,Email,Contraseña,Tipo FROM usuario WHERE Email='$this->user' and Contraseña= '$this->pass';");
+			$consulta = ("SELECT Username,Email,Contraseña,Tipo,ID FROM usuario WHERE Email='$this->user' and Contraseña= '$this->pass';");
 			return ($conec->ejecutarSQL($consulta));
 		}
 

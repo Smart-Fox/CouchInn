@@ -7,6 +7,7 @@ var cambiarCiudad = function(){
 		},
 		type: 'POST',
 		success: function(response){
+			console.log(response);
 			var obj = jQuery.parseJSON(response);
 			console.log(obj);
 			var sel = document.getElementById('ciudadSelect');

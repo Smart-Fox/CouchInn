@@ -29,7 +29,7 @@
 			
 		}
 
-		public function verificarUsuario($pass){
+		public function verificarUsuario($mail){
 			$conec = new dbManager();
 			$conec->conectar();	
 
@@ -37,7 +37,7 @@
 
 			$resulSQL = $conec->ejecutarSQL($consulta);
 			$dato = $resulSQL->fetch_assoc();
-			if ($dato['Email'] == $pass) {
+			if ($dato['Email'] == $mail) {
 				return true;
 			}else{
 				return false;

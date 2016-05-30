@@ -15,10 +15,9 @@ class DbManager{
 		return $resulBusqueda;
 	}
 
-
-
-
-
+	public function lastId(){
+		return $this->db->insert_id;
+	}
 }
 
 

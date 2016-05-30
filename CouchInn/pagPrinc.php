@@ -16,7 +16,7 @@
 		if(isset($_SESSION['usuario'])){
 			$service = new cabecera($_SESSION['usuario']);
 			$service->buildHeader();
-			echo "<a href='publicar.html'><button type=button class='btn'>Publicar anuncio</button></a>";
+			echo "<a href='publicar.php'><button type=button class='btn'>Publicar anuncio</button></a>";
 		}else{
 			header('Location:index.html');
 		}
