@@ -1,43 +1,19 @@
 <?php
-/*if(isSet($_POST['username']))
-{
-$usernames = array('john','michael','terry', 'steve', 'donald');
 
-$username = $_POST['username'];
-
-if(in_array($username, $usernames))
-	{
-	echo '<font color="red">The nickname <STRONG>'.$username.'</STRONG> is already in use.</font>';
-	}
-	else
-	{
-	echo 'OK';
-	}
-}
-
-*/
+if(isSet($_POST['username'])){
+	$username = $_POST['username'];
 
 
-// This is a sample code in case you wish to check the username from a mysql db table
+	$db = new mysqli('localhost', 'root', '', 'couchinn') or die ('Cannot connect to db');
 
-if(isSet($_GET['username']))
-{
-$username = $_GET['username'];
+	$sql_check = $db->query("SELECT username FROM usuario WHERE username = '".$username."';");
 
-
-$db = new mysqli('localhost', 'root', '', 'couchinn') or die ('Cannot connect to db');
-
-$sql_check = $db->query("SELECT Username FROM usuario WHERE Username = '".$username."'");
-
-if(mysqli_num_rows($sql_check))
-{
-echo '<font color="red">The nickname <STRONG>'.$username.'</STRONG> is already in use.</font>';
-}
-else
-{
-echo 'OK';
-}
-
+	if(mysqli_num_rows($sql_check)){
+		echo '<font color="red">Nombre de usuario en uso</font>';
+		}
+		else{
+			echo '<font color="green">Nombre de usuario disponible</font>';
+		}
 }
 
 

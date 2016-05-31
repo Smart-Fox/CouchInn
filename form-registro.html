@@ -6,6 +6,9 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel='stylesheet' href='style.css'/>
+	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+	<script src='http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js'></script>
+	<script type="text/javascript" src="js/jquery-1.2.6.min.js"></script>
 	<script type="text/javascript">
 		window.onload = function () {
 			document.getElementById("pass").onchange = validatePassword;
@@ -26,61 +29,99 @@
 				field.className += "touched";
 		}
 	</script>
-	<SCRIPT type="text/javascript">
+	<script type="text/javascript">
 		pic1 = new Image(16, 16); 
 		pic1.src = "loader.gif";
 
-		$(document).ready(function()){
+		$(document).ready(function(){
 
-		$("#username").change(function()) { 
+			$("#username").change(function(){ 
 
-		var usr = $("#username").val();
+				var usr = $("#username").val();
 
-		if(usr.length >= 4)
-		{
-		$("#status").html('<img src="loader.gif" align="absmiddle">&nbsp;Checking availability...');
+				$("#status").html('<img src="loader.gif" align="absmiddle">&nbsp;Checking availability...');
 
-			$.ajax({  
-			type: "GET",  
-			url: "check.php",  
-			data: "username="+ usr,  
-			success: function(msg){  
-		   
-		   $("#status").ajaxComplete(function(event, request, settings){ 
+					$.ajax({  
+					type: "POST",  
+					url: "check.php",  
+					data: "username="+ usr,  
+					success: function(msg){  
+				   
+					   $("#status").ajaxComplete(function(event, request, settings){ 
 
-			if(msg == 'OK')
-			{ 
-				$("#username").removeClass('object_error'); // if necessary
-				$("#username").addClass("object_ok");
-				document.getElementById("username").setCustomValidity("");
-				$(this).html('&nbsp;<img src="tick.gif" align="absmiddle">');
-			}  
-			else  
-			{  
-				$("#username").removeClass('object_ok'); // if necessary
-				$("#username").addClass("object_error");
-				document.getElementById("username").setCustomValidity("Nombre de usuario en uso");
-				$(this).html(msg);
-			}  
-		   
-		   });
+							if(msg == '<font color="green">Nombre de usuario disponible</font>')
+							{ 
+								$("#username").removeClass('object_error'); // if necessary
+								$("#username").addClass("object_ok");
+								document.getElementById("username").setCustomValidity("");
+								$(this).html(msg);
+							}  
+							else  
+							{  
+								$("#username").removeClass('object_ok'); // if necessary
+								$("#username").addClass("object_error");
+								document.getElementById("username").setCustomValidity("Nombre de usuario en uso");
+								$(this).html(msg);
+							}  
+					   
+					   });
 
-		 } 
-		   
-		  }); 
+				 } 
+				   
+				  }); 
 
-		}
-		else
-			{
-			$("#status").html('<font color="red">The username should have at least <strong>4</strong> characters.</font>');
-			$("#username").removeClass('object_ok'); // if necessary
-			$("#username").addClass("object_error");
-			}
-
-		});
+			});
 
 		});
 	</SCRIPT>
+	<script type="text/javascript">
+		pic1 = new Image(16, 16); 
+		pic1.src = "loader.gif";
+
+		$(document).ready(function(){
+
+			$("#email").change(function(){ 
+
+				var mail = $("#email").val();
+
+				$("#statusm").html('<img src="loader.gif" align="absmiddle">&nbsp;Chequeando disponibilidad...');
+
+				$.ajax({  
+					type: "POST",  
+					url: "checkmail.php",  
+					data: "email="+ mail,  
+					success: function(msg){  
+				   
+					   $("#statusm").ajaxComplete(function(event, request, settings){ 
+
+							if(msg == '<font color="green">E-mail disponible</font>')
+							{ 
+								$("#email").removeClass('object_error'); // if necessary
+								$("#email").addClass("object_ok");
+								document.getElementById("email").setCustomValidity("");
+								$(this).html(msg);
+							}  
+							else  
+							{  
+								$("#email").removeClass('object_ok'); // if necessary
+								$("#email").addClass("object_error");
+								document.getElementById("email").setCustomValidity("E-mail en uso");
+								$(this).html(msg);
+							}  
+					   
+					   });
+
+					} 
+				   
+				}); 
+
+			
+			});
+
+		});
+	</SCRIPT>
+	
+	
 </head>
 
 <body>
@@ -88,23 +129,80 @@
 	<div class="mainreg">
 		<a href="index.html"><img src=logo.png width=500></a>
 		<form action="registro.php" method="POST" onsubmit="return validacion();">
-			<br><br>
-			<input type="text" name = 'nombre' id='nombre' placeholder='Nombre' onblur='validate(this)' required>
-			<br><br>
-			<input type="text" name = 'apellido' id='apellido' placeholder='Apellido' onblur='validate(this)' required>
-			<br><br>
-			<input type="text" name = 'telefono' id='telefono' placeholder='Teléfono' onblur='validate(this)' required>
-			<br><br>
-			<input type="text" name = 'userName' id = 'userName' placeholder='Nombre de usuario' onblur='validate(this)' required>
-			<td width="400" align="left"><div id="status"></div></td>
-			<br><br>
-			<input type="email" name = 'email' id = 'email' placeholder='E-mail' onblur='validate(this)' required>
-			<br><br>
-			<input type="password" name= 'pass' id = 'pass' placeholder='Contraseña' onblur='validate(this)' required>
-			<br><br>
-			<input type="password" name= 'pass2' id = 'pass2' placeholder='Confirmar contraseña' onblur='validate(this)' required>
-			<br><br>
-			<button type="submit" class="btn">Registrarme</button>
+			<div class='row' id='reg'>
+				<div class='col-xs-5 col-md-5'>
+				</div>
+				<div class='col-xs-2 col-md-2'>
+				<input type="text" name = 'nombre' id='nombre' placeholder='Nombre' onblur='validate(this)' required>
+				</div>
+				<div class='col-xs-5 col-md-5'>
+				</div>
+			</div>
+			<div class='row' id='reg'>
+				<div class='col-xs-5 col-md-5'>
+				</div>
+				<div class='col-xs-2 col-md-2'>
+				<input type="text" name = 'apellido' id='apellido' placeholder='Apellido' onblur='validate(this)' required>
+				</div>
+				<div class='col-xs-5 col-md-5'>
+				</div>
+			</div>
+			<div class='row' id='reg'>
+				<div class='col-xs-5 col-md-5'>
+				</div>
+				<div class='col-xs-2 col-md-2'>
+				<input type="text" name = 'telefono' id='telefono' placeholder='Teléfono' onblur='validate(this)' required>
+				</div>
+				<div class='col-xs-5 col-md-5'>
+				</div>
+			</div>
+			<div class='row' id='reg'>
+				<div class='col-xs-5 col-md-5'>
+				</div>
+				<div class='col-xs-2 col-md-2'>
+				<input type="text" name = 'username' id = 'username' placeholder='Nombre de usuario' onblur='validate(this)' autocomplete="off" required>
+				</div>
+				<div class='col-xs-5 col-md-5'>
+				<td width="400" align="left"><div id="status"></div></td>
+				</div>
+			</div>		
+			<div class='row' id='reg'>
+				<div class='col-xs-5 col-md-5'>
+				</div>
+				<div class='col-xs-2 col-md-2'>
+				<input type="email" name = 'email' id = 'email' placeholder='E-mail' onblur='validate(this)' autocomplete="off" required>
+				</div>
+				<div class='col-xs-5 col-md-5'>
+				<td width="400" align="left"><div id="statusm"></div></td>
+				</div>
+			</div>
+			<div class='row' id='reg'>
+				<div class='col-xs-5 col-md-5'>
+				</div>
+				<div class='col-xs-2 col-md-2'>
+				<input type="password" name= 'pass' id = 'pass' placeholder='Contraseña' onblur='validate(this)' autocomplete="off" required>
+				</div>
+				<div class='col-xs-5 col-md-5'>
+				</div>
+			</div>
+			<div class='row' id='reg'>
+				<div class='col-xs-5 col-md-5'>
+				</div>
+				<div class='col-xs-2 col-md-2'>
+				<input type="password" name= 'pass2' id = 'pass2' placeholder='Confirmar contraseña' onblur='validate(this)' autocomplete="off" required>
+				</div>
+				<div class='col-xs-5 col-md-5'>
+				</div>
+			</div>
+			<div class='row' id='reg'>
+				<div class='col-xs-5 col-md-5'>
+				</div>
+				<div class='col-xs-2 col-md-2'>
+				<button type="submit" class="btn">Registrarme</button>
+				</div>
+				<div class='col-xs-5 col-md-5'>
+				</div>
+			</div>
 		</form>
 	</div>
 </body>
