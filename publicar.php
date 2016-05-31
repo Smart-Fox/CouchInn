@@ -25,6 +25,9 @@
 		<h1>
 			Publicar un anuncio
 		</h1>
+		<h3>
+			Complete todos los datos de su anuncio y luego presione "Publicar"
+		</h3>
 		<form action="publicarAnuncio.php" method="POST" enctype="multipart/form-data" onsubmit="javascript: validacion();">
 			<div class='row' id='reg'>
 				<div class='col-xs-4 col-md-4'>
