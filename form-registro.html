@@ -6,51 +6,105 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel='stylesheet' href='style.css'/>
+	<script type="text/javascript">
+		window.onload = function () {
+			document.getElementById("pass").onchange = validatePassword;
+			document.getElementById("pass2").onchange = validatePassword;
+		}
+		function validatePassword(){
+			var pass2=document.getElementById("pass").value;
+			var pass1=document.getElementById("pass2").value;
+			if(pass1!=pass2)
+				document.getElementById("pass2").setCustomValidity("Las contraseñas no coinciden");
+			else
+				document.getElementById("pass2").setCustomValidity('');	 
+			//empty string means no validation error
+		}
+		
+		function validate(field){
+			if (field.className!="touched")
+				field.className += "touched";
+		}
+	</script>
+	<SCRIPT type="text/javascript">
+		pic1 = new Image(16, 16); 
+		pic1.src = "loader.gif";
+
+		$(document).ready(function()){
+
+		$("#username").change(function()) { 
+
+		var usr = $("#username").val();
+
+		if(usr.length >= 4)
+		{
+		$("#status").html('<img src="loader.gif" align="absmiddle">&nbsp;Checking availability...');
+
+			$.ajax({  
+			type: "GET",  
+			url: "check.php",  
+			data: "username="+ usr,  
+			success: function(msg){  
+		   
+		   $("#status").ajaxComplete(function(event, request, settings){ 
+
+			if(msg == 'OK')
+			{ 
+				$("#username").removeClass('object_error'); // if necessary
+				$("#username").addClass("object_ok");
+				document.getElementById("username").setCustomValidity("");
+				$(this).html('&nbsp;<img src="tick.gif" align="absmiddle">');
+			}  
+			else  
+			{  
+				$("#username").removeClass('object_ok'); // if necessary
+				$("#username").addClass("object_error");
+				document.getElementById("username").setCustomValidity("Nombre de usuario en uso");
+				$(this).html(msg);
+			}  
+		   
+		   });
+
+		 } 
+		   
+		  }); 
+
+		}
+		else
+			{
+			$("#status").html('<font color="red">The username should have at least <strong>4</strong> characters.</font>');
+			$("#username").removeClass('object_ok'); // if necessary
+			$("#username").addClass("object_error");
+			}
+
+		});
+
+		});
+	</SCRIPT>
 </head>
-<script type="text/javascript">
-	window.onload = function () {
-		document.getElementById("pass").onchange = validatePassword;
-		document.getElementById("pass2").onchange = validatePassword;
-	}
-	function validatePassword(){
-	var pass2=document.getElementById("pass").value;
-	var pass1=document.getElementById("pass2").value;
-	if(pass1!=pass2)
-		document.getElementById("pass2").setCustomValidity("Passwords Don't Match");
-	else
-		document.getElementById("pass2").setCustomValidity('');	 
-	//empty string means no validation error
-	}
-</script>
+
 <body>
 	<center>
 	<div class="mainreg">
 		<a href="index.html"><img src=logo.png width=500></a>
 		<form action="registro.php" method="POST" onsubmit="return validacion();">
 			<br><br>
-			<input type="text" name = 'nombre' id='nombre' placeholder='Nombre' required>
+			<input type="text" name = 'nombre' id='nombre' placeholder='Nombre' onblur='validate(this)' required>
 			<br><br>
-
-			<input type="text" name = 'apellido' id='apellido' placeholder='Apellido' required>
+			<input type="text" name = 'apellido' id='apellido' placeholder='Apellido' onblur='validate(this)' required>
 			<br><br>
-
-			<input type="text" name = 'telefono' id='telefono' placeholder='Teléfono' required>
+			<input type="text" name = 'telefono' id='telefono' placeholder='Teléfono' onblur='validate(this)' required>
 			<br><br>
-
-			<input type="text" name = 'userName' id = 'userName' placeholder='Nombre de usuario' required>
+			<input type="text" name = 'userName' id = 'userName' placeholder='Nombre de usuario' onblur='validate(this)' required>
+			<td width="400" align="left"><div id="status"></div></td>
 			<br><br>
-
-			<input type="email" name = 'email' id = 'email' placeholder='E-mail' required>
+			<input type="email" name = 'email' id = 'email' placeholder='E-mail' onblur='validate(this)' required>
 			<br><br>
-
-			<input type="password" name= 'pass' id = 'pass' placeholder='Contraseña' required>
+			<input type="password" name= 'pass' id = 'pass' placeholder='Contraseña' onblur='validate(this)' required>
 			<br><br>
-			
-			<input type="password" name= 'pass2' id = 'pass2' placeholder='Confirmar contraseña' required>
+			<input type="password" name= 'pass2' id = 'pass2' placeholder='Confirmar contraseña' onblur='validate(this)' required>
 			<br><br>
-			
 			<button type="submit" class="btn">Registrarme</button>
-			
 		</form>
 	</div>
 </body>

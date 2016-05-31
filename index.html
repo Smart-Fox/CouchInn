@@ -7,23 +7,30 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel='stylesheet' href='style.css'/>
 	<script language= "javascript" src= "js/validation.js"></script>
+	<script>
+		function validate(field){
+			if (field.className!="touched")
+				field.className += "touched";
+		}
+	</script>
 </head>
+
 <body>
 	<center>
 	<div class="main">
 		<img src=logo.png width=500>
-		<form action="login.php" method="POST" onsubmit="return validacion();">
+		<form class='formmain' action="login.php" method="POST" onsubmit="return validacion();">
 			<br>
 			<br>
 			<div class="row">
 				<div class="col-xs-12 col-md-12">
-					<input class="formmain" name="usuario" id="usuario" type="email" placeholder="E-mail" required>
+					<input name="usuario" id="usuario" type="email" placeholder="E-mail" onblur='validate(this)' required>
 				</div>
 				</div>
 			<br>
 			<div class="row">
 				<div class="col-xs-12 col-md-12">
-					<input class="formmain" name="password" id="password" type="password" placeholder="contraseña" required>
+					<input name="password" id="password" type="password" placeholder="contraseña" onblur='validate(this)' required>
 				</div>
 			</div>
 			<br>

@@ -17,19 +17,29 @@ h1 {
 }
 
 form input {
-    background: #f0f0f0;
-	font-size: 12px;
+    font-size: 12px;
     padding: 8px;
     width: 20%;
 	transition: 2s;
+	background-color: white;
+	border-radius: 4px;
+	border-style: solid;
+    border-width: 1px;
+	border-color: #ccc;
+	box-shadow: inset 0 2px 2px rgba(0,0,0,.075);
 }
 
-.formmain {
-    background: #f0f0f0;
+.formmain input{
 	font-size: 18px;
     padding: 10px;
     width: 30%;
 	transition: 2s;
+	background-color: white;
+	border-radius: 4px;
+	border-style: solid;
+    border-width: 1px;
+	border-color: #ccc;
+	box-shadow: inset 0 2px 2px rgba(0,0,0,.075);
 }
 
 #tipoHosp {
@@ -147,20 +157,26 @@ a{
 	padding: 10px 12px;
 }
 
-form input:invalid{
-	border-style: solid;
+form input.touched:invalid{
+	background-image: url("error.png");
+	background-repeat: no-repeat;
+	background-size: 7%;
+	background-position: 97%; 
+    border-style: solid;
     border-width: 1px;
 	border-color: #f00;
 	background-color: #fff0f0;
-	filter: blur (2px);
 }
 
-form input:valid{
-	border-style: solid;
+form input.touched:valid{
+	background-image: url("ok.png");
+	background-repeat: no-repeat;
+	background-size: 7%;
+	background-position: 97%; 
+    border-style: solid;
     border-width: 1px;
-	border-color: #22a722;
+	border-color: #0f0;
 	background-color: #f0fff0;
-	filter: blur (2px);
 }
 
 select {
@@ -171,7 +187,7 @@ select {
 select#radb {
 	margin: 5px;
 	margin-top: 8px;
-	margin-left: 20px;
+	margin-left: 21px;
 	width: 375px !important;
 	padding: 8px;
 }
@@ -196,6 +212,13 @@ select.custom {
 
 #vertcentered{
 	color: #96ac3c;
+	font-size: 16px;
+	font-weight: 550;
+	line-height: 50px;
+	text-align: center;
+}
+#vertcentered2{
+	color: #000;
 	font-size: 16px;
 	font-weight: 550;
 	line-height: 50px;
@@ -246,4 +269,3 @@ select.custom {
 	text-align: center;
 	font-size: 18px;
 }
-

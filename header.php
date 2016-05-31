@@ -13,7 +13,7 @@
 							<div id=\"logo\" class='col-xs-4 col-md-4'>
 								<a href=\"pagPrinc.php\"><img src=logo.png width=200></a>
 							</div>
-							<div id=\"vertcentered\" class='col-xs-4 col-md-4'>
+							<div id=\"vertcentered2\" class='col-xs-4 col-md-4'>
 								<span>Bienvenido ", $_SESSION['usuario'], "</span>
 							</div>
 							<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>

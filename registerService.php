@@ -29,15 +29,19 @@
 			
 		}
 
-		public function verificarUsuario($mail){
+		public function verificarUsuario($mail, $user){
 			$conec = new dbManager();
 			$conec->conectar();	
 
 			$consulta = ("SELECT Email FROM usuario WHERE Email= '$this->email';");
+			$consulta2 = ("SELECT Username FROM usuario WHERE Username='$this->nomUser';");
 
 			$resulSQL = $conec->ejecutarSQL($consulta);
+			$result2 = $conec->ejecutarSQL($consulta2);
+
 			$dato = $resulSQL->fetch_assoc();
-			if ($dato['Email'] == $mail) {
+			$dato2 = $result2->fetch_assoc();
+			if ($dato['Email'] == $mail || $dato2['Username'] == $user) {
 				return true;
 			}else{
 				return false;
