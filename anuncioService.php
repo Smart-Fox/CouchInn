@@ -46,7 +46,7 @@
 			$conec = new dbManager();
 			$conec->conectar();
 
-			$consulta = "SELECT * FROM tipo_hospedaje";
+			$consulta = "SELECT * FROM tipo_hospedaje WHERE deleted=0";
 			$resulSQL= $conec->ejecutarSQL($consulta);
 			return $resulSQL;
 

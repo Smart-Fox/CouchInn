@@ -22,50 +22,103 @@
 		}
 	?>
 	<center>
+		<h1>
+			Publicar un anuncio
+		</h1>
 		<form action="publicarAnuncio.php" method="POST" enctype="multipart/form-data" onsubmit="javascript: validacion();">
-			<br><br>
-			<input type="text" name = 'titulo' id='titulo' placeholder='Titulo del anuncio' required>
-			<br><br>
-
-			<input type="text" name = 'desc' id='desc' placeholder='Descripcion' required>
-			<br><br>
-
-			<input type="number" name = 'capacidad' id='capacidad' min="1" required>
-			<br><br>
-
-			<select class="form-control custom" name="tipo" required>
-				<option selected="true" disabled="disabled" value=""> Tipo de hospedaje </option>
-				<?php
-					include('anuncioService.php');
-					$serv = new aService();
-					$tipos = $serv->levantarTipos();
-					while ($row = $tipos->fetch_assoc()){
-						echo "<option value=\"" . $row['ID']. "\">". $row['Nombre']."</option>";
-					}
-				?>
-			</select>
-			<br>
-
-			<select id="provSelect" name="provincia" class="form-control custom " onchange="cambiarCiudad();" required>
-				<option selected="true" disabled="disabled" value=""> Seleccione una provincia </option>
-				<?php
-					
-					$provincias = $serv->levantarProv();
-					while ($row = $provincias->fetch_assoc()){
-						echo "<option value=\"" . $row['ID']. "\">". $row['Nombre']."</option>";
-					}
-				?>
-			</select>
-			<br>
-
-			<select id="ciudadSelect" name="ciudad" class="form-control custom" required>
-				<option selected="true" disabled="disabled" value=""> Seleccione una ciudad </option>
-			</select>
-			<br>		   			
-	   			
-    			
-     		<input  type="file" name="fileToUpload" id="fileToUpload">
-    		<button type="submit" class="btn">Publicar</button>						
+			<div class='row' id='reg'>
+				<div class='col-xs-4 col-md-4'>
+				</div>
+				<div class='col-xs-4 col-md-4'>
+					<input type="text" name = 'titulo' id='titulo' placeholder='Titulo del anuncio' required>
+				</div>
+				<div class='col-xs-4 col-md-4'>
+				</div>
+			</div>
+			<div class='row' id='reg'>
+				<div class='col-xs-4 col-md-4'>
+				</div>
+				<div class='col-xs-4 col-md-4'>	
+					<input type="text" name = 'desc' id='desc' placeholder='Descripcion' required>
+				</div>
+				<div class='col-xs-4 col-md-4'>
+				</div>
+			</div>
+			<div class='row' id='reg'>
+				<div class='col-xs-4 col-md-4'>
+				</div>
+				<div class='col-xs-4 col-md-4'>	
+					<input type="number" name = 'capacidad' id='capacidad' min="1" required>
+				</div>
+				<div class='col-xs-4 col-md-4'>
+				</div>
+			</div>
+			<div class='row' id='reg'>
+				<div class='col-xs-4 col-md-4'>
+				</div>
+				<div class='col-xs-4 col-md-4'>	
+					<select class="form-control custom" name="tipo" required>
+						<option selected="true" disabled="disabled" value=""> Tipo de hospedaje </option>
+						<?php
+							include('anuncioService.php');
+							$serv = new aService();
+							$tipos = $serv->levantarTipos();
+							while ($row = $tipos->fetch_assoc()){
+								echo "<option value=\"" . $row['ID']. "\">". $row['Nombre']."</option>";
+							}
+						?>
+					</select>
+				</div>
+				<div class='col-xs-4 col-md-4'>
+				</div>
+			</div>
+			<div class='row' id='reg'>
+				<div class='col-xs-4 col-md-4'>
+				</div>
+				<div class='col-xs-4 col-md-4'>	
+					<select id="provSelect" name="provincia" class="form-control custom " onchange="cambiarCiudad();" required>
+						<option selected="true" disabled="disabled" value=""> Seleccione una provincia </option>
+						<?php
+							
+							$provincias = $serv->levantarProv();
+							while ($row = $provincias->fetch_assoc()){
+								echo "<option value=\"" . $row['ID']. "\">". $row['Nombre']."</option>";
+							}
+						?>
+					</select>
+				</div>
+				<div class='col-xs-4 col-md-4'>
+				</div>
+			</div>
+			<div class='row' id='reg'>
+				<div class='col-xs-4 col-md-4'>
+				</div>
+				<div class='col-xs-4 col-md-4'>	
+					<select id="ciudadSelect" name="ciudad" class="form-control custom" required>
+						<option selected="true" disabled="disabled" value=""> Seleccione una ciudad </option>
+					</select>
+			    </div>
+				<div class='col-xs-4 col-md-4'>
+				</div>
+			</div>
+			<div class='row' id='reg'>
+				<div class='col-xs-4 col-md-4'>
+				</div>
+				<div class='col-xs-4 col-md-4'>	
+					<input  type="file" name="fileToUpload" id="fileToUpload">
+				</div>
+				<div class='col-xs-4 col-md-4'>
+				</div>
+			</div>
+			<div class='row' id='reg'>
+				<div class='col-xs-4 col-md-4'>
+				</div>
+				<div class='col-xs-4 col-md-4'>	
+					<button type="submit" class="btn">Publicar</button>
+				</div>
+				<div class='col-xs-4 col-md-4'>
+				</div>
+			</div>
 		</form>
 			<br>
 			

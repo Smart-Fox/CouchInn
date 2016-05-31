@@ -27,7 +27,7 @@
 				Agregar un nuevo tipo de hospedaje
 			</div>
 			<div class='col-xs-4 col-md-4'>
-				<input name='tipoHosp' id='tipoHosp' type='text' placeholder=' Ingrese el nuevo tipo de hospedaje'>
+				<input name='tipoHosp' id='tipoHosp' type='text' placeholder='Ingrese el nuevo tipo de hospedaje'>
 			</div>
 			<div class='col-xs-3 col-md-3'>
 			</div>
@@ -46,7 +46,7 @@
 					<option selected disabled>Seleccionar tipo de hospedaje a modificar</option>
 					<?php
 						$conn = new mysqli('localhost', 'root', '', 'couchinn') or die ('Cannot connect to db');
-						$result = $conn->query("select Nombre from tipo_hospedaje");
+						$result = $conn->query("select Nombre from tipo_hospedaje where deleted=0");
 						while ($row = $result->fetch_assoc()) {
 						unset($name);
 						$name = $row['Nombre']; 
@@ -56,7 +56,7 @@
 				</select>
 			</div>
 			<div class='col-xs-3 col-md-3'>
-				<input name='tipoHosp' id='tipoHosp' type='text' placeholder=' Ingrese el nuevo tipo de hospedaje'>
+				<input name='tipoHosp' id='tipoHosp' type='text' placeholder='Ingrese el nuevo tipo de hospedaje'>
 			</div>
 			<div class='col-xs-2 col-md-2' id='leftaligned'>
 				<button type='submit' class='btn3'>Aceptar</button>
@@ -69,16 +69,16 @@
 				Eliminar un tipo de hospedaje existente
 			</div>
 			<div class='col-xs-4 col-md-4'>
-				<select class='form-control custom' id='radb' required>
+				<select class='form-control custom' id='radb' name='tipoHosp' required>
 					<option selected disabled>Seleccionar tipo de hospedaje a eliminar</option>
 					<?php
 						$conn = new mysqli('localhost', 'root', '', 'couchinn') or die ('Cannot connect to db');
-						$result = $conn->query("select * from tipo_hospedaje");
+						$result = $conn->query("select * from tipo_hospedaje where deleted=0");
 						while ($row = $result->fetch_assoc()) {
 						unset($id, $name);
 						$id = $row['ID'];
 						$name = $row['Nombre']; 
-						echo '<option value="'.$id.'">'.$name.'</option>';
+						echo '<option value="'.$name.'">'.$name.'</option>';
 						}
 					?>
 				</select>
