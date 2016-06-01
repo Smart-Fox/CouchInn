@@ -1,6 +1,6 @@
 <?php
 	include('dbManager.php');
-	session_start();
+	
 	class aService{
 
 		protected $titulo;
