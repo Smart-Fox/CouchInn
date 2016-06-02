@@ -21,6 +21,7 @@
 			echo "<a href='publicar.php'><button type=button class='btn'>Publicar anuncio</button></a> <br><br>";
 			$serv = new aService();
 			$anun = $serv->levantarAnuncios();
+			if($anun){
 			while($row = $anun->fetch_assoc()){
 				$imagen = $serv->levantarImagen($row['ID']);
 				$row1 = $imagen->fetch_assoc();
@@ -39,7 +40,7 @@
 								</div>
 							</div>
 						</form>";
-			}
+			}}
 		}else{
 			header('Location:index.html');
 		}

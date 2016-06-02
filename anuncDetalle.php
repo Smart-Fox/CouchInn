@@ -1,3 +1,6 @@
+
+<!-- CONTROLAR ANCHO POR PORCENTAJES, SE ENCIMAN FOTO CON INFORMACION -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,23 +34,25 @@
 			$user = $res->fetch_assoc();
 			$res =	$serv->levantarAnuncioTipo($row['ID_tipo_hospedaje']);
 			$tipo = $res->fetch_assoc();
-			echo "	<div class='row'>
-						<div class='col-xs-1 col-md-1'>
-						</div>
-						<div class='col-xs-9 col-md-9'>
-							<h1><strong><span>".$row['Titulo']."</span></strong></h1>
-						</div>
-						<div class='col-xs-2 col-md-2'>
-						</div>
-					</div>
-					<div class='row'>
-						<div class='col-xs-1 col-md-1'>
-						</div>
-						<div class='col-xs-5 col-md-5'>		
-							<img src= img/".$link." width='500'>
-						</div>
-						<div class='col-xs-5 col-md-5'>		
-							Tipo de Hospedaje: ".$tipo['Nombre']."
+			
+		} else {header('Location:index.html');} ?>
+			<div class='row'>
+				<div class='col-xs-1 col-md-1'>
+				</div>
+				<div class='col-xs-9 col-md-9'>
+					<h1><strong><span> <?php echo $row['Titulo'];?></span></strong></h1>
+				</div>
+				<div class='col-xs-2 col-md-2'>
+				</div>
+			</div>
+			<div class='row'>
+				<div class='col-xs-1 col-md-1'>
+				</div>
+				<div class='col-xs-5 col-md-5'>
+					<img src=<?php echo "img/".$link;?> width='500'>	
+				</div>
+				<div class='col-xs-5 col-md-3'>		
+					<?php echo "Tipo de Hospedaje: ".$tipo['Nombre']."
 							<br>
 							Capacidad: ".$row['Capacidad']."
 							<br>
@@ -58,25 +63,31 @@
 							Ciudad:	".$ciudad['nombre']."
 							<br>
 							Autor: ".$user['Username']."
-							<br>
-						</div>
-						<div class='col-xs-1 col-md-1'>
-						</div>
-					</div>
-					<div class='row'>
-						<div class='col-xs-5 col-md-5'>
-						</div>
-						<div class='col-xs-2 col-md-2'>
-							<a href='pagPrinc.php'><button class='btn'>Volver</button></a>
-						</div>
-						<div class='col-xs-5 col-md-5'>
-						</div>
-					</div>
-					";
-		}else{
-			header('Location:index.html');
-		}
-	?>
+							<br>"?>
+				</div>
+				<div class='col-xs-1 col-md-1'>
+				<form action='editarPublicacion.php' method='POST' enctype='multipart/form-data'>
+			<div class='row'>
+				<div class='col-xs-8 col-md-8'>
+					<input class="hidden" name='anunc' value=<?php echo $id ?> >
+						<button type='submit' class='btn'>Editar</button>
+						</button>
+					</input>
+				</div>
+			</div>
+		</form>
+				</div>
+			</div>
+			<div class='row'>
+				<div class='col-xs-5 col-md-5'>
+				</div>
+				<div class='col-xs-2 col-md-2'>
+					<a href='pagPrinc.php'><button class='btn'>Volver</button></a>
+				</div>
+				<div class='col-xs-5 col-md-5'>
+				</div>
+			</div>
+		
 	
 </body>
 </html>
