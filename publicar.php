@@ -86,7 +86,7 @@
 				<div class='col-xs-4 col-md-4'>	
 				</div>
 				<div class='col-xs-4 col-md-4'>	
-					<a href='pagPrinc.php'><button type=button class='btn btn-danger'>Cancelar</button></a>
+					<a href='pagPrinc.php'><button type=button class='btn btn-danger'>Volver</button></a>
 					<button type="submit" class="btn">Publicar</button>
 				</div>
 				<div class='col-xs-4 col-md-4'>
