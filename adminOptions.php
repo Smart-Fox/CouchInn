@@ -33,6 +33,11 @@
 										<a href='cambPrec.php'><button type=button class='btn2'>Cambiar precio premium</button></a>
 									</div>
 								</div>
+								<div class='col-xs-2 col-md-2'>
+									<div class='centered'>
+										<a href='pagPrinc.php'><button type=button class='btn2'>Salir</button></a>
+									</div>
+								</div>
 							</form>
 						</div>
 					</div>
