@@ -9,7 +9,7 @@
 	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript" src= "js/objeto.js"></script>
 	<script language= "javascript" src= "js/validation.js"></script>
-	
+	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
 </head>
 <body>	
 	<?php
@@ -34,7 +34,7 @@
 				<div class='col-xs-2 col-md-2'>
 				</div>
 				<div class='col-xs-8 col-md-8'>
-					<input type="text" name = 'titulo' id='titulo' placeholder='Titulo del anuncio' required>
+					<input type="text" name = 'titulo' id='titulo' placeholder='Título del anuncio' required>
 				</div>
 				<div class='col-xs-2 col-md-2'>
 				</div>
@@ -60,7 +60,9 @@
 					</select>
 				</div>
 				<div class='row reg'>
-					<input type="number" name = 'capacidad' id='capacidad' min="1" placeholder="Capacidad" required>
+
+					<input type="number" name = 'capacidad' id='capacidad' min="1" placeholder="Capacidad (cantidad de personas)" required>
+
 				</div>
 				<div class='row reg'>
 					<select id="provSelect" name="provincia" class="form-control custom" onchange="cambiarCiudad();" required>
@@ -79,14 +81,18 @@
 					</select>
 				</div>
 				<div class='row reg'>
-					<input  type="file" name="fileToUpload" id="fileToUpload" content="Subir una foto">
+
+					<input  type="file" class="filestyle" name="fileToUpload" id="fileToUpload" data-buttonBefore="true" data-input="true" data-icon="false" data-size="sm" data-buttonName="btn-primary" data-buttonText="Subir foto" data-placeholder="Ningún archivo seleccionado">
+
 				</div>
 			</div>
 			<div class='row reg'>
 				<div class='col-xs-4 col-md-4'>	
 				</div>
 				<div class='col-xs-4 col-md-4'>	
+
 					<a href='pagPrinc.php'><button id="cancelar" type=button class='btn btn-danger'>Cancelar</button></a>
+
 					<button type="submit" class="btn">Publicar</button>
 				</div>
 				<div class='col-xs-4 col-md-4'>
