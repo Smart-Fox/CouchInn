@@ -2,18 +2,16 @@
 	include('dbManager.php');
 	class recuService{
 		protected $email;
-		protected $telefono;
 
-		public function __construct($mail, $telefono){
+		public function __construct($mail){
 			$this->email = $mail;
-			$this->telefono = $telefono;
 		}
 
 		public function buscarUsuario($mail){
 			$conec = new dbManager();
 			$conec->conectar();
 
-			$consulta = ("SELECT Email FROM usuario WHERE Email='$this->email' and Telefono='$this->telefono'");
+			$consulta = ("SELECT Email FROM usuario WHERE Email='$this->email'");
 			$resulSQL= $conec->ejecutarSQL($consulta);
 			$datos = $resulSQL->fetch_row();
 			if($datos[0] == $mail ) {
