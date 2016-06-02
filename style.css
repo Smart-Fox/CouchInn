@@ -12,8 +12,8 @@ h1 {
 }
 
 h2 {
-	font-size: 18px;
-    font-weight: 200;
+	font-size: 20px;
+    font-weight: 300;
     padding-left: 10px;
 	margin: 15px;
 }
@@ -436,15 +436,17 @@ input[type=file]{
 	line-height: 50px !important;
 }
 
+.anuncio{
+	border-radius: 8px;
+	border: 2px solid #ccc;
+	margin: 15px;
+	padding: 5px;
+}
+
 .imgAnun{
-	 border: 1px solid black;
-	 margin-right: 3px;
-	 border: 5px solid #ddd;
-	padding: 5px; /*Inner border size*/
-	background: #fff; /*Inner border color*/
-	
-float: left;
-margin: 15px;
+	border: 2px solid #ccc;
+	float: left;
+	margin: 5px;
 
 }
 
@@ -465,7 +467,15 @@ transform:scale(1.25);
 }
 
 .buttonlink{
-	padding: 0px;
+	padding: 5px;
 	background: none;
 	border: none;
+	width:100%;
+	text-align:center;
+	line-height: 100px;
+}
+
+span.titulo{
+	line-height: 120px;
+	text-align:center;
 }

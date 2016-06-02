@@ -49,7 +49,7 @@
 						<div class='col-xs-5 col-md-5'>		
 							Tipo de Hospedaje: ".$tipo['Nombre']."
 							<br>
-							Capacidad: ".$row['Capacidad']."
+							Capacidad: ".$row['Capacidad']." personas
 							<br>
 							Descripción: ".$row['Descripcion']."
 							<br>
@@ -63,6 +63,7 @@
 						<div class='col-xs-1 col-md-1'>
 						</div>
 					</div>
+					<br>
 					<div class='row'>
 						<div class='col-xs-5 col-md-5'>
 						</div>

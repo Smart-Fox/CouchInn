@@ -53,13 +53,11 @@
 		}
 		public function publicarAnuncio($titulo, $desc, $cap, $ciudad, $tipo, $imagen){
 			session_start();
-			$date = date("Y-m-d");
-			$time = date("H:m:s");
+			$date = date("Y-m-d H:i:s");
 			$user = $_SESSION['id'];
 			$conec = new dbManager();
 			$conec->conectar();	
-
-			$consulta = ("INSERT INTO anuncio(Capacidad, Titulo, Descripcion, Fecha, Hora, ID_tipo_hospedaje, ID_ciudad, ID_usuario) VALUES ('$cap', '$titulo','$desc', '$date', '$time', '$tipo', '$ciudad', '$user')");
+			$consulta = ("INSERT INTO anuncio(Capacidad, Titulo, Descripcion, Fecha, ID_tipo_hospedaje, ID_ciudad, ID_usuario) VALUES ('$cap', '$titulo','$desc', '$date', '$tipo', '$ciudad', '$user')");
 			$res=$conec->ejecutarSQL($consulta);
 			$avisoid = $conec->lastId();
 			$consulta = ("INSERT INTO imagen(enlace,ID_anuncio) VALUES ('$imagen' , '$avisoid')");
@@ -69,7 +67,7 @@
 		public function levantarAnuncios(){
 			$conec = new dbManager();
 			$conec->conectar();
-			$consulta = "SELECT * FROM anuncio ORDER BY Fecha DESC, Hora DESC ";
+			$consulta = "SELECT * FROM anuncio ORDER BY Fecha";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
