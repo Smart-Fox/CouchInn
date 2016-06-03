@@ -82,7 +82,7 @@
 		public function levantarAnuncios(){
 			$conec = new dbManager();
 			$conec->conectar();
-			$consulta = "SELECT * FROM anuncio ORDER BY Fecha";
+			$consulta = "SELECT * FROM anuncio ORDER BY ID DESC";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}

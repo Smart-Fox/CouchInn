@@ -4,11 +4,11 @@
 	<meta charset="UTF-8">
 	<title>Formulario de Registro</title>
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel='stylesheet' href='style.css'/>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
-	<script src='http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js'></script>
+	<script src='ajax/jquery.min.js'></script>
+	<script src='ajax/jquery.validate.min.js'></script>
 	<script type="text/javascript" src="js/jquery-1.2.6.min.js"></script>
 	<script type="text/javascript">
 		window.onload = function () {
@@ -210,7 +210,7 @@
 				<div class='col-xs-5 col-md-5'>
 				</div>
 				<div class='col-xs-2 col-md-2'>
-				<input type="password" name= 'pass' id = 'pass' placeholder='Contraseña' onblur='validate(this)' required>
+				<input type="password" name= 'pass' minlength= "6" id = 'pass' placeholder='Contraseña' onblur='validate(this)' required>
 				</div>
 				<div class='col-xs-5 col-md-5'>
 				</div>
@@ -219,7 +219,7 @@
 				<div class='col-xs-5 col-md-5'>
 				</div>
 				<div class='col-xs-2 col-md-2'>
-				<input type="password" name= 'pass2' id = 'pass2' placeholder='Confirmar contraseña' onblur='validate(this)' required>
+				<input type="password" minlength= "6" name= 'pass2' id = 'pass2' placeholder='Confirmar contraseña' onblur='validate(this)' required>
 				</div>
 				<div class='col-xs-5 col-md-5'>
 				</div>
@@ -228,15 +228,13 @@
 				<div class='col-xs-3 col-md-3'>
 				</div>
 				<div class='col-xs-2 col-md-2'>
-					<a href="index.html"><button id="cancelar" class="btn">Volver</button></a>
+					<a href="index.html"><button class="btn">Volver</button></a>
 				</div>
 				<div class='col-xs-2 col-md-2'>
 					<button type="submit" class="btn">Registrar</button>
 				</div>
 				<div class='col-xs-2 col-md-2'>
-
 					<button class="btn" type="reset" onClick="window.location.reload()">Limpiar</button>
-
 				</div>
 				<div class='col-xs-3 col-md-3'>
 				</div>

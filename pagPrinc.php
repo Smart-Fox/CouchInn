@@ -26,38 +26,38 @@
 
 			while($row = $anun->fetch_assoc()){
 				$autor= $serv->levantarAnuncioAutor($row['ID_usuario']);
-					$row2=$autor->fetch_assoc();
-					if(($row2['Tipo']=="premium")||($row2['Tipo']=="admin")){
-						$imagen = $serv->levantarImagen($row['ID']);
-						$row1=$imagen->fetch_assoc();
-						$link = $row1['enlace'];
-					}else{
-						$link='logo.png';
-					}
-					echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
-								<div class='row'>
-									<div class='col-xs-2 col-md-2'>
-									</div>
-									<div class='col-xs-8 col-md-8 anuncio'>
-										<input class=hidden name='anunc' value=\"".$row['ID']."\">
-											<button type='submit' class='buttonlink'>
-												<div class='row'>
-													<div class='col-xs-3 col-md-3' id='img'>
-														<img src= img/".$link." class='imgAnun'>
-													</div>
-													<div class='col-xs-9 col-md-9'>
-														<h2>
-															<strong><span class='titulo'>".$row['Titulo']."</span></strong>
-														</h2>
-													</div>
-												</div>
-											</button>
-										</input>
-									</div>
-									<div class='col-xs-2 col-md-2'>
-									</div>
+				$row2=$autor->fetch_assoc();
+				if(($row2['Tipo']=="premium")||($row2['Tipo']=="admin")){
+					$imagen = $serv->levantarImagen($row['ID']);
+					$row1=$imagen->fetch_assoc();
+					$link = $row1['enlace'];
+				}else{
+					$link='logo.png';
+				}
+				echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
+							<div class='row'>
+								<div class='col-xs-2 col-md-2'>
 								</div>
-							</form>";
+								<div class='col-xs-8 col-md-8 anuncio'>
+									<input class=hidden name='anunc' value=\"".$row['ID']."\">
+										<button type='submit' class='buttonlink'>
+											<div class='row'>
+												<div class='col-xs-3 col-md-3' id='img'>
+													<img src= img/".$link." class='imgAnun'>
+												</div>
+												<div class='col-xs-9 col-md-9'>
+													<h2>
+														<strong><span class='titulo'>".$row['Titulo']."</span></strong>
+													</h2>
+												</div>
+											</div>
+										</button>
+									</input>
+								</div>
+								<div class='col-xs-2 col-md-2'>
+								</div>
+							</div>
+						</form>";
 			}}
 		}else{
 			header('Location:index.html');
