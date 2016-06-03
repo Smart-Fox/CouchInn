@@ -13,7 +13,7 @@
 			$datos = $dato->fetch_row();
 			if (is_null($datos)) {
 				echo "ERROR: no existe el usuario en el sistema/Los datos son incorrectos";
-				#header('Location: index.html');
+				header('Location: iindex.html');
 			}else{
 				session_start();
 				$_SESSION['usuario'] = $datos[0];
