@@ -64,10 +64,25 @@
 			$res = $conec->ejecutarSQL($consulta);
 			return($res);
 		}
+		public function modificarAnuncio($titulo, $desc, $cap, $ciudad, $tipo, $imagen,$idA){
+			session_start();
+			$date = date("Y-m-d H:i:s");
+			$user = $_SESSION['id'];
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("UPDATE anuncio SET Capacidad = '$cap', Titulo = '$titulo', Descripcion = '$desc', Fecha = '$date', ID_tipo_hospedaje = '$tipo', ID_ciudad = '$ciudad', ID_usuario = '$user' WHERE ID = '$idA'");
+			$res = $conec->ejecutarSQL($consulta);
+			if ($imagen){
+				
+			$consulta = ("UPDATE imagen SET enlace='$imagen' WHERE ID_anuncio='$idA'");
+			$res = $conec->ejecutarSQL($consulta);}
+			var_dump($res);
+			return($res);
+		}
 		public function levantarAnuncios(){
 			$conec = new dbManager();
 			$conec->conectar();
-			$consulta = "SELECT * FROM anuncio ORDER BY Fecha DESC ";
+			$consulta = "SELECT * FROM anuncio ORDER BY Fecha";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}

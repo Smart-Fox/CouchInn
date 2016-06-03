@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel='stylesheet' href='style.css'/>
 	<script language= "javascript" src= "js/validation.js"></script>
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 </head>
 <body>
 	<?php
@@ -49,7 +50,7 @@
 				<div class='col-xs-1 col-md-1'>
 				</div>
 				<div class='col-xs-5 col-md-5'>
-					<img src=<?php echo "img/".$link;?> width='500'>	
+					<img src=<?php echo "img/".$link;?> width='500' class='imgDet'>	
 				</div>
 				<div class='col-xs-5 col-md-3'>		
 					<?php echo "Tipo de Hospedaje: ".$tipo['Nombre']."
@@ -63,9 +64,12 @@
 							Ciudad:	".$ciudad['nombre']."
 							<br>
 							Autor: ".$user['Username']."
+							<br>
+							Fecha publicación: ".$row['Fecha']."
 							<br>"?>
 				</div>
 				<div class='col-xs-1 col-md-1'>
+				
 				<form action='editarPublicacion.php' method='POST' enctype='multipart/form-data'>
 			<div class='row'>
 				<div class='col-xs-8 col-md-8'>
@@ -73,6 +77,7 @@
 						<button type='submit' class='btn'>Editar</button>
 						</button>
 					</input>
+
 				</div>
 			</div>
 		</form>
