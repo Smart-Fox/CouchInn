@@ -3,11 +3,12 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Página principal</title>
+	<title>CouchInn</title>
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
 	<link rel='stylesheet' href='style.css'/>
 	<script language= "javascript" src= "js/validation.js"></script>
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 </head>
 <body>
 	<img src="" alt="">
@@ -23,9 +24,16 @@
 			$anun = $serv->levantarAnuncios();
 			if($anun){
 				while($row = $anun->fetch_assoc()){
-					$imagen = $serv->levantarImagen($row['ID']);
-					$row1 = $imagen->fetch_assoc();
-					$link = $row1['enlace'];
+					
+					$autor= $serv->levantarAnuncioAutor($row['ID_usuario']);
+					$row2=$autor->fetch_assoc();
+					if(($row2['Tipo']=="premium")||($row2['Tipo']=="admin")){
+						$imagen = $serv->levantarImagen($row['ID']);
+						$row1=$imagen->fetch_assoc();
+						$link = $row1['enlace'];
+					}else{
+						$link='logo.png';
+					}
 					echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
 								<div class='row'>
 									<div class='col-xs-2 col-md-2'>
@@ -34,10 +42,10 @@
 										<input class=hidden name='anunc' value=\"".$row['ID']."\">
 											<button type='submit' class='buttonlink'>
 												<div class='row'>
-													<div class='col-xs-4 col-md-4'>
-														<img src= img/".$link." class=imgAnun height='150' align='center'>
+													<div class='col-xs-3 col-md-3' id='img'>
+														<img src= img/".$link." class='imgAnun'>
 													</div>
-													<div class='col-xs-8 col-md-8'>
+													<div class='col-xs-9 col-md-9'>
 														<h2>
 															<strong><span class='titulo'>".$row['Titulo']."</span></strong>
 														</h2>

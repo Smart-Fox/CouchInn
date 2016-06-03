@@ -49,7 +49,7 @@
 											<span>Bienvenido ", $_SESSION['usuario'], "</span>
 									</div>
 									<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>
-										<a href=\"comprarPrem.php\"><button type=button class='btn2'>Comprar premium</button></a>
+										<a href=\"infoPremium.php\"><button type=button class='btn2'>Comprar premium</button></a>
 										<a href=\"cerrarSesion.php\"><button type=\"button\" class=\"btn2\">Cerrar Sesión</button></a>
 									</div>
 								</div>
