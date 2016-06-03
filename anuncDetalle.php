@@ -1,3 +1,6 @@
+
+<!-- CONTROLAR ANCHO POR PORCENTAJES, SE ENCIMAN FOTO CON INFORMACION -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,13 +69,15 @@
 							<br>"?>
 				</div>
 				<div class='col-xs-1 col-md-1'>
+				
 				<form action='editarPublicacion.php' method='POST' enctype='multipart/form-data'>
 			<div class='row'>
 				<div class='col-xs-8 col-md-8'>
-					<!--<input class="hidden" name='anunc' value=<?php echo $id ?> >
+					<input class="hidden" name='anunc' value=<?php echo $id ?> >
 						<button type='submit' class='btn'>Editar</button>
 						</button>
-					</input>  -->
+					</input>
+
 				</div>
 			</div>
 		</form>

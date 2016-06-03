@@ -61,7 +61,9 @@
 					</select>
 				</div>
 				<div class='row reg'>
-					<input type="number" name = 'capacidad' id='capacidad' placeholder="Capacidad (cantidad de personas)" required>
+
+					<input type="number" name = 'capacidad' id='capacidad' min="1" placeholder="Capacidad (cantidad de personas)" required>
+
 				</div>
 				<div class='row reg'>
 					<select id="provSelect" name="provincia" class="form-control custom" onchange="cambiarCiudad();" required>
@@ -80,14 +82,18 @@
 					</select>
 				</div>
 				<div class='row reg'>
+
 					<input  type="file" class="filestyle" name="fileToUpload" id="fileToUpload" data-buttonBefore="true" data-input="true" data-icon="false" data-size="sm" data-buttonName="btn-primary" data-buttonText="Subir foto" data-placeholder="Ningún archivo seleccionado">
+
 				</div>
 			</div>
 			<div class='row reg'>
 				<div class='col-xs-4 col-md-4'>	
 				</div>
 				<div class='col-xs-4 col-md-4'>	
-					<a href='pagPrinc.php'><button type=button class='btn btn-danger'>Volver</button></a>
+
+					<a href='pagPrinc.php'><button id="cancelar" type=button class='btn btn-danger'>Cancelar</button></a>
+
 					<button type="submit" class="btn">Publicar</button>
 				</div>
 				<div class='col-xs-4 col-md-4'>

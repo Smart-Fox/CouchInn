@@ -23,9 +23,9 @@
 			$serv = new aService();
 			$anun = $serv->levantarAnuncios();
 			if($anun){
-				while($row = $anun->fetch_assoc()){
-					
-					$autor= $serv->levantarAnuncioAutor($row['ID_usuario']);
+
+			while($row = $anun->fetch_assoc()){
+				$autor= $serv->levantarAnuncioAutor($row['ID_usuario']);
 					$row2=$autor->fetch_assoc();
 					if(($row2['Tipo']=="premium")||($row2['Tipo']=="admin")){
 						$imagen = $serv->levantarImagen($row['ID']);
@@ -58,8 +58,7 @@
 									</div>
 								</div>
 							</form>";
-				}
-			}
+			}}
 		}else{
 			header('Location:index.html');
 		}
