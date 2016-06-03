@@ -10,6 +10,7 @@
 	<script type="text/javascript" src= "js/objeto.js"></script>
 	<script language= "javascript" src= "js/validation.js"></script>
 	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 </head>
 <body>	
 	<?php

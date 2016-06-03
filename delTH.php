@@ -35,6 +35,7 @@
 						<p class='feedback'>
 							El tipo de hospedaje que desea eliminar está siendo utilizado por uno o más anuncios.<br>
 							De continuar con la eliminación, el tipo de hospedaje no podrá ser utilizado en nuevos anuncios, pero seguirá apareciendo en los anuncios existentes.<br>
+							De necesitar restaurar el tipo de hospedaje eliminado, tiene que volver a agregarlo al sistema.
 							¿Desea continuar con la eliminación?
 						</p>
 					</div>
@@ -49,7 +50,8 @@
 					</div>
 					<div class='col-xs-4 col-md-4' id='feedback'>
 						<form action='delLog.php' method='POST'>
-							<button type=button class='btn2' value=>Continuar</button>
+							<input class='hidden' name='tipoHosp' value='".$nombre."'></input>
+							<button type=submit class='btn2'>Continuar</button>
 						</form>
 					</div>
 					<div class='col-xs-2 col-md-2'>
@@ -66,11 +68,3 @@
 	?>
 </body>
 </html>
-
-<?php
-
-	
-	
-	
-
-?>

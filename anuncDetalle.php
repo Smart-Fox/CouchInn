@@ -70,26 +70,29 @@
 				</div>
 				<div class='col-xs-1 col-md-1'>
 				
-				<form action='editarPublicacion.php' method='POST' enctype='multipart/form-data'>
-			<div class='row'>
-				<div class='col-xs-8 col-md-8'>
-					<input class="hidden" name='anunc' value=<?php echo $id ?> >
-						<button type='submit' class='btn'>Editar</button>
-						</button>
-					</input>
-
-				</div>
-			</div>
-		</form>
 				</div>
 			</div>
 			<div class='row'>
-				<div class='col-xs-5 col-md-5'>
+				<div class='col-xs-3 col-md-3'>
 				</div>
 				<div class='col-xs-2 col-md-2'>
 					<a href='pagPrinc.php'><button class='btn'>Volver</button></a>
 				</div>
-				<div class='col-xs-5 col-md-5'>
+				<div class='col-xs-2 col-md-2'>
+					<form action='editarPublicacion.php' method='POST' enctype='multipart/form-data'>
+						<div class='row'>
+							<div class='col-xs-8 col-md-8'>
+								<input class="hidden" name='anunc' value=<?php echo $id ?> >
+									<button type='submit' class='btn'>Editar</button>
+								</input>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class='col-xs-2 col-md-2'>
+					<a href='verPerfil.php?id=<?php echo $row['ID_usuario']?>'><button class='btn'>Ver perfil del usuario</button></a>
+				</div>
+				<div class='col-xs-3 col-md-3'>
 				</div>
 			</div>
 		

@@ -14,19 +14,19 @@
 									</div>
 								</div>
 								<div class='col-xs-2 col-md-2'>
-									<div class='centered'>
+									<!-- <div class='centered'>
 										<a href='verRep.php'><button type=button class='btn2'>Ver reportes</button></a>
-									</div>
+									</div> -->
 								</div>
 								<div class='col-xs-2 col-md-2'>
-									<div class='centered'>	
+									<!-- <div class='centered'>	
 										<a href='admUs.php'><button type=button class='btn2'>Administrar usuarios</button></a>
-									</div>
+									</div> -->
 								</div>
 								<div class='col-xs-2 col-md-2'>
-									<div class='centered'>
+									<!-- <div class='centered'>
 										<a href='admPub.php'><button type=button class='btn2'>Administrar publicaciones</button></a>
-									</div>
+									</div> -->
 								</div>
 								<div class='col-xs-2 col-md-2'>
 									<div class='centered'>
