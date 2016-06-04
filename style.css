@@ -294,7 +294,7 @@ select:focus{
 
 
 .centered{
-	text-align: centered;
+	text-align: center !important;
 }
 
 #logo {
@@ -335,6 +335,7 @@ select:focus{
 
 #opcionesuser{
 	text-align: right;
+	display: inline-block;
 }
 
 .header{
@@ -363,13 +364,22 @@ select:focus{
 .btn2 {
     background: transparent;
     border: none;
-
+	text-align: center;
+	display: inline-block;
     color: #96ac3c;
     cursor: pointer;
-
     font-size: 16px;
-
     padding: 12px 16px;
+}
+.btn22 {
+    background: transparent;
+    border: none;
+	text-align: center;
+	display: inline-block;
+    color: #96ac3c;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 6px 8px;
 }
 
 #feedback{
@@ -545,6 +555,11 @@ transform:scale(1.25);
 
 span.titulo{
 	line-height: 120px;
+	text-align:center;
+}
+
+span.titulo2{
+	line-height: 40px;
 	text-align:center;
 }
 

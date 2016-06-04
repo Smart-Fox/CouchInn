@@ -7,7 +7,7 @@
 	$id=$_SESSION['id'];
 	if ($_POST['pass']!=""){
 		$password = crypt($_POST['pass'], 'radbrulz');
-		$consulta=("UPDATE usuario SET Nombre='$nombre', Apellido='$apellido', Telefono='$telefono', Contraseña='$Password' WHERE ID='$id';");
+		$consulta=("UPDATE usuario SET Nombre='$nombre', Apellido='$apellido', Telefono='$telefono', Contraseña='$password' WHERE ID='$id';");
 	}else{
 		$consulta=("UPDATE usuario SET Nombre='$nombre', Apellido='$apellido', Telefono='$telefono' WHERE ID='$id';");
 	}

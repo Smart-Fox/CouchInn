@@ -16,9 +16,12 @@
 											<span>Bienvenido ", $_SESSION['usuario'], "</span>
 										</div>
 										<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>
-											<a href=\"verPerfil.php?id=".$_SESSION['id']."\"><button class='btn2' type = button><span>Ver Perfil</span></button></a>
-											<a href=\"panelAdmin.php\"><button type=button class='btn2'>Panel de administrador</button></a>
-											<a href=\"cerrarSesion.php\"><button type=button class='btn2'>Cerrar Sesión</button></a>
+											<form method='POST' action='verPerfil.php' class='btn22'>
+												<input class='hidden' name='id' value=". $_SESSION['id'] .">
+												<button class='btn22' type='submit'>Ver<br>perfil</button>
+											</form>
+											<a href=\"panelAdmin.php\"><button type=button class='btn22'>Panel de<br>administrador</button></a>
+											<a href=\"cerrarSesion.php\"><button type=button class='btn22'>Cerrar<br>Sesión</button></a>
 										</div>
 									</div>
 								</div>";
@@ -33,7 +36,10 @@
 											<span>Bienvenido ", $_SESSION['usuario'], "</span>
 									</div>
 									<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>
-										<a href=\"verPerfil.php?id=".$_SESSION['id']."\"><button class='btn2' type = button><span>Ver Perfil</span></button></a>
+										<form method='POST' action='verPerfil.php' class='btn22'>
+											<input class='hidden' name='id' value=". $_SESSION['id'] .">
+											<button class='btn2' type='submit'>Ver perfil</button>
+										</form>
 										<a href=\"cerrarSesion.php\"><button type=\"button\" class=\"btn2\">Cerrar Sesión</button></a>
 									</div>
 								</div>
@@ -49,9 +55,12 @@
 											<span>Bienvenido ", $_SESSION['usuario'], "</span>
 									</div>
 									<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>
-										<a href=\"verPerfil.php?id=".$_SESSION['id']."\"><button class='btn2' type = button><span>Ver Perfil</span></button></a>
-										<a href=\"infoPremium.php\"><button type=button class='btn2'>Comprar premium</button></a>
-										<a href=\"cerrarSesion.php\"><button type=\"button\" class=\"btn2\">Cerrar Sesión</button></a>
+										<form method='POST' action='verPerfil.php' class='btn22'>
+											<input class='hidden' name='id' value=". $_SESSION['id'] .">
+											<button class='btn22' type='submit'>Ver perfil</button>
+										</form>
+										<a href=\"infoPremium.php\"><button type=button class='btn22'>Comprar premium</button></a>
+										<a href=\"cerrarSesion.php\"><button type=\"button\" class=\"btn22\">Cerrar Sesión</button></a>
 									</div>
 								</div>
 							</div>";
