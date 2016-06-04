@@ -22,13 +22,14 @@
 		}else{
 			header('Location:index.html');
 		}
+		$id=$_POST['id'];
 		$serv = new aService();
 		$us = $serv->levantarUsuario($_SESSION['id']);
-		$anun = $serv->levantarAnuncioDeUsuario($_GET['id']);
-		$us = $serv->levantarUsuario($_GET['id']);
+		$anun = $serv->levantarAnuncioDeUsuario($id);
+		$us = $serv->levantarUsuario($id);
 		$rowUs = $us->fetch_assoc();
 		
-		if ($_SESSION['id'] == $_GET['id']){
+		if ($_SESSION['id'] == $id){
 			
 			$nombre = $rowUs['Nombre'];
 			$apellido = $rowUs['Apellido'];
@@ -46,12 +47,12 @@
 								<div class='col-xs-8 col-md-8'>
 									<h2><strong>Perfil de Usuario <br></strong></h2>
 									<h3>
-										Nombre: <strong><span class='titulo'>".$nombre."</span></strong> <strong><span class='titulo'>".$apellido."</span></strong> <br>
-										Teléfono:	<strong><span class='titulo'>".$telefono."</span></strong> <br>
-										Email: 	<strong><span class='titulo'>".$email."</span></strong> <br>
-										Tipo Usuario:	<strong><span class='titulo'>".$tipo."</span></strong>
+										Nombre: <strong><span class='titulo2'>".$nombre."</span></strong> <strong><span class='titulo2'>".$apellido."</span></strong> <br>
+										Teléfono:	<strong><span class='titulo2'>".$telefono."</span></strong> <br>
+										Email: 	<strong><span class='titulo2'>".$email."</span></strong> <br>
+										Tipo Usuario:	<strong><span class='titulo2'>".$tipo."</span></strong>
 									</h3>
-									<a href='pagPrinc.php'><button class='btn'>Volver</button></a> <a href='editUser.php'><button class='btn'>Editar</button></a>
+									<a href='pagPrinc.php'><button class='btn'>Salir</button></a> <a href='editUser.php'><button class='btn'>Editar</button></a>
 								</div>
 							</div>
 						</div>

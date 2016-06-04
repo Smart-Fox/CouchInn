@@ -84,7 +84,7 @@
 		$us = $serv->levantarUsuario($_SESSION['id']);
 		$row = $us->fetch_assoc();
 	?>
-	<form id='MyForm' action="editarUsuario.php" method="POST" onsubmit="return validacion();">
+	<form id='editar' action="editarUsuario.php" method="POST" onsubmit="return validacion();">
 		<div class='row reg'>
 			<div class='col-xs-5 col-md-5'>
 			</div>
@@ -130,22 +130,20 @@
 			<div class='col-xs-5 col-md-5'>
 			</div>
 		</div>
-		<div class='row reg'>
-			<div class='col-xs-3 col-md-3'>
-			</div>
-			<div class='col-xs-2 col-md-2'>
-				<a href="index.html"><button class="btn">Volver</button></a>
-			</div>
-			<div class='col-xs-2 col-md-2'>
-				<button type="submit" class="btn">Guardar cambios</button>
-			</div>
-			<div class='col-xs-2 col-md-2'>
-				<button class="btn" type="reset" onClick="window.location.reload()">Limpiar</button>
-			</div>
-			<div class='col-xs-3 col-md-3'>
-			</div>
-		</div>
 	</form>
+	<form id="back" action='verPerfil.php' method='POST' enctype='multipart/form-data'>
+		<input class='hidden' name='id' value='<?php echo $_SESSION['id']; ?>'>		
+	</form>
+	<div class='row reg'>
+		<div class='col-xs-4 col-md-4'>	
+		</div>
+		<div class='col-xs-4 col-md-4 centered'>	
+			<button id="cancelar" type='submit' class='btn btn-danger' form="back">Cancelar</button>
+			<button type="submit" class="btn" form="editar">Guardar</button>
+		</div>
+		<div class='col-xs-4 col-md-4'>
+		</div>
+	</div>
 </div>
 </body>
 </html>

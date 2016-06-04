@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Página Principal</title>
+	<title>Editar anuncio</title>
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel='stylesheet' href='style.css'/>
@@ -97,13 +97,12 @@
 					</select>
 				</div>
 				<div class='row reg'>
-				<?php
-					$imagen = $serv->levantarImagen($row['ID']);
-					$row1 = $imagen->fetch_assoc();
-					$link = $row1['enlace'];
-				?>
+					<?php
+						$imagen = $serv->levantarImagen($row['ID']);
+						$row1 = $imagen->fetch_assoc();
+						$link = $row1['enlace'];
+					?>
 					<input  type="file" class="filestyle" name="fileToUpload" id="fileToUpload" data-buttonBefore="true" data-input="true" data-icon="false" data-size="sm" data-buttonName="btn-primary" data-buttonText="Subir foto" data-placeholder="Ningún archivo seleccionado">
-
 				</div>
 				<input class=hidden name='anunc' value=<?php echo $row['ID']?>>	
 			</div>
@@ -115,16 +114,12 @@
 				<div class='col-xs-4 col-md-4'>	
 				</div>
 				<div class='col-xs-4 col-md-4'>	
-					
 					<button id="cancelar" type=submit class='btn btn-danger' form="back">Cancelar</button>
 					<button type="submit" class="btn" form="editar">Guardar</button>
 				</div>
 				<div class='col-xs-4 col-md-4'>
 				</div>
 			</div>
-		
-		
-		
 	</center>
 </body>
 </html>

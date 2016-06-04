@@ -27,7 +27,10 @@
 	</div>
 	<div class='row'>
 		<div id='feedback' class='col-xs-12 col-md-12'>
-			<a href='pagPrinc.php'><button type=button class='btn2'>Volver</button></a>
+			<form id="back" action='verPerfil.php' method='POST' enctype='multipart/form-data'>
+				<input class='hidden' name='id' value='<?php echo $_SESSION['id']; ?>'>	
+				<button type=submit class='btn2'>Volver</button>				
+			</form>
 		</div>
 	</div>
 </body>
