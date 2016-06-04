@@ -8,7 +8,6 @@
 	<link rel='stylesheet' href='style.css'/>
 	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript" src= "js/objeto.js"></script>
-	<script language= "javascript" src= "js/validation.js"></script>
 	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 </head>
@@ -40,7 +39,7 @@
 				<div class='col-xs-2 col-md-2'>
 				</div>
 				<div class='col-xs-8 col-md-8'>
-					<input type="text" name = 'titulo' id='titulo' value=<?php echo $row['Titulo'];?> required>
+					<input type="text" name = 'titulo' id='titulo' value=<?php echo '"'.$row['Titulo'].'"';?> required>
 				</div>
 				<div class='col-xs-2 col-md-2'>
 				</div>
@@ -71,7 +70,7 @@
 
 				</div>
 				<div class='row reg'>
-					<select id="provSelect" name="provincia" class="form-control custom" onchange="cambiarCiudad();" required>
+					<select id="provSelect" name="provincia" class="form-control custom" onchange="cambiarCiudad('e');" required>
 						<?php 
 							$res =	$serv->levantarAnuncioCiudad($row['ID_ciudad']);
 							$ciudad = $res->fetch_assoc();

@@ -443,7 +443,7 @@ input[type=file]{
     background: transparent;
     border: none;
 
-    color: #c9302c;
+    color: #5f5f5f;
     cursor: pointer;
 
     font-size: 18px;
@@ -454,7 +454,7 @@ input[type=file]{
 }
 
 #cancelar:hover {
-    background: #c9302c;
+    background: #5f5f5f;
     color: #fff;
 }
 

@@ -8,9 +8,13 @@
 	<link rel='stylesheet' href='style.css'/>
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script language= "javascript" src= "js/validation.js"></script>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-	
+	<script>
+		function validate(field){
+			if (field.className!="touched")
+				field.className += "touched";
+		}
+	</script>
 
 </head>
 <body>
@@ -28,7 +32,7 @@
 			<div class='row reg'>
 				<div class='col-xs-5 col-md-5'></div>
 				<div class='col-xs-2 col-md-2'>
-					<input  style="font-size: 16px; margin-top: 20px " type="email" name = 'email' id = 'email' placeholder='E-mail' required>
+					<input  style="font-size: 16px; margin-top: 20px " type="email" name = 'email' id = 'email' placeholder='E-mail' onblur='validate(this)' required>
 				</div>
 				<div class='col-xs-5 col-md-5'>
 				</div>

@@ -35,5 +35,6 @@
 	}}
 	$service = new aService();
 	$res = $service->modificarAnuncio($titulo, $descripcion, $capacidad, $ciudad,$tipo,basename( $_FILES["fileToUpload"]["name"]),$idA);
-	// header("Location: pagPrinc.php");
+	header("Location: cambiosG.php?id=$idA");
+	
 ?>
