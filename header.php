@@ -57,7 +57,7 @@
 									<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>
 										<form method='POST' action='verPerfil.php' class='btn22'>
 											<input class='hidden' name='id' value=". $_SESSION['id'] .">
-											<button class='btn2' type='submit'>Ver perfil</button>
+											<button class='btn22' type='submit'>Ver perfil</button>
 										</form>
 										<a href=\"infoPremium.php\"><button type=button class='btn22'>Comprar premium</button></a>
 										<a href=\"cerrarSesion.php\"><button type=\"button\" class=\"btn22\">Cerrar Sesión</button></a>
