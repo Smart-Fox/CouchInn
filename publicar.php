@@ -8,7 +8,6 @@
 	<link rel='stylesheet' href='style.css'/>
 	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript" src= "js/objeto.js"></script>
-	<script language= "javascript" src= "js/validation.js"></script>
 	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 </head>
@@ -66,7 +65,7 @@
 
 				</div>
 				<div class='row reg'>
-					<select id="provSelect" name="provincia" class="form-control custom" onchange="cambiarCiudad();" required>
+					<select id="provSelect" name="provincia" class="form-control custom" onchange="cambiarCiudad('p');" required>
 						<option selected="true" disabled="disabled" value=""> Seleccione una provincia </option>
 						<?php
 							$provincias = $serv->levantarProv();
@@ -83,7 +82,7 @@
 				</div>
 				<div class='row reg'>
 
-					<input  type="file" class="filestyle" name="fileToUpload" id="fileToUpload" data-buttonBefore="true" data-input="true" data-icon="false" data-size="sm" data-buttonName="btn-primary" data-buttonText="Subir foto" data-placeholder="Ningún archivo seleccionado">
+					<input  type="file" class="filestyle" name="fileToUpload" id="fileToUpload" data-buttonBefore="true" data-input="true" data-icon="false" data-size="sm" data-buttonName="btn-primary" data-buttonText="Subir foto" data-placeholder="Ningún archivo seleccionado" required>
 
 				</div>
 			</div>

@@ -14,6 +14,7 @@
 		window.onload = function () {
 			document.getElementById("pass").onchange = validatePassword;
 			document.getElementById("pass2").onchange = validatePassword;
+			document.getElementById("pass").onchange = validatePasswordLength;
 			document.getElementById("nombre").onchange = validateNombre;
 			document.getElementById("apellido").onchange = validateApellido;
 			document.getElementById("telefono").onchange = validateTelefono;
@@ -24,7 +25,14 @@
 			if(pass1!=pass2)
 				document.getElementById("pass2").setCustomValidity("Las contraseñas no coinciden");
 			else
-				document.getElementById("pass2").setCustomValidity('');	 
+				document.getElementById("pass2").setCustomValidity('');	
+		}
+		function validatePasswordLength(){
+			var pass1=document.getElementById("pass").value;
+			if(pass1.length<6)
+				document.getElementById("pass").setCustomValidity("Ingrese una contraseña de 6 o más caracteres");
+			else
+				document.getElementById("pass").setCustomValidity('');
 		}
 		function validateNombre(){
 			var nomb = document.getElementById("nombre").value;
@@ -108,7 +116,7 @@
 			<div class='col-xs-5 col-md-5'>
 			</div>
 			<div class='col-xs-2 col-md-2'>
-				<input type="password" name= 'pass' minlength= "6" id = 'pass' placeholder='Contraseña' onblur='validate(this)'>
+				<input type="password" name= 'pass' minlength= "6" id = 'pass' placeholder='Nueva contraseña' onblur='validate(this)'>
 			</div>
 			<div class='col-xs-5 col-md-5'>
 			</div>
