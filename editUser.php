@@ -24,7 +24,14 @@
 			if(pass1!=pass2)
 				document.getElementById("pass2").setCustomValidity("Las contraseñas no coinciden");
 			else
-				document.getElementById("pass2").setCustomValidity('');	 
+				document.getElementById("pass2").setCustomValidity('');	
+		}
+		function validatePasswordLength(){
+			var pass1=document.getElementById("pass").value;
+			if(pass1.length<6)
+				document.getElementById("pass").setCustomValidity("Ingrese una contraseña de 6 o más caracteres");
+			else
+				document.getElementById("pass").setCustomValidity('');
 		}
 		function validateNombre(){
 			var nomb = document.getElementById("nombre").value;
