@@ -46,7 +46,7 @@
 				<div class='col-xs-1 col-md-1'>
 				</div>
 				<div class='col-xs-5 col-md-5'>
-					<img src=<?php echo "img/".$link;?> width='500' class='imgDet'>	
+					<img src=<?php echo "img/".$link;?> class='imgDet'>	
 				</div>
 				<div class='col-xs-5 col-md-3'>		
 					<?php echo "Tipo de Hospedaje: ".$tipo['Nombre']."
@@ -73,8 +73,7 @@
 				</div>
 				<div class='col-xs-2 col-md-2'>
 					<a href='pagPrinc.php'><button class='btn'>Volver</button></a>
-				</div>
-				
+				</div>				
 					<?php 
 						if ($_SESSION['id']==$row['ID_usuario']) { echo "
 							<div class='col-xs-2 col-md-2'>
@@ -89,7 +88,6 @@
 					</form>
 					</div>"; }
 					?>
-				
 				<div class='col-xs-2 col-md-2'>
 					<a href='verPerfil.php?id=<?php echo $row['ID_usuario']?>'><button class='btn'>Ver perfil del usuario</button></a>
 				</div>
