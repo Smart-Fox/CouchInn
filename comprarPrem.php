@@ -14,27 +14,24 @@
 			var pattern = /^[0-9]{13,16}$/;
 			if (!num.match(pattern))
 				document.getElementById("numcard").setCustomValidity("Ingrese un número de tarjeta válido, sin espacios");
-			else{
+			else
 				document.getElementById("numcard").setCustomValidity("");
-			}
 		}
 		function msgcvv() {
 			var num = document.getElementById("cvv").value;
 			var pattern = /^[0-9]{3,4}$/;
 			if (!num.match(pattern))
 				document.getElementById("cvv").setCustomValidity("Ingrese el código de seguridad de su tarjeta (3 dígitos VISA/Mastercard, 4 dígitos American Express)");
-			else{
+			else
 				document.getElementById("cvv").setCustomValidity("");
-			}
 		}
 		function msgnamecard() {
 			var name = document.getElementById("namecard").value;
 			var pattern = /^[A-Z a-z]{6,22}$/;
 			if (!name.match(pattern))
 				document.getElementById("namecard").setCustomValidity("Ingrese el nombre del titular de la tarjeta (solo letras y espacios)");
-			else{
+			else
 				document.getElementById("namecard").setCustomValidity("");
-			}
 		}
 	</script>
 </head>
