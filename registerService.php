@@ -37,7 +37,7 @@
 
 			$resulSQL = $conec->ejecutarSQL($consulta);
 
-			if ($resulSQL['Password'] == $pass) {
+			if ($resulSQL['Email'] == $pass) {
 				return true;
 			}else{
 				return false;
