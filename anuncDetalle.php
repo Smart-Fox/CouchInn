@@ -49,20 +49,14 @@
 					<img src=<?php echo "img/".$link;?> class='imgDet'>	
 				</div>
 				<div class='col-xs-5 col-md-3'>		
-					<?php echo "Tipo de Hospedaje: ".$tipo['Nombre']."
-							<br>
-							Capacidad: ".$row['Capacidad']."
-							<br>
-							Descripción: ".$row['Descripcion']."
-							<br>
-							Provincia: ".$prov['Nombre']."
-							<br>
-							Ciudad:	".$ciudad['nombre']."
-							<br>
-							Autor: ".$user['Username']."
-							<br>
-							Fecha publicación: ".$row['Fecha']."
-							<br>"?>
+					<?php 
+						echo "
+								<p>".$tipo['Nombre']." para ".$row['Capacidad']." personas en ".$ciudad['nombre'].", ".$prov['Nombre'].".</p>
+								<p>".$row['Descripcion']."</p>
+								<p>Ofrecido por ".$user['Username']."
+								<p>".$row['Fecha']."</p>
+						";
+					?>
 				</div>
 				<div class='col-xs-1 col-md-1'>
 				
