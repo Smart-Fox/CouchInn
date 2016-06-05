@@ -31,68 +31,72 @@
 			$user = $res->fetch_assoc();
 			$res =	$serv->levantarAnuncioTipo($row['ID_tipo_hospedaje']);
 			$tipo = $res->fetch_assoc();
-			
-		} else {header('Location:index.html');} ?>
+			$fecha=date('m/d/Y H:i', strtotime($row['Fecha']));
+		} else {header('Location:index.html');} 
+	?>
+	<center>
+		<div class='anunciodet'>
 			<div class='row'>
 				<div class='col-xs-1 col-md-1'>
 				</div>
-				<div class='col-xs-9 col-md-9'>
+				<div class='col-xs-10 col-md-10'>
 					<h1><strong><span> <?php echo $row['Titulo'];?></span></strong></h1>
 				</div>
-				<div class='col-xs-2 col-md-2'>
-				</div>
-			</div>
-			<div class='row'>
 				<div class='col-xs-1 col-md-1'>
 				</div>
-				<div class='col-xs-5 col-md-5'>
+			</div>
+			<div class='row row-centered'>
+				<div class='col-xs-6 col-md-6'>
 					<img src=<?php echo "img/".$link;?> class='imgDet'>	
 				</div>
-				<div class='col-xs-5 col-md-3'>		
+				<div class='col-xs-6 col-md-6'>	
+					<div class='row row-child-center'>
 					<?php 
 						echo "
-								<p>".$tipo['Nombre']." para ".$row['Capacidad']." personas en ".$ciudad['nombre'].", ".$prov['Nombre'].".</p>
-								<p>".$row['Descripcion']."</p>
-								<p>Ofrecido por ".$user['Username']."
-								<p>".$row['Fecha']."</p>
+								<div class='cont'>
+									<p>".$tipo['Nombre']." para ".$row['Capacidad']." personas en ".$ciudad['nombre'].", ".$prov['Nombre'].".</p>
+									<p>".$row['Descripcion']."</p>
+								</div>
+								<div class='pie'>
+									<p>Ofrecido por ".$user['Username']."</p>
+								</div>
+								<div class='pie'>
+									<p>".$fecha."</p><br>
+								</div>
 						";
 					?>
-				</div>
-				<div class='col-xs-1 col-md-1'>
-				
-				</div>
-			</div>
-			<div class='row' style="margin-top:10px">
-				<div class='col-xs-3 col-md-3'>
-				</div>
-				<div class='col-xs-2 col-md-2'>
-					<a href='pagPrinc.php'><button class='btn'>Volver</button></a>
-				</div>				
-					<?php
-						if ($_SESSION['id']==$row['ID_usuario']) { 
-							echo "
-									<div class='col-xs-2 col-md-2'>
-										<form action='editarPublicacion.php' method='POST' enctype='multipart/form-data'>
-											<div class='row'>
-												<div class='col-xs-8 col-md-8'>
-													<input class='hidden' name='anunc' value= ". $id .">
-													<button type='submit' class='btn'>Editar</button>
+					</div>
+					<div class='row row-bottom'>
+						<div class='col-xs-4 col-md-4'>
+							<a href='pagPrinc.php'><button class='btn22'>Volver</button></a>
+						</div>
+						<div class='col-xs-4 col-md-4'>
+							<?php
+								if ($_SESSION['id']==$row['ID_usuario']) { 
+									echo "
+											<form action='editarPublicacion.php' method='POST' enctype='multipart/form-data'>
+												<div class='row'>
+													<div class='col-xs-8 col-md-8'>
+														<input class='hidden' name='anunc' value= ". $id .">
+														<button type='submit' class='btn22'>Editar</button>
+													</div>
 												</div>
-											</div>
-										</form>
-									</div>
-								"; }
-					?>
-				<div class='col-xs-2 col-md-2'>
-					<form method='POST' action='verPerfil.php'>
-						<input class='hidden' name='id' value='<?php echo $row['ID_usuario']; ?>'>
-						<button class='btn' type='submit'>Ver perfil del usuario</button>
-					</form>
-				</div>
-				<div class='col-xs-3 col-md-3'>
+											</form>
+									"; 
+								}
+							?>
+						</div>
+						<div class='col-xs-4 col-md-4'>
+							<form method='POST' action='verPerfil.php'>
+								<input class='hidden' name='id' value='<?php echo $row['ID_usuario']; ?>'>
+								<button class='btn22' type='submit'>Ver perfil</button>
+							</form>
+						</div>
+					</div>
 				</div>
 			</div>
+		</div>
 		
-	
+	</center>
 </body>
 </html>
