@@ -1,3 +1,9 @@
+* {
+    -webkit-box-sizing: border-box!important;
+    -moz-box-sizing: border-box!important;
+    box-sizing: border-box!important;
+}
+
 html {
     font-family: 'Montserrat', sans-serif;
 }
@@ -5,7 +11,7 @@ body {
     font-family: 'Montserrat', sans-serif;
 	width:100%;
 	margin: none;
-	overflow-x: hidden;
+	padding-top: 110px;
 }
 
 h1 {
@@ -31,6 +37,9 @@ h2.prem{
 	text-align:center;
 }
 
+button{
+	border-radius: 4px;
+}
 
 h3 {
     font-size: 14px;
@@ -59,13 +68,8 @@ h3.prem{
     margin-bottom: 20px;
 }
 
-#status{
-	line-height:30px;
-	text-align: left;
-}
-
-#statusm{
-	line-height:30px;
+.status{
+	line-height:45px;
 	text-align: left;
 }
 
@@ -80,6 +84,11 @@ form input {
     border-width: 1px;
 	border-color: #ccc;
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
+
+input{
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 .formmain input{
@@ -237,8 +246,8 @@ a{
 form input.touched:invalid{
 	background-image: url("error.png");
 	background-repeat: no-repeat;
-	background-size: 7%;
-	background-position: 97%; 
+	background-size: auto 70%;
+	background-position: right 7px center; 
     border-style: solid;
     border-width: 1px;
 	border-color: #f00;
@@ -248,20 +257,17 @@ form input.touched:invalid{
 form input.touched:valid{
 	background-image: url("ok.png");
 	background-repeat: no-repeat;
-	background-size: 7%;
-	background-position: 97%; 
+	background-size: auto 70%;
+	background-position: right 7px center; 
     border-style: solid;
     border-width: 1px;
 	border-color: #0f0;
 	background-color: #f0fff0;
 }
 
-.reg{
-	margin: 10px;
-}
-
 select {
-	margin: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 	width: 250px !important;
 }
 
@@ -338,6 +344,11 @@ select:focus{
 	display: inline-block;
 }
 
+.navbar-fixed-top{
+	background-color:#fff;
+	border:none;
+}
+
 .header{
 	margin-top: 30px;
 	margin-left: 30px;
@@ -389,7 +400,8 @@ select:focus{
 }
 
 textarea{
-	margin-top:15px;
+	margin-top: 0px !important;
+	margin-bottom: 10px !important;
 	resize: none;
 	border-radius: 4px;
 	border-style: solid;
@@ -398,25 +410,28 @@ textarea{
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
 	font-size: 12px;
 	padding: 8px;
+	width:	100%;
+	height: 278px;
 }
 
 #tipo,#provSelect,#ciudadSelect{
-	margin: none;
-	margin-left:-10px;
-	width: 290px !important;
+	margin-top: 0px !important;
+	width: 100% !important;
+	height:36px !important;
 	font-size: 12px;
 	padding: 8px;
 	color: #999;
 }
+
 #capacidad, #fileToUpload{
+	margin-top: 0px !important;
 	border-radius: 4px;
 	border-style: solid;
     border-width: 1px;
 	border-color: #ccc;
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-	margin: none;
-	margin-left:-15px;
-	width: 290px !important;
+	width: 100% !important;
+	height:36px !important;
 	font-size: 12px;
 	padding-left: 12px;
 }
@@ -444,8 +459,8 @@ input[type=file]{
     border-width: 1px;
 	border-color: #ccc;
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-	margin-left: -6px;
-	width: 874px;
+	width: 100%;
+	margin-top: 0px !important;
 }
 
 
@@ -484,8 +499,7 @@ input[type=file]{
     border-width: 1px;
 	border-color: #ccc;
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-	margin-left:27px;
-	background-color: #ddd;
+	background-color: #ccc;
 }
 
 .btn-primary:hover{
@@ -497,13 +511,24 @@ input[type=file]{
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
 }
 
+.row{
+	margin-left:0px!important;
+	margin-right:0px!important;
+}
+
 .input-sm{
 	background-color: #fff !important;
 	color:#999;
 	padding-left:15px;
 	height:36px !important;
-	width: 221px !important;
 	line-height: 50px !important;
+	margin: 0 0 0 0;
+}
+
+.bootstrap-filestyle.input-group{
+	margin-top:0px;
+	margin-bottom:5px;
+	text-align:center;
 }
 
 .anuncio{
@@ -511,6 +536,18 @@ input[type=file]{
 	border: 2px solid #ccc;
 	margin: 15px;
 	padding: 5px;
+}
+
+.anunciodet{
+	border-radius: 8px;
+	border: 2px solid #ccc;
+	margin: 30px;
+	padding: 10px;
+	width:80%;
+}
+
+.titanunc{
+	margin:20px;
 }
 
 .imgAnun{
@@ -526,22 +563,7 @@ input[type=file]{
 .imgDet{
 	max-height: 400px; 
 	max-width: 400px;
-}
-
-#zoom {
--webkit-transition:all .9s ease; /* Safari y Chrome */
--moz-transition:all .9s ease; /* Firefox */
--o-transition:all .9s ease; /* IE 9 */
--ms-transition:all .9s ease; /* Opera */
-width:100%;
-}
-
-#zoom:hover {
--webkit-transform:scale(1.25);
--moz-transform:scale(1.25);
--ms-transform:scale(1.25);
--o-transform:scale(1.25);
-transform:scale(1.25);
+	float:center;
 }
 
 .buttonlink{
@@ -582,6 +604,30 @@ p.prem#new{
 	margin:30px !important;
 }
 
+div.content{
+	width: 100%;
+	height:100%;
+}
+
+div.imagen{
+	min-height: 400px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+div.det{	
+	min-height: 400px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+div.pie{
+	clear: both;
+	margin: 10px;
+}
+
 .listaT{
 	width: 90%;
 	height: 120px;
@@ -605,18 +651,18 @@ li{
 }
 
 input#numcard, input#namecard{
-	width: 70%;
-	margin: 5px;
+	margin-left:10px;
+	width: 90%;
 }
 
 select#card{
-	width: 40%!important;
-	margin: 5px;
+	margin-left:10px;
+	width: 60%!important;
 }
 
 select#mes, select#año, input#cvv{
-	width: 20%!important;
-	margin: 5px;
+	margin-left:10px;
+	width: 30%!important;
 	display: inline-block;
 }
 
@@ -624,8 +670,21 @@ select#mes, select#año, input#cvv{
 	margin-top: 15px;
 	margin-bottom: 15px;
 }
-span.pagoprem{
-	line-height: 45px;
+/*span.labelform{
+	line-height: 45px !important;
+	float:left;
+	padding-left:25px;
+}*/
+
+span.labelform{
+	line-height: 45px !important;
+	float:right;
+}
+
+span.labelform2{
+	padding-left:15px;
+	line-height: 18px !important;
+	float:left;
 }
 
 #centerbtn{
