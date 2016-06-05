@@ -11,7 +11,7 @@ body {
     font-family: 'Montserrat', sans-serif;
 	width:100%;
 	margin: none;
-	padding-top: 110px;
+	padding-top: 122px;
 }
 
 h1 {
@@ -540,7 +540,7 @@ input[type=file]{
 
 .anunciodet{
 	border-radius: 8px;
-	border: 2px solid #ccc;
+	/*border: 2px solid #96ac3c;*/
 	margin: 30px;
 	padding: 20px;
 	width:80%;

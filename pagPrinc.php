@@ -24,12 +24,8 @@
 			if($anun){
 
 			while($row = $anun->fetch_assoc()){
-				$autor= $serv->levantarAnuncioAutor($row['ID_usuario']);
-				$row2=$autor->fetch_assoc();
-				if(($row2['Tipo']=="premium")||($row2['Tipo']=="admin")){
-					$imagen = $serv->levantarImagen($row['ID']);
-					$row1=$imagen->fetch_assoc();
-					$link = $row1['enlace'];
+				if(($row['Tipo']=="premium")||($row['Tipo']=="admin")){
+					$link=$row['enlace'];
 				}else{
 					$link='logo.png';
 				}
@@ -38,7 +34,7 @@
 								<div class='col-xs-2 col-md-2'>
 								</div>
 								<div class='col-xs-8 col-md-8 anuncio'>
-									<input class=hidden name='anunc' value=\"".$row['ID']."\">
+									<input class=hidden name='anunc' value=\"".$row['anuncio_ID']."\">
 										<button type='submit' class='buttonlink'>
 											<div class='row'>
 												<div class='col-xs-3 col-md-3' id='img'>

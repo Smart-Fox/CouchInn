@@ -20,17 +20,6 @@
 			$serv = new aService();
 			$anun = $serv->levantarAnuncio($id);
 			$row = $anun->fetch_assoc();
-			$imagen = $serv->levantarImagen($row['ID']);
-			$row1 = $imagen->fetch_assoc();
-			$link = $row1['enlace'];
-			$res =	$serv->levantarAnuncioCiudad($row['ID_ciudad']);
-			$ciudad = $res->fetch_assoc();
-			$res =	$serv->levantarAnuncioProv($ciudad['ID_provincia']);
-			$prov = $res->fetch_assoc();
-			$res =	$serv->levantarAnuncioAutor($row['ID_usuario']);
-			$user = $res->fetch_assoc();
-			$res =	$serv->levantarAnuncioTipo($row['ID_tipo_hospedaje']);
-			$tipo = $res->fetch_assoc();
 			$fecha=date('m/d/Y H:i', strtotime($row['Fecha']));
 		} else {header('Location:index.html');} 
 	?>
@@ -47,18 +36,24 @@
 			</div>
 			<div class='row row-centered'>
 				<div class='col-xs-6 col-md-6'>
-					<img src=<?php echo "img/".$link;?> class='imgDet'>	
+					<img src=<?php echo "img/".$row['imagen_enlace'];?> class='imgDet'>	
 				</div>
 				<div class='col-xs-6 col-md-6'>	
 					<div class='row row-child-center'>
 					<?php 
+						if ($row['Capacidad']==1){
+							$persona='persona';
+						}
+						else{
+							$persona='personas';
+						}
 						echo "
 								<div class='cont'>
-									<p>".$tipo['Nombre']." para ".$row['Capacidad']." personas en ".$ciudad['nombre'].", ".$prov['Nombre'].".</p>
+									<p>".$row['tipo_hospedaje_Nombre']." para ".$row['Capacidad']." ".$persona." en ".$row['ciudad_nombre'].", ".$row['provincia_Nombre'].".</p>
 									<p>".$row['Descripcion']."</p>
 								</div>
 								<div class='pie'>
-									<p>Ofrecido por ".$user['Username']."</p>
+									<p>Ofrecido por ".$row['usuario_Username']."</p>
 								</div>
 								<div class='pie'>
 									<p>".$fecha."</p><br>
@@ -72,23 +67,26 @@
 						</div>
 						<div class='col-xs-4 col-md-4'>
 							<?php
-								if ($_SESSION['id']==$row['ID_usuario']) { 
+								if ($_SESSION['id']==$row['usuario_ID']) { 
 									echo "
 											<form action='editarPublicacion.php' method='POST' enctype='multipart/form-data'>
-												<div class='row'>
-													<div class='col-xs-8 col-md-8'>
-														<input class='hidden' name='anunc' value= ". $id .">
-														<button type='submit' class='btn22'>Editar</button>
-													</div>
-												</div>
+												<input class='hidden' name='anunc' value= ". $id .">
+												<button type='submit' class='btn22'>Editar</button>
 											</form>
 									"; 
+								}else{
+									echo "
+											<form action='solicitarReserva.php' method='POST' enctype='multipart/form-data'>
+												<input class='hidden' name='anunc' value= ". $id .">
+												<button type='submit' class='btn22' disabled='disable'>Reservar</button> <!-- deshabilitado hasta que se implemente el solicitar reserva -->
+											</form>
+									";
 								}
 							?>
 						</div>
 						<div class='col-xs-4 col-md-4'>
 							<form method='POST' action='verPerfil.php'>
-								<input class='hidden' name='id' value='<?php echo $row['ID_usuario']; ?>'>
+								<input class='hidden' name='id' value='<?php echo $row['usuario_ID']; ?>'>
 								<button class='btn22' type='submit'>Ver perfil</button>
 							</form>
 						</div>
