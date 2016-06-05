@@ -62,6 +62,21 @@
 			window.onload = submitForm;
 			</script>";
 		}
+/*<<<<<<< HEAD
+	if ($uploadOk == 0) {
+
+	} else {
+	    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+	    	//OK
+	    } 
+	}}
+	$service = new aService();
+	$res = $service->modificarAnuncio($titulo, $descripcion, $capacidad, $ciudad,$tipo,basename( $_FILES["fileToUpload"]["name"]),$idA);
+	header("Location: cambiosG.php?id=$idA");
+	
+?>
+=======*/
 	?>
 </body>
 </html>
+
