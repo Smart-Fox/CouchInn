@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Formulario de Registro</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+
+	<form action="registro.php" method="POST" onsubmit="return validacion();">
+
+		<label for="nombre">Nombre</label>
+		<input type="text" name = 'nombre' id='nombre' >
+		<br><br>
+
+		<label for="apellido">Apellido</label>
+		<input type="text" name = 'apellido' id='apellido'>
+		<br><br>
+
+		<label for="telefono">Teléfono</label>
+		<input type="text" name = 'telefono' id='telefono'>
+		<br><br>
+
+		<label for="userName">Nombre de usuario</label>
+		<input type="text" name = 'userName' id = 'userName'>
+		<br><br>
+
+		<label for="email">Email</label>
+		<input type="email" name = 'email' id = 'email'>
+		<br><br>
+
+		<label for="pass">Contraseña</label>
+		<input type="password" name= 'pass' id = 'pass'>
+		<br><br>
+
+		<input type="submit" name='entrar' value='Registrarme'>
+
+	</form>
+	
+
+</body>
+</html>
