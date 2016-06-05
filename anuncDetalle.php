@@ -74,7 +74,7 @@
 				<div class='col-xs-2 col-md-2'>
 					<a href='pagPrinc.php'><button class='btn'>Volver</button></a>
 				</div>				
-					<?php 
+					<?php
 						if ($_SESSION['id']==$row['ID_usuario']) { 
 							echo "
 									<div class='col-xs-2 col-md-2'>

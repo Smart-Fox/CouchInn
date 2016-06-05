@@ -8,30 +8,43 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css"/>
 	<link rel='stylesheet' href='style.css'/>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	<script src='ajax/jquery.min.js'></script>
+	<script src='ajax/jquery.validate.min.js'></script>
+	<script type="text/javascript" src="js/jquery-1.2.6.min.js"></script>
 	<script type="text/javascript">
 		function msgnumcard() {
 			var num = document.getElementById("numcard").value;
 			var pattern = /^[0-9]{13,16}$/;
-			if (!num.match(pattern))
+			if (!num.match(pattern)){
 				document.getElementById("numcard").setCustomValidity("Ingrese un número de tarjeta válido, sin espacios");
-			else
+				$("#statust").html("<font color=red>Ingrese un número de tarjeta válido, sin espacios</font>");
+			}else{
 				document.getElementById("numcard").setCustomValidity("");
+			}
 		}
 		function msgcvv() {
 			var num = document.getElementById("cvv").value;
 			var pattern = /^[0-9]{3,4}$/;
-			if (!num.match(pattern))
+			if (!num.match(pattern)){
 				document.getElementById("cvv").setCustomValidity("Ingrese el código de seguridad de su tarjeta (3 dígitos VISA/Mastercard, 4 dígitos American Express)");
-			else
+				$("#statusc").html("<font color=red>Ingrese el CVV de su tarjeta (3 o 4 dígitos)</font>");
+			}else{
 				document.getElementById("cvv").setCustomValidity("");
+			}
 		}
 		function msgnamecard() {
 			var name = document.getElementById("namecard").value;
-			var pattern = /^[A-Z a-z]{6,22}$/;
-			if (!name.match(pattern))
+			var pattern = /^[A-Z a-zñÑáéíóúÜ]{6,22}$/;
+			if (!name.match(pattern)){
 				document.getElementById("namecard").setCustomValidity("Ingrese el nombre del titular de la tarjeta (solo letras y espacios)");
-			else
+				$("#statusn").html("<font color=red>Utilice sólo letras y espacios</font>");
+			}else{
 				document.getElementById("namecard").setCustomValidity("");
+			}
+		}
+		function validate(field){
+			if (field.className!="touched")
+				field.className += "touched";
 		}
 	</script>
 </head>
@@ -67,61 +80,64 @@
 			<div class='col-xs-3 col-md-3'>
 			</div>
 			<div class='col-xs-2 col-md-2'>
-				<span class='pagoprem'>Tarjeta</span>
+				<span class='labelform'>Tarjeta</span>
 			</div>
-			<div class='col-xs-4 col-md-4'>
+			<div class='col-xs-3 col-md-3'>
 				<select id='card' class="form-control custom" name="card" required>
 					<option selected="true" value="VISA">VISA</option>
 					<option value="American">American Express</option>
 					<option value="Mastercard">Mastercard</option>
 				</select>
 			</div>
-			<div class='col-xs-3 col-md-3'>
+			<div class='col-xs-4 col-md-4'>
 			</div>
 		</div>
 		<div class='row'>
 			<div class='col-xs-3 col-md-3'>
 			</div>
 			<div class='col-xs-2 col-md-2'>
-				<span class='pagoprem'>Número de tarjeta</span>
-			</div>
-			<div class='col-xs-4 col-md-4'>
-				<input type="text" name='numcard' id='numcard' pattern="[0-9]{13,16}" onchange='msgnumcard()' autocomplete='off' required>
+				<span class='labelform'>Número de tarjeta</span>
 			</div>
 			<div class='col-xs-3 col-md-3'>
+				<input type="text" name='numcard' id='numcard' onchange='msgnumcard()' placeholder='Ej: 1234567890123456' onblur='validate(this)' autocomplete='off' required>
+			</div>
+			<div class='col-xs-4 col-md-4'>
+				<td width="350" align="left"><div id="statust" class='status'></div></td>
 			</div>
 		</div>
 		<div class='row'>
 			<div class='col-xs-3 col-md-3'>
 			</div>
 			<div class='col-xs-2 col-md-2'>
-				<span class='pagoprem'>CVV (Código de seguridad)</span>
-			</div>
-			<div class='col-xs-4 col-md-4'>
-				<input type="text" name='cvv' id='cvv' pattern="[0-9]{3,4}" onchange='msgcvv()' autocomplete='off' required>
+				<span class='labelform'>CVV (Código de seguridad)</span>
 			</div>
 			<div class='col-xs-3 col-md-3'>
+				<input type="text" name='cvv' id='cvv' onchange='msgcvv()' placeholder='Ej: 123' onblur='validate(this)' autocomplete='off' required>
+			</div>
+			<div class='col-xs-4 col-md-4'>
+				<td width="350" align="left"><div id="statusc" class='status'></div></td>
 			</div>
 		</div>
 		<div class='row'>
 			<div class='col-xs-3 col-md-3'>
 			</div>
 			<div class='col-xs-2 col-md-2'>
-				<span class='pagoprem'>Titular</span>
-			</div>
-			<div class='col-xs-4 col-md-4'>
-				<input type="text" name='namecard' id='namecard' pattern="[a-zA-Z ]{,22}" onchange='msgnamecard()' autocomplete='off' required>
+				<span class='labelform'>Titular</span>
 			</div>
 			<div class='col-xs-3 col-md-3'>
+				<input type="text" name='namecard' id='namecard' onchange='msgnamecard()' placeholder='Ej: Jose Perez' onblur='validate(this)' autocomplete='off' required>
+			</div>
+			<div class='col-xs-4 col-md-4'>
+				<td width="350" align="left"><div id="statusn" class='status'></div></td>
 			</div>
 		</div>
 		<div class='row'>
 			<div class='col-xs-3 col-md-3'>
 			</div>
 			<div class='col-xs-2 col-md-2'>
-				<span class='pagoprem'>Vencimiento</span>
+				<span class='labelform'>Vencimiento</span>
 			</div>
-			<div class='col-xs-4 col-md-4'>
+			<div class='col-xs-3 col-md-3'>
 				<select id='mes' class="form-control custom" name="mes" required>
 					<option selected="true" value="01">01</option>
 					<option value="02">02</option>
@@ -148,7 +164,7 @@
 					<option value="2024">2024</option>
 				</select>
 			</div>
-			<div class='col-xs-3 col-md-3'>
+			<div class='col-xs-4 col-md-4'>
 			</div>
 		</div>
 		<div class='row'>
