@@ -34,11 +34,11 @@
 				<div class='col-xs-1 col-md-1'>
 				</div>
 			</div>
-			<div class='row row-centered'>
+			<div class='row row-anunc'>
 				<div class='col-xs-6 col-md-6'>
 					<img src=<?php echo "img/".$row['enlace'];?> class='imgDet'>	
 				</div>
-				<div class='col-xs-6 col-md-6'>	
+				<div class='col-xs-6 col-md-6 col-desc'>	
 					<div class='row row-child-center'>
 					<?php 
 						if ($row['Capacidad']==1){
@@ -49,14 +49,13 @@
 						}
 						echo "
 								<div class='cont'>
-									<p>".$row['tipo_hospedaje_Nombre']." para ".$row['Capacidad']." ".$persona." en ".$row['ciudad_nombre'].", ".$row['provincia_Nombre'].".</p>
-									<p>".$row['Descripcion']."</p>
+									<span class='text'>
+										<p>".$row['tipo_hospedaje_Nombre']." para ".$row['Capacidad']." ".$persona." en ".$row['ciudad_nombre'].", ".$row['provincia_Nombre'].".</p>
+										<p>".$row['Descripcion']."</p>
+									</span>
 								</div>
 								<div class='pie'>
-									<p>Ofrecido por ".$row['usuario_Username']."</p>
-								</div>
-								<div class='pie'>
-									<p>".$fecha."</p><br>
+									<p>Ofrecido por ".$row['usuario_Username']." <br> ".$fecha."</p>
 								</div>
 						";
 					?>
