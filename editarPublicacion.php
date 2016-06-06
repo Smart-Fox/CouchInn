@@ -98,7 +98,7 @@
 							$link=$row['enlace'] 
 						?>
 						<span class='labelform2'>Foto:</span><br>
-						<input  type="file" class="filestyle" name="fileToUpload" id="fileToUpload" data-buttonBefore="true" data-input="true" data-icon="false" data-size="sm" data-buttonName="btn-primary" data-buttonText="Subir foto" data-placeholder="<?php echo $link ; ?>">
+						<input  type="file" class="filestyle" name="fileToUpload" id="fileToUpload" data-buttonBefore="true" data-input="true" data-icon="false" data-size="sm" data-buttonName="btn-primary" data-buttonText="Subir foto" data-placeholder="Ningún archivo seleccionado">
 					</div>
 				</div>
 				<div class='col-xs-2 col-md-2'>

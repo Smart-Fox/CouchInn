@@ -97,9 +97,7 @@
 				<div class='col-xs-4 col-md-4'>	
 				</div>
 				<div class='col-xs-4 col-md-4'>	
-
 					<a href='pagPrinc.php'><button id="cancelar" type=button class='btn btn-danger'>Cancelar</button></a>
-
 					<button type="submit" class="btn">Publicar</button>
 				</div>
 				<div class='col-xs-4 col-md-4'>
