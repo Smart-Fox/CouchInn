@@ -19,7 +19,6 @@
 			document.getElementById("apellido").onchange = validateApellido;
 			document.getElementById("telefono").onchange = validateTelefono;
 		}
-		
 		function validatePassword(){
 			var pass1=document.getElementById("pass").value;
 			var pass2=document.getElementById("pass2").value;
@@ -31,7 +30,6 @@
 				$("#statusp2").html("");
 			}
 		}
-		
 		function validatePasswordLength(){
 			var pass1=document.getElementById("pass").value;
 			if(pass1.length<6){
@@ -42,7 +40,6 @@
 				$("#statusp").html("");
 			}
 		}
-		
 		function validateNombre(){
 			var nomb = document.getElementById("nombre").value;
 			var letters = /^[A-Za-zñÑáéíóúÜ\s]+$/;
@@ -54,7 +51,6 @@
 				$("#statusn").html("");
 			}
 		}
-		
 		function validateApellido(){
 			var ape = document.getElementById("apellido").value;
 			var letters = /^[A-Za-zñÑáéíóúÜ\s]+$/;
@@ -66,7 +62,6 @@
 				$("#statusa").html("");
 			}
 		}
-		
 		function validateTelefono(){
 			var tel = document.getElementById('telefono').value;
 			if (isNaN(tel)){
@@ -77,106 +72,77 @@
 				$("#statust").html("");
 			}
 		}
-		
 		function validate(field){
 			if (field.className!="touched")
 				field.className += "touched";
 		}
-		
 	</script>
-	
 	<script type="text/javascript">
 		pic1 = new Image(16, 16); 
 		pic1.src = "loader.gif";
-
 		$(document).ready(function(){
-
 			$("#username").change(function(){ 
-
 				var usr = $("#username").val();
-
 				$("#status").html('<img src="loader.gif" align="absmiddle">&nbsp;Checking availability...');
-
-					$.ajax({  
+				$.ajax({  
 					type: "POST",  
 					url: "check.php",  
 					data: "username="+ usr,  
 					success: function(msg){  
-				   
 					   $("#status").ajaxComplete(function(event, request, settings){ 
-
-							if(msg == '<font color="green">Nombre de usuario disponible</font>')
-							{ 
+							if(msg == '<font color="green">Nombre de usuario disponible</font>'){ 
 								$("#username").removeClass('object_error'); // if necessary
 								$("#username").addClass("object_ok");
-								document.getElementById("username").setCustomValidity("");
-								$(this).html(msg);
-							}  
-							else  
-							{  
+								if(usr.length<4){
+									document.getElementById("username").setCustomValidity("Ingrese un nombre de usuario de 4 o más caracteres");
+									$(this).html("<font color=red>El nombre de usuario debe tener 4 o más caracteres</font>");
+								}else{
+									document.getElementById("username").setCustomValidity("");
+									$(this).html(msg);
+								}
+							}else{  
 								$("#username").removeClass('object_ok'); // if necessary
 								$("#username").addClass("object_error");
 								document.getElementById("username").setCustomValidity("Nombre de usuario en uso");
 								$(this).html(msg);
 							}  
-					   
-					   });
-
-				 } 
-				   
-				  }); 
-
+					   	});
+					} 
+				}); 
 			});
-
 			$("#email").change(function(){ 
-					var mail = $("#email").val();
-
-					$("#statusm").html('<img src="loader.gif" align="absmiddle">&nbsp;Chequeando disponibilidad...');
-
-					$.ajax({  
-						type: "POST",  
-						url: "checkmail.php",  
-						data: "email="+ mail,  
-						success: function(msg){  
-					   
-						   $("#statusm").ajaxComplete(function(event, request, settings){ 
-
-								if(msg == '<font color="green">E-mail disponible</font>')
-								{ 
-									$("#email").removeClass('object_error'); // if necessary
-									$("#email").addClass("object_ok");
-									if (mail.match(/^\S+@\S+$/)){
-										document.getElementById("email").setCustomValidity("");
-										$(this).html(msg);
-									} else{
-										document.getElementById("email").setCustomValidity("Ingrese una dirección de correo electrónico");
-										$("#statusm").html("<font color=red>Ingrese una dirección de correo electrónico</font>");
-									}
-								}  
-								else  
-								{  
-									$("#email").removeClass('object_ok'); // if necessary
-									$("#email").addClass("object_error");
-									document.getElementById("email").setCustomValidity("E-mail en uso");
+				var mail = $("#email").val();
+				$("#statusm").html('<img src="loader.gif" align="absmiddle">&nbsp;Chequeando disponibilidad...');
+				$.ajax({  
+					type: "POST",  
+					url: "checkmail.php",  
+					data: "email="+ mail,  
+					success: function(msg){  
+						$("#statusm").ajaxComplete(function(event, request, settings){ 
+							if(msg == '<font color="green">E-mail disponible</font>'){ 
+								$("#email").removeClass('object_error'); // if necessary
+								$("#email").addClass("object_ok");
+								if (mail.match(/^\S+@\S+$/)){
+									document.getElementById("email").setCustomValidity("");
 									$(this).html(msg);
-								}  
-						   
-						   });
-
-						} 
-					   
-					}); 
-				
+								}else{
+									document.getElementById("email").setCustomValidity("Ingrese una dirección de correo electrónico");
+									$("#statusm").html("<font color=red>Ingrese una dirección de correo electrónico</font>");
+								}
+							}else{  
+								$("#email").removeClass('object_ok'); // if necessary
+								$("#email").addClass("object_error");
+								document.getElementById("email").setCustomValidity("E-mail en uso");
+								$(this).html(msg);
+							}  
+						});
+					} 
+				}); 
 			});
-
 		});
-		
 	</SCRIPT>
-	
-	
 </head>
-
-<body>
+<body class='main'>
 	<center>
 	<div class="mainreg">
 		<a href="index.html" class='logo'><img src=logo.png width=500></a>
@@ -284,9 +250,7 @@
 					<button type="submit" class="btn">Registrar</button>
 				</div>
 				<div class='col-xs-2 col-md-2'>
-
 					<button class="btn" type="reset" onClick="window.location.reload()">Limpiar</button>
-
 				</div>
 				<div class='col-xs-3 col-md-3'>
 				</div>

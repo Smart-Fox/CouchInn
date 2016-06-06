@@ -23,15 +23,10 @@
 			$id=$_POST['anunc'];
 			$anun = $serv->levantarAnuncio($id);
 			$row = $anun->fetch_assoc();
-			$imagen = $serv->levantarImagen($row['ID']);
-			$row1 = $imagen->fetch_assoc();
-			$link = $row1['enlace'];
 		}else{
 			header('Location:index.html');
 		}
-		
 	?>
-	
 	<center>	
 		<h1>
 			Editar anuncio
@@ -61,10 +56,7 @@
 					<div class='row'>
 						<span class='labelform2'>Tipo de hospedaje:</span><br>
 						<select id='tipo' class="form-control custom" name="tipo" required>
-							<?php $res = $serv->levantarAnuncioTipo($row['ID_tipo_hospedaje']);
-								$tipo = $res->fetch_assoc();
-							?>
-							<option selected="true" value=<?php echo $tipo['ID'];?>><?php echo $tipo['Nombre'];?></option>
+							<option selected="true" value=<?php echo $row['ID_tipo_hospedaje'];?>><?php echo $row['tipo_hospedaje_Nombre'];?></option>
 							<?php
 								$tipos = $serv->levantarTipos();
 								while ($fila = $tipos->fetch_assoc()){
@@ -80,17 +72,11 @@
 					<div class='row'>
 						<span class='labelform2'>Provincia:</span><br>
 						<select id="provSelect" name="provincia" class="form-control custom" onchange="cambiarCiudad('p');" required>
-							<?php 
-								$res =	$serv->levantarAnuncioCiudad($row['ID_ciudad']);
-								$ciudad = $res->fetch_assoc();
-								$res =$serv->levantarAnuncioProv($ciudad['ID_provincia']);
-								$prov = $res->fetch_assoc(); 
-							?>
-							<option selected="true" value=<?php echo $prov['ID'];?>> <?php echo $prov['Nombre'];?></option>
+							<option selected="true" value=<?php echo $row['provincia_ID'];?>> <?php echo $row['provincia_Nombre'];?></option>
 							<?php
 								$provincias = $serv->levantarProv();
 								while ($fila = $provincias->fetch_assoc()){
-									if ($fila['ID']!=$prov['ID']){echo "<option value=\"" . $fila['ID']. "\">". $fila['Nombre']."</option>";
+									if ($fila['ID']!=$row['provincia_ID']){echo "<option value=\"" . $fila['ID']. "\">". $fila['Nombre']."</option>";
 								}}
 							?>
 						</select>
@@ -98,9 +84,9 @@
 					<div class='row'>
 						<span class='labelform2'>Ciudad:</span><br>
 						<select id="ciudadSelect" name="ciudad" class="form-control custom" required>
-							<option selected="true" value=<?php echo $ciudad['ID'];?>> <?php echo $ciudad['nombre'];?> </option>
+							<option selected="true" value=<?php echo $row['ID_ciudad'];?>> <?php echo $row['ciudad_nombre'];?> </option>
 							<?php
-								$row_ciudad= $serv->levantarCiudad($prov['ID']);
+								$row_ciudad= $serv->levantarCiudad($row['provincia_ID']);
 								while($fila = $row_ciudad->fetch_assoc()){
 									if ($fila['ID']!=$row['ID_ciudad']){echo "<option value=\"" . $fila['ID']. "\">". $fila['nombre']."</option>";
 								}}
@@ -108,22 +94,20 @@
 						</select>
 					</div>
 					<div class='row'>
-						<span class='labelform2'>Foto:</span><br>
-						<?php
-							$imagen = $serv->levantarImagen($row['ID']);
-							$row1 = $imagen->fetch_assoc();
-							$link = $row1['enlace'];
+						<?php 
+							$link=$row['enlace'] 
 						?>
-						<input  type="file" class="filestyle" name="fileToUpload" id="fileToUpload" data-buttonBefore="true" data-input="true" data-icon="false" data-size="sm" data-buttonName="btn-primary" data-buttonText="Subir foto" data-placeholder="<?php echo $link ?>">
+						<span class='labelform2'>Foto:</span><br>
+						<input  type="file" class="filestyle" name="fileToUpload" id="fileToUpload" data-buttonBefore="true" data-input="true" data-icon="false" data-size="sm" data-buttonName="btn-primary" data-buttonText="Subir foto" data-placeholder="<?php echo $link ; ?>">
 					</div>
 				</div>
 				<div class='col-xs-2 col-md-2'>
 				</div>
-				<input class=hidden name='anunc' value=<?php echo $row['ID']?>> 
+				<input class=hidden name='anunc' value=<?php echo $id?>> 
 			</form>
 			</div>
 			<form id="back" action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
-				<input class=hidden name='anunc' value=<?php echo $row['ID']?>>			
+				<input class=hidden name='anunc' value=<?php echo $id?>>			
 			</form>
 			<div class='row'>
 				<div class='col-xs-4 col-md-4'>	

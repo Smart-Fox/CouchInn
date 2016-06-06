@@ -78,7 +78,7 @@
 										tipo_hospedaje.Nombre AS tipo_hospedaje_Nombre,
 										ciudad.nombre AS ciudad_nombre,
 										provincia.Nombre AS provincia_Nombre,
-										imagen.enlace AS imagen_enlace
+										provincia.ID AS provincia_ID
 							FROM 	anuncio 	
 									INNER JOIN tipo_hospedaje ON anuncio.ID_tipo_hospedaje=tipo_hospedaje.ID 
 									INNER JOIN usuario ON anuncio.ID_usuario=usuario.ID 

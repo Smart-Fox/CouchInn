@@ -42,7 +42,6 @@
 		<div class='col-xs-2 col-md-2'>
 		</div>
 	</div>
-	
 	<form action='newTH.php' method='POST'>
 		<div class='row' id='modTH'>
 			<div id='vertcentered' class='col-xs-3 col-md-3'>
@@ -107,6 +106,5 @@
 			</div>
 		</div>
 	</form>
-
 </body>
 </html>

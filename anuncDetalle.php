@@ -36,7 +36,7 @@
 			</div>
 			<div class='row row-centered'>
 				<div class='col-xs-6 col-md-6'>
-					<img src=<?php echo "img/".$row['imagen_enlace'];?> class='imgDet'>	
+					<img src=<?php echo "img/".$row['enlace'];?> class='imgDet'>	
 				</div>
 				<div class='col-xs-6 col-md-6'>	
 					<div class='row row-child-center'>
@@ -94,7 +94,6 @@
 				</div>
 			</div>
 		</div>
-		
 	</center>
 </body>
 </html>
