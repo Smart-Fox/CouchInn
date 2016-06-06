@@ -16,13 +16,17 @@
 		include('anuncioService.php');
 		include('header.php');
 		session_start();
-		if((isset($_SESSION['usuario']))&&(isset($_POST['anunc']))){
-			$id=$_POST['anunc'];
-			$service = new cabecera($_SESSION['usuario']);
-			$service->buildHeader();
-			$serv = new aService();
-			$anun = $serv->levantarAnuncio($id);
-			$row = $anun->fetch_assoc();
+		if(isset($_SESSION['usuario'])){
+			if(isset($_POST['anunc']){
+				$id=$_POST['anunc'];
+				$service = new cabecera($_SESSION['usuario']);
+				$service->buildHeader();
+				$serv = new aService();
+				$anun = $serv->levantarAnuncio($id);
+				$row = $anun->fetch_assoc();
+			}else{
+				header('Location:pagPrinc.php');
+			}
 		}else{
 			header('Location:index.html');
 		}
