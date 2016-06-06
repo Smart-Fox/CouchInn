@@ -517,6 +517,8 @@ input[type=file]{
 	margin: 30px;
 	padding: 20px;
 	width:80%;
+	display:flex;
+	flex-flow: column;
 }
 
 .titanunc{
