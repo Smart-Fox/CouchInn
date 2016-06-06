@@ -13,8 +13,8 @@
 	<?php
 		include('header.php');
 		session_start();
-		$id=$_POST['anunc'];
-		if(isset($_SESSION['usuario'])){
+		if((isset($_SESSION['usuario']))&&(isset($_POST['anunc']))){
+			$id=$_POST['anunc'];
 			$service = new cabecera($_SESSION['usuario']);
 			$service->buildHeader();
 		}else{

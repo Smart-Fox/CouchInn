@@ -16,11 +16,11 @@
 		include('anuncioService.php');
 		include('header.php');
 		session_start();
-		if(isset($_SESSION['usuario'])){
+		if((isset($_SESSION['usuario']))&&(isset($_POST['anunc']))){
+			$id=$_POST['anunc'];
 			$service = new cabecera($_SESSION['usuario']);
 			$service->buildHeader();
 			$serv = new aService();
-			$id=$_POST['anunc'];
 			$anun = $serv->levantarAnuncio($id);
 			$row = $anun->fetch_assoc();
 		}else{

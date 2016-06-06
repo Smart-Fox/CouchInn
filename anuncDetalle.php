@@ -10,11 +10,11 @@
 </head>
 <body>
 	<?php
-		$id=$_POST['anunc'];
 		include('anuncioService.php');
 		include('header.php');
 		session_start();
-		if(isset($_SESSION['usuario'])){
+		if((isset($_SESSION['usuario']))&&(isset($_POST['anunc']))){
+			$id=$_POST['anunc'];
 			$service = new cabecera($_SESSION['usuario']);
 			$service->buildHeader();
 			$serv = new aService();
@@ -25,7 +25,7 @@
 	?>
 	<center>
 		<div class='anunciodet'>
-			<div class='row'>
+			<div class='row row-titulo'>
 				<div class='col-xs-1 col-md-1'>
 				</div>
 				<div class='col-xs-10 col-md-10'>
@@ -34,12 +34,12 @@
 				<div class='col-xs-1 col-md-1'>
 				</div>
 			</div>
-			<div class='row row-anunc'>
-				<div class='col-xs-6 col-md-6'>
+			<div class='row row-anuncio'>
+				<div class='col-xs-6 col-md-6 col-anunc'>
 					<img src=<?php echo "img/".$row['enlace'];?> class='imgDet'>	
 				</div>
-				<div class='col-xs-6 col-md-6 col-desc'>	
-					<div class='row row-child-center'>
+				<div class='col-xs-6 col-md-6 col-anunc'>	
+					<div class='row row-contenido'>
 					<?php 
 						if ($row['Capacidad']==1){
 							$persona='persona';
@@ -48,11 +48,9 @@
 							$persona='personas';
 						}
 						echo "
-								<div class='cont'>
-									<span class='text'>
-										<p>".$row['tipo_hospedaje_Nombre']." para ".$row['Capacidad']." ".$persona." en ".$row['ciudad_nombre'].", ".$row['provincia_Nombre'].".</p>
-										<p>".$row['Descripcion']."</p>
-									</span>
+								<div class='contenido'>
+									<p>".$row['tipo_hospedaje_Nombre']." para ".$row['Capacidad']." ".$persona." en ".$row['ciudad_nombre'].", ".$row['provincia_Nombre'].".</p>
+									<p>".$row['Descripcion']."</p>
 								</div>
 								<div class='pie'>
 									<p>Ofrecido por ".$row['usuario_Username']." <br> ".$fecha."</p>
@@ -60,7 +58,7 @@
 						";
 					?>
 					</div>
-					<div class='row row-bottom'>
+					<div class='row row-pie'>
 						<div class='col-xs-4 col-md-4'>
 							<a href='pagPrinc.php'><button class='btn22'>Volver</button></a>
 						</div>
