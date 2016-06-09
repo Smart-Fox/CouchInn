@@ -85,6 +85,7 @@
 					</div>
 				</div>
 			</form>
+			<div></div>
 			<?php
 			if($anun){
 				while($row = $anun->fetch_assoc()){
