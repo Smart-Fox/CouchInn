@@ -59,7 +59,25 @@
 			$res = $conec->ejecutarSQL($consulta);}
 			return($res);
 		}
-		public function levantarAnuncios(){
+		
+		public function levantarAnuncios($tipo, $ciudad, $provincia, $capacidad){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT *, anuncio.ID AS anuncio_ID
+						FROM 	anuncio 
+								INNER JOIN imagen ON imagen.ID_anuncio=anuncio.ID
+								INNER JOIN usuario ON anuncio.ID_usuario=usuario.ID
+								INNER JOIN ciudad ON ciudad.ID=anuncio.ID_ciudad
+						WHERE 	(1=(CASE WHEN $tipo=-1 THEN 1 ELSE 0 END) Or anuncio.ID_tipo_hospedaje=$tipo)
+						AND 	(1=(CASE WHEN $provincia=-1 THEN 1 ELSE 0 END) Or ciudad.ID_provincia=$provincia)
+						AND 	(1=(CASE WHEN $ciudad=-1 THEN 1 ELSE 0 END) Or ciudad.ID=$ciudad)
+						AND 	(1=(CASE WHEN $capacidad=-1 THEN 1 ELSE 0 END) Or anuncio.capacidad=$capacidad)
+						ORDER BY anuncio.ID DESC";
+			$resultSQL = $conec->ejecutarSQL($consulta);
+			return $resultSQL;
+		}
+		
+		/*public function levantarAnuncios(){
 			$conec = new dbManager();
 			$conec->conectar();
 			$consulta = "SELECT *, anuncio.ID AS anuncio_ID
@@ -69,7 +87,7 @@
 						ORDER BY anuncio.ID DESC";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
-		}		
+		}	*/	
 		public function levantarAnuncio($idAnuncio){
 			$conec = new dbManager();
 			$conec->conectar();

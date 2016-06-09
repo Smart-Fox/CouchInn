@@ -17,7 +17,7 @@
 		include('header.php');
 		session_start();
 		if(isset($_SESSION['usuario'])){
-			if(isset($_POST['anunc']){
+			if(isset($_POST['anunc'])){
 				$id=$_POST['anunc'];
 				$service = new cabecera($_SESSION['usuario']);
 				$service->buildHeader();
