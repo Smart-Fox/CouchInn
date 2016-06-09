@@ -71,7 +71,7 @@
 						WHERE 	(1=(CASE WHEN $tipo=-1 THEN 1 ELSE 0 END) Or anuncio.ID_tipo_hospedaje=$tipo)
 						AND 	(1=(CASE WHEN $provincia=-1 THEN 1 ELSE 0 END) Or ciudad.ID_provincia=$provincia)
 						AND 	(1=(CASE WHEN $ciudad=-1 THEN 1 ELSE 0 END) Or ciudad.ID=$ciudad)
-						AND 	(1=(CASE WHEN $capacidad=-1 THEN 1 ELSE 0 END) Or anuncio.capacidad=$capacidad)
+						AND 	(1=(CASE WHEN $capacidad=-1 THEN 1 ELSE 0 END) Or anuncio.capacidad>=$capacidad)
 						ORDER BY anuncio.ID DESC";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;

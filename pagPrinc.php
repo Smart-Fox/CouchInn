@@ -51,7 +51,7 @@
 					</div>
 					<div class='col-xs-2 col-md-2'>
 						<select id='tipo' class="form-control custom" name="tipo">
-						<option selected="true" disabled="disabled" value=""> Tipos </option>
+						<option selected="true" disabled="disabled" value=""> Tipo de hospedaje </option>
 						<?php
 							$tipos = $serv->levantarTipos();
 							print_r($tipos);
@@ -87,37 +87,52 @@
 			</form>
 			<?php
 			if($anun){
-			while($row = $anun->fetch_assoc()){
-				if(($row['Tipo']=="premium")||($row['Tipo']=="admin")){
-					$link=$row['enlace'];
-				}else{
-					$link='logo.png';
+				while($row = $anun->fetch_assoc()){
+					if(($row['Tipo']=="premium")||($row['Tipo']=="admin")){
+						$link=$row['enlace'];
+					}else{
+						$link='logo.png';
+					}
+					echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
+								<div class='row'>
+									<div class='col-xs-2 col-md-2'>
+									</div>
+									<div class='col-xs-8 col-md-8 anuncio'>
+										<input class=hidden name='anunc' value=\"".$row['anuncio_ID']."\">
+											<button type='submit' class='buttonlink'>
+												<div class='row'>
+													<div class='col-xs-3 col-md-3' id='img'>
+														<img src= img/".$link." class='imgAnun'>
+													</div>
+													<div class='col-xs-9 col-md-9'>
+														<h2>
+															<strong><span class='titulo'>".$row['Titulo']."</span></strong>
+														</h2>
+													</div>
+												</div>
+											</button>
+										</input>
+									</div>
+									<div class='col-xs-2 col-md-2'>
+									</div>
+								</div>
+							</form>";
 				}
-				echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
-							<div class='row'>
-								<div class='col-xs-2 col-md-2'>
-								</div>
-								<div class='col-xs-8 col-md-8 anuncio'>
-									<input class=hidden name='anunc' value=\"".$row['anuncio_ID']."\">
-										<button type='submit' class='buttonlink'>
-											<div class='row'>
-												<div class='col-xs-3 col-md-3' id='img'>
-													<img src= img/".$link." class='imgAnun'>
-												</div>
-												<div class='col-xs-9 col-md-9'>
-													<h2>
-														<strong><span class='titulo'>".$row['Titulo']."</span></strong>
-													</h2>
-												</div>
-											</div>
-										</button>
-									</input>
-								</div>
-								<div class='col-xs-2 col-md-2'>
-								</div>
-							</div>
-						</form>";
-			}}
+			}
+			if($anun->num_rows==0){
+				echo "
+					<div class='row'>
+						<div id='feedback' class='col-xs-12 col-md-12'>
+							<span>No hay resultados</span>
+						</div>
+					</div>
+					<div class='row'>
+						<div id='feedback' class='col-xs-12 col-md-12'>
+							<a href='pagPrinc.php'><button type=button class='btn2'>Volver</button></a>
+						</div>
+					</div>
+				";
+			}
 		}else{
 			header('Location:index.html');
 		}
