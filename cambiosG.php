@@ -13,10 +13,14 @@
 	<?php
 		include('header.php');
 		session_start();
-		$id=$_POST['anunc'];
 		if(isset($_SESSION['usuario'])){
-			$service = new cabecera($_SESSION['usuario']);
-			$service->buildHeader();
+			if(isset($_POST['anunc']){
+				$id=$_POST['anunc'];
+				$service = new cabecera($_SESSION['usuario']);
+				$service->buildHeader();
+			}else{
+				header('Location:pagPrinc.php');
+			}
 		}else{
 			header('Location:index.html');
 		}
