@@ -21,7 +21,6 @@
 		if(isset($_SESSION['usuario'])){
 			$service = new cabecera($_SESSION['usuario']);
 			$service->buildHeader();
-			echo "<a href='publicar.php'><button type=button class='btn'>Publicar anuncio</button></a> <br><br>";
 			$serv = new aService();
 			if (!isset($_POST['tipo']) || empty($_POST['tipo'])){
 				$tipo=-1;
@@ -46,12 +45,13 @@
 			$anun = $serv->levantarAnuncios($tipo, $ciudad, $provincia, $capacidad);
 			?>
 			<form action="pagPrinc.php" method="POST" enctype="multipart/form-data">
-				<div class='row'>
-					<div class='col-xs-2 col-md-2'>
+				<div class='row barra-filtro'>
+					<div class='col-xs-2 col-md-2 elem-filtro3'>
+						<button type="button" class="btn2" disabled>Filtrar anuncios</button>
 					</div>
-					<div class='col-xs-2 col-md-2'>
-						<select id='tipo' class="form-control custom" name="tipo">
-						<option selected="true" disabled="disabled" value=""> Tipo de hospedaje </option>
+					<div class='col-xs-2 col-md-2 elem-filtro'>
+						<select id='tipo' class="form-control custom filtro" name="tipo">
+						<option selected="true" value="<?php if ($tipo!=-1){echo $tipo;} ?>"> <?php if ($tipo!=-1){$aux=$serv->levantarNombreTipo($tipo); $row=$aux->fetch_assoc(); echo $row['Nombre'];} else {echo "Tipo de hospedaje";} ?></option> 
 						<?php
 							$tipos = $serv->levantarTipos();
 							print_r($tipos);
@@ -61,12 +61,18 @@
 						?>
 						</select>
 					</div>
-					<div class='col-xs-2 col-md-2'>
-						<input type="number" name = 'capacidad' id='capacidad' min="1" placeholder="Capacidad">
+					<div class='col-xs-2 col-md-2 elem-filtro'>
+						<?php
+							if ($capacidad!=-1){
+								echo "<input type='number' class='filtro' name = 'capacidad' id='capacidad' min='1' value='$capacidad'>";
+							}else{
+								echo "<input type='number' class='filtro' name = 'capacidad' id='capacidad' min='1' placeholder='Capacidad'>";
+							}
+						?>
 					</div>
-					<div class='col-xs-2 col-md-2'>
-						<select id="provSelect" name="provincia" class="form-control custom" onchange="cambiarCiudad('p');">
-							<option selected="true" disabled="disabled" value=""> Provincia </option>
+					<div class='col-xs-2 col-md-2 elem-filtro'>
+						<select id="provSelect" name="provincia" class="form-control custom filtro" onchange="cambiarCiudad('p');">
+							<option selected="true" value="<?php if ($provincia!=-1){echo $provincia;} ?>"> <?php if ($provincia!=-1){$aux=$serv->levantarNombreProvincia($provincia); $row=$aux->fetch_assoc(); echo $row['Nombre'];} else {echo "Provincia";} ?></option>
 							<?php
 								$provincias = $serv->levantarProv();
 								while ($row = $provincias->fetch_assoc()){
@@ -75,18 +81,22 @@
 							?>
 						</select>
 					</div>
-					<div class='col-xs-2 col-md-2'>
-						<select id="ciudadSelect" name="ciudad" class="form-control custom">
-							<option selected="true" disabled="disabled" value=""> Ciudad </option>
+					<div class='col-xs-2 col-md-2 elem-filtro'>
+						<select id="ciudadSelect" name="ciudad" class="form-control custom filtro">
+							<option selected="true" value="<?php if ($ciudad!=-1){echo $ciudad;} ?>"> <?php if ($ciudad!=-1){$aux=$serv->levantarNombreCiudad($ciudad); $row=$aux->fetch_assoc(); echo $row['nombre'];} else {echo "Ciudad";} ?></option>
 						</select>
 					</div>
-					<div class='col-xs-2 col-md-2'>
-						<button type="submit" class="btn">Filtrar</button>
+					<div class='col-xs-1 col-md-1 elem-filtro2'>
+						<button type="submit" class="btn22">Filtrar</button>
+					</div>
+					<div class='col-xs-1 col-md-1 elem-filtro2'>
+						<a href='pagPrinc.php'><button type="button" class="btn22">Limpiar<br>filtros</button></a>
 					</div>
 				</div>
 			</form>
 			<div></div>
 			<?php
+			echo "<center><a href='publicar.php'><button type=button class='btn5'>Publicar un anuncio</button></a></center>";
 			if($anun){
 				while($row = $anun->fetch_assoc()){
 					if(($row['Tipo']=="premium")||($row['Tipo']=="admin")){

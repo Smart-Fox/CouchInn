@@ -32,6 +32,27 @@
 			$resulSQL= $conec->ejecutarSQL($consulta);
 			return $resulSQL;
 		}
+		public function levantarNombreTipo($id){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT Nombre FROM tipo_hospedaje WHERE ID=$id";
+			$resulSQL= $conec->ejecutarSQL($consulta);
+			return $resulSQL;
+		}		
+		public function levantarNombreProvincia($id){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT Nombre FROM provincia WHERE ID=$id";
+			$resulSQL= $conec->ejecutarSQL($consulta);
+			return $resulSQL;
+		}	
+		public function levantarNombreCiudad($id){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT nombre FROM ciudad WHERE ID=$id";
+			$resulSQL= $conec->ejecutarSQL($consulta);
+			return $resulSQL;
+		}	
 		public function publicarAnuncio($titulo, $desc, $cap, $ciudad, $tipo, $imagen){
 			session_start();
 			$date = date("Y-m-d H:i:s");
