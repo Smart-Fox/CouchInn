@@ -794,7 +794,11 @@ span.labelform2{
 	display: inline-block;
     color: #96ac3c;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 16px;
     padding: 12px 16px;
 	margin:20px;
+}
+
+#barra-filtros{
+	display:none;
 }

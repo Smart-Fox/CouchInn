@@ -14,7 +14,6 @@
 	$conec=new dbManager();
 	$conec->conectar();
 	$res=$conec->ejecutarSQL($consulta);
-	var_dump($consulta);
 	header('Location: perfilEditado.php');
 	
 ?>
