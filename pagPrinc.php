@@ -13,7 +13,8 @@
 	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
 	<script type="text/javascript">
 		function mostrarFiltros(){
-			document.getElementById('barra-filtros').style.display = 'inline'; 
+			document.getElementById('barra-filtros').style.display = 'inline';
+			document.getElementById('botonesprinc').style.display = 'none';			
 		}
 	</script>
 </head>
@@ -52,12 +53,13 @@
 					<script type='text/javascript'>
 						window.onload = function () {
 							document.getElementById('barra-filtros').style.display = 'inline'; 
+							document.getElementById('botonesprinc').style.display = 'none';	
 						}
 					</script>
 				";
 			}
 			$anun = $serv->levantarAnuncios($tipo, $ciudad, $provincia, $capacidad);
-			echo "<center><a href='publicar.php'><button type=button class='btn5'>Publicar un anuncio</button></a> <button type=button class='btn5' onclick='mostrarFiltros();'>Filtrar anuncios</button></center>";
+			echo "<center><div id='botonesprinc'><a href='publicar.php'><button type=button class='btn5'>Publicar un anuncio</button></a> <button type=button class='btn5' onclick='mostrarFiltros();'>Filtrar anuncios</button></div></center>";
 			?>
 			<div id='barra-filtros'>
 				<form action="pagPrinc.php" method="POST" enctype="multipart/form-data">
