@@ -62,8 +62,7 @@
 			<div id='barra-filtros'>
 				<form action="pagPrinc.php" method="POST" enctype="multipart/form-data">
 					<div class='row barra-filtro'>
-						<div class='col-xs-2 col-md-2 elem-filtro3'>
-							<button type="button" class="btn2" disabled>Filtrar anuncios</button>
+						<div class='col-xs-1 col-md-1 elem-filtro2'>
 						</div>
 						<div class='col-xs-2 col-md-2 elem-filtro'>
 							<select id='tipo' class="form-control custom filtro" name="tipo">
@@ -106,7 +105,9 @@
 							<button type="submit" class="btn22">Filtrar</button>
 						</div>
 						<div class='col-xs-1 col-md-1 elem-filtro2'>
-							<a href='pagPrinc.php'><button type="button" class="btn22">Limpiar<br>filtros</button></a>
+							<a href='pagPrinc.php'><button type="button" class="btn22">Quitar<br>filtros</button></a>
+						</div>
+						<div class='col-xs-1 col-md-1 elem-filtro2'>
 						</div>
 					</div>
 				</form>
