@@ -147,5 +147,25 @@
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
+		public function publicarPregunta($idAnun, $idUser, $pregunta){
+			$date = date("Y-m-d H:i:s");
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = ("INSERT INTO pregunta(fecha, texto, ID_anuncio, ID_usuario) VALUES('$date', '$pregunta', '$idAnun', '$idUser')");
+			$resultSQL = $conec->ejecutarSQL($consulta);
+			return $resultSQL;
+		}
+
+		public function levantarPreguntasAnuncio($idAnuncio){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * 
+							FROM pregunta 
+								INNER JOIN usuario ON pregunta.ID_usuario=usuario.ID 
+								INNER JOIN anuncio ON pregunta.ID_anuncio=anuncio.ID
+							WHERE ID_anuncio=$idAnuncio";
+			$resultSQL = $conec->ejecutarSQL($consulta);
+			return $resultSQL;
+		}
 	}
 ?>
