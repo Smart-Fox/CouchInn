@@ -36,8 +36,6 @@
 					</script>
 			";
 		}
-		
-		
 	?>			
 </body>
 </html>
