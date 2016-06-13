@@ -27,7 +27,7 @@
 				dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
 				dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
 				weekHeader: 'Sm',
-				dateFormat: 'yy/mm/dd',
+				dateFormat: 'dd/mm/yy',
 				firstDay: 1,
 				isRTL: false,
 				showMonthAfterYear: false,
@@ -120,20 +120,20 @@
 				</div>
 				<div class='col-xs-5 col-md-5'>
 					<span class='labelform2'>Comentario:</span><br>
-					<textarea type="text" name='desc' id='desc' placeholder='Cualquier información que considere relevante' required></textarea>
+					<textarea type="text" name='comm' id='comm' placeholder='Cualquier información que considere relevante' required></textarea>
 				</div>
 				<div class='col-xs-3 col-md-3'>
 					<div class='row'>
 						<span class='labelform2'>Cantidad de personas:</span>
-						<input type="number" name = 'cantidad' id='cantidad' min="1" placeholder="Ej: 3" required>
+						<input type="number" name='cantidad' id='cantidad' min="1" placeholder="Ej: 3" required>
 					</div>
 					<div class='row'>
 						<span class='labelform2'>Fecha inicio:</span>
-						<input type="text"  class="form-control" placeholder="Fecha Inicial" name="inicial" id="inicial">
+						<input type="text"  class="form-control" placeholder="Seleccionar" name="inicial" id="inicial" required>
 					</div>
 					<div class='row'>
 						<span class='labelform2'>Fecha fin:</span>
-						<input type="text" class="form-control" placeholder="Fecha Final" name="final" id="final">
+						<input type="text" class="form-control" placeholder="Seleccionar" name="final" id="final" required>
 					</div>
 				</div>
 				<div class='col-xs-2 col-md-2'>
