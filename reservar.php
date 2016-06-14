@@ -36,9 +36,9 @@
 			var dateToday=new Date();
 			$("#final").datepicker();
 			$("#inicial").datepicker({  
-			  minDate: dateToday,   
-			  onSelect:function(ui, event) { $('#final').datepicker("option","minDate",ui);}  
-			  });
+				minDate: dateToday,   
+				onSelect:function(ui, event) { $('#final').datepicker("option","minDate",ui);}  
+			});
 		});			
 		
 		var rangesS=[];
