@@ -19,10 +19,6 @@
 			return ($conec->ejecutarSQL($consulta));
 		}
 
-
-
 	}
-
-
-
+	
 ?>

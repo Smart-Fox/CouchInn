@@ -17,17 +17,21 @@
 		include('anuncioService.php');
 		session_start();
 		if(isset($_SESSION['usuario'])){
-			$service = new cabecera($_SESSION['usuario']);
-			$service->buildHeader();
+			if(isset($_POST['id'])){
+				$service = new cabecera($_SESSION['usuario']);
+				$service->buildHeader();
+				$id=$_POST['id'];
+			}else{
+				header('Location:pagPrinc.php');
+			}
 		}else{
 			header('Location:index.html');
 		}
-		$id=$_POST['id'];
 		$serv = new aService();
-		$us = $serv->levantarUsuario($_SESSION['id']);
 		$anun = $serv->levantarAnuncioDeUsuario($id);
 		$us = $serv->levantarUsuario($id);
 		$rowUs = $us->fetch_assoc();
+		$nomUser = $rowUs['Username'];
 		
 		if ($_SESSION['id'] == $id){
 			
@@ -36,7 +40,6 @@
 			$email = $rowUs['Email'];
 			$telefono = $rowUs['Telefono'];
 			$tipo = $rowUs['Tipo'];
-			$nomUser = $rowUs['Username'];
 			echo "	<div class='row'>
 						<div class='col-xs-2 col-md-2'>
 						</div>
@@ -52,7 +55,7 @@
 										Email: 	<strong><span class='titulo2'>".$email."</span></strong> <br>
 										Tipo Usuario:	<strong><span class='titulo2'>".$tipo."</span></strong>
 									</h3>
-									<a href='pagPrinc.php'><button class='btn'>Salir</button></a> <a href='editUser.php'><button class='btn'>Editar</button></a>
+									<a href='pagPrinc.php'><button class='btn22'>Salir</button></a> <a href='editUser.php'><button class='btn22'>Editar</button></a>
 								</div>
 							</div>
 						</div>
@@ -60,9 +63,7 @@
 						</div>
 					</div>";
 			}else{
-				//$anun = $serv->levantarAnuncios();
-				$nomUser = $rowUs['Username'];
-				echo "	<div class='row'>
+					echo "	<div class='row'>
 							<div class='col-xs-2 col-md-2'>
 							</div>
 							<div class='col-xs-8 col-md-8 anuncio '>
@@ -73,6 +74,7 @@
 										<h2><strong>Perfil de Usuario <br></strong></h2>
 										<h3>
 											Nombre de Usuario: <strong><span class='titulo'>".$nomUser."</span></strong> <br>
+											<a href='pagPrinc.php'><button class='btn22'>Salir</button></a>
 										</h3>
 									</div>
 								</div>
@@ -90,19 +92,16 @@
 						</div>";
 			if($anun){
 				while($row = $anun->fetch_assoc()){
-					$imagen = $serv->levantarImagen($row['ID']);
-					$row1 = $imagen->fetch_assoc();
-					$link = $row1['enlace'];
 					echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
 								<div class='row'>
 									<div class='col-xs-2 col-md-2'>
 									</div>
 									<div class='col-xs-8 col-md-8 anuncio'>
-										<input class=hidden name='anunc' value=\"".$row['ID']."\">
+										<input class=hidden name='anunc' value=\"".$row['anuncio_ID']."\">
 											<button type='submit' class='buttonlink'>
 												<div class='row'>
 													<div class='col-xs-4 col-md-4'>
-														<img src= img/".$link." class=imgAnun align='center'>
+														<img src= img/".$row['enlace']." class=imgAnun align='center'>
 													</div>
 													<div class='col-xs-8 col-md-8'>
 														<h2>
@@ -117,8 +116,8 @@
 									</div>
 								</div>
 							</form>";
-					}
 				}
+			}
 	?>
 	
 </body>
