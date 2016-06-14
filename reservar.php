@@ -28,6 +28,17 @@
 				$row = $anun->fetch_assoc();
 				$capacidad = $row['Capacidad'];
 				$reservas = $serv->levantarReservas($id);
+				if($reservas->num_rows >= 1){
+					while($row = $reservas->fetch_assoc()){
+						$arrayInicial[]=array("fecha"=>$row['fecha_inicio']);
+						$arrayFinal[]=array("fecha"=>$row['fecha_fin']);
+					}
+				}else{
+					$arrayInicial[]=array("fecha"=>"00-00-00");
+					$arrayFinal[]=array("fecha"=>"00-00-00");
+				}
+				$objJason1=json_encode($arrayInicial);
+				$objJason2=json_encode($arrayFinal);
 			}
 		}else{
 			header('Location:index.html');
@@ -48,26 +59,20 @@
 				dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
 				dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
 				weekHeader: 'Sm',
-				dateFormat: 'dd/mm/yy',
+				dateFormat: 'yy/mm/dd',
 				firstDay: 1,
 				isRTL: false,
 				showMonthAfterYear: false,
 				yearSuffix: ''};
 			$.datepicker.setDefaults($.datepicker.regional['es']);
-			var dateToday=new Date();
-			$("#final").datepicker();
-			$("#inicial").datepicker({  
-				minDate: dateToday,   
-				onSelect:function(ui, event) { $('#final').datepicker("option","minDate",ui);}  
-			});
-		});			
+		});
 		
 		var rangesS=[];
 		var rangesE=[];
-
+		
 		$(function cargarFechas() {
-			var inicialArray = eval();
-			var finalArray = eval();
+			var inicialArray = eval(<?php echo $objJason1; ?>);
+			var finalArray = eval(<?php echo $objJason2; ?>);
 			for(i=0;i<finalArray.length;i++){
 				var from=inicialArray[i].fecha.split("-");
 				var from2=finalArray[i].fecha.split("-");
@@ -78,40 +83,40 @@
 
 		$(function() { 
 			$("#inicial").datepicker({ 
-				numberOfMonths: 2,
+				numberOfMonths: 1,
 				beforeShowDay: function(date) {
 					var dateToday=new Date();
 					dateToday.setDate(dateToday.getDate()-1);
-					for(var i=0; i<rangesS.length; i++) {
-						if(date<dateToday){
-							return [false, ''];
-						}else{
-							if(date >= rangesS[i] && date <= rangesE[i]){
-								return [true, '']; 
+					if(date<dateToday){
+						return [false, ''];
+					}else{
+						for(var j=0;j<rangesS.length;j++){
+							if(date >= rangesS[j] && date <= rangesE[j]){
+								return [false, '']; 
 							}
 						}
 					}
-					return [false, ''];
+					return [true, ''];
 				} 
 			}); 
 		});
 
 		$(function() { 
 			$("#final").datepicker({ 
-				numberOfMonths: 2,
+				numberOfMonths: 1,
 				beforeShowDay: function(date) {
 					var dateToday=new Date();
 					dateToday.setDate(dateToday.getDate()-1);
-					for(var i=0; i<rangesS.length; i++) {
-						if(date<dateToday){
-							return [false, ''];
-						}else{
-							if(date >= rangesS[i] && date <= rangesE[i]){
-								return [true, '']; 
+					if(date<dateToday){
+						return [false, ''];
+					}else{
+						for(var j=0;j<rangesS.length;j++){
+							if(date >= rangesS[j] && date <= rangesE[j]){
+								return [false, '']; 
 							}
 						}
 					}
-					return [false, ''];
+					return [true, ''];
 				} 
 			}); 
 		});
@@ -143,6 +148,7 @@
 					</div>
 				</div>
 				<div class='col-xs-2 col-md-2'>
+					<input class="hidden" name="id" id="id" value='<?php echo $id; ?>'>
 				</div>
 			</div>
 			<div class='row'>
