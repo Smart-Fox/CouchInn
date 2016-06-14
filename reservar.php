@@ -12,6 +12,27 @@
 	<script type="text/javascript" src= "js/objeto.js"></script>
 	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+</head>
+<body>	
+	<?php
+		include('header.php');
+		include('anuncioService.php');
+		session_start();
+		if(isset($_SESSION['usuario'])){
+			if(isset($_POST['anunc'])){
+				$id=$_POST['anunc'];
+				$service = new cabecera($_SESSION['usuario']);
+				$service->buildHeader();
+				$serv = new aService();
+				$anun = $serv->levantarAnuncio($id);
+				$row = $anun->fetch_assoc();
+				$capacidad = $row['Capacidad'];
+				$reservas = $serv->levantarReservas($id);
+			}
+		}else{
+			header('Location:index.html');
+		}
+	?>
 	<script>
 		jQuery(function($){
 			$.datepicker.regional['es'] = {
@@ -95,21 +116,6 @@
 			}); 
 		});
 	</script>
-</head>
-<body>	
-	<?php
-		include('header.php');
-		session_start();
-		if(isset($_SESSION['usuario'])){
-			if(isset($_POST['anunc'])){
-				$id=$_POST['anunc'];
-				$service = new cabecera($_SESSION['usuario']);
-				$service->buildHeader();
-			}
-		}else{
-			header('Location:index.html');
-		}
-	?>
 	<center>
 		<h3>
 			Complete todos los datos de su reserva y luego presione "Solicitar"
@@ -119,21 +125,21 @@
 				<div class='col-xs-2 col-md-2'>
 				</div>
 				<div class='col-xs-5 col-md-5'>
-					<span class='labelform2'>Comentario:</span><br>
+					<span class='labelform2'>Comentario:</span>
 					<textarea type="text" name='comm' id='comm' placeholder='Cualquier información que considere relevante' required></textarea>
 				</div>
 				<div class='col-xs-3 col-md-3'>
 					<div class='row'>
 						<span class='labelform2'>Cantidad de personas:</span>
-						<input type="number" name='cantidad' id='cantidad' min="1" placeholder="Ej: 3" required>
+						<input type="number" name='cantidad' id='cantidad' min="1" max='<?php echo $capacidad ?>' placeholder="Ej: 1" required>
 					</div>
 					<div class='row'>
 						<span class='labelform2'>Fecha inicio:</span>
-						<input type="text"  class="form-control" placeholder="Seleccionar" name="inicial" id="inicial" required>
+						<input type="text"  class="form-control" placeholder="Seleccionar" name="inicial" id="inicial" autocomplete='off' required>
 					</div>
 					<div class='row'>
 						<span class='labelform2'>Fecha fin:</span>
-						<input type="text" class="form-control" placeholder="Seleccionar" name="final" id="final" required>
+						<input type="text" class="form-control" placeholder="Seleccionar" name="final" id="final" autocomplete='off' required>
 					</div>
 				</div>
 				<div class='col-xs-2 col-md-2'>
