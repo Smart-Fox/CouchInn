@@ -963,11 +963,9 @@ body .ui-tooltip {
 	opacity: .35;
 	filter:Alpha(Opacity=35); /* support: IE8 */
 	background-image: none;
-	background-color:red !important;
 }
 .ui-state-disabled .ui-icon {
 	filter:Alpha(Opacity=35); /* support: IE8 - See #6059 */
-	background-color:red !important;
 }
 
 /* Icons
