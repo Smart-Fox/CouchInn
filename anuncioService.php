@@ -129,6 +129,38 @@
 			return $resultSQL;
 		}
 		
+		public function preguntasEnviadas($idUser){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT * FROM pregunta WHERE ID_usuario='$idUser';");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		
+		public function preguntasRecibidas($idUser){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT * 	FROM pregunta 
+									INNER JOIN anuncio ON pregunta.ID_anuncio = anuncio.ID
+									WHERE anuncio.ID_usuario='$idUser';");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		
+		public function solicitudesEnviadas($idUser){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT * FROM solicitud_reserva WHERE ID_usuario='$idUser';");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		
+		public function solicitudesRecibidas($idUser){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT * 	FROM solicitud_reserva 
+									INNER JOIN anuncio ON solicitud_reserva.ID_anuncio = anuncio.ID
+									WHERE anuncio.ID_usuario='$idUser';");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		
 		public function notificarRespuesta($id){  /* al que preguntó se le informa que le respondieron */
 			$conec=new dbManager();
 			$conec->conectar();
