@@ -16,12 +16,13 @@
 		include ('anuncioService.php');
 		session_start();
 		$boolean=false;
-		$preg = $_POST['pregunta'];
+		$resp = $_POST['respuesta'];
 		$idAnun = $_POST['anunc'];
-		$idUser = $_SESSION['id'];
+		$idPreg = $_POST['idpreg'];
 		$serv = new aService();
-		$serv->publicarPregunta($idAnun, $idUser, $preg);
-		unset($_POST['pregunta']);
+		
+		$serv->publicarRespuesta($idPreg, $resp);
+		unset($_POST['respuesta']);
 		$boolean=true;
 		if($boolean){
 			echo "	
@@ -36,8 +37,6 @@
 					</script>
 			";
 		}
-		
-		
 	?>			
 </body>
 </html>

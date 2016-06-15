@@ -239,15 +239,38 @@
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
-
+		
 		public function levantarPreguntasAnuncio($idAnuncio){
+ 			$conec = new dbManager();
+ 			$conec->conectar(); 
+			$consulta = "SELECT *, pregunta.ID AS pregunta_ID
+ 							FROM pregunta 
+ 								INNER JOIN usuario ON pregunta.ID_usuario=usuario.ID 
+ 								INNER JOIN anuncio ON pregunta.ID_anuncio=anuncio.ID
+								
+ 							WHERE ID_anuncio=$idAnuncio";
+ 			$resultSQL = $conec->ejecutarSQL($consulta);
+ 			return $resultSQL;
+ 		}
+
+		public function publicarRespuesta($idPregunta, $respuesta){
+			$date = date("Y-m-d H:i:s");
 			$conec = new dbManager();
 			$conec->conectar();
-			$consulta = "SELECT * 
-							FROM pregunta 
-								INNER JOIN usuario ON pregunta.ID_usuario=usuario.ID 
+			$consulta = ("INSERT INTO respuesta(fecha, texto, ID_pregunta) VALUES('$date', '$respuesta', '$idPregunta')");	
+			$resultSQL = $conec->ejecutarSQL($consulta);
+			return $resultSQL;
+		}
+
+		public function levantarRespuestaAnuncio($idPregunta){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT *, respuesta.texto AS respuesta_texto
+							FROM respuesta 
+								INNER JOIN pregunta ON respuesta.ID_pregunta=pregunta.ID
 								INNER JOIN anuncio ON pregunta.ID_anuncio=anuncio.ID
-							WHERE ID_anuncio=$idAnuncio";
+								INNER JOIN usuario ON anuncio.ID_usuario=usuario.ID 
+							WHERE ID_pregunta=$idPregunta";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
