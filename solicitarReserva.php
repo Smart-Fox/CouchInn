@@ -5,8 +5,8 @@
 	$cantidad = $_POST['cantidad'];
 	$inicial = $_POST['inicial'];
 	$final = $_POST['final'];
-	$id = $_POST['id'];
-	
-	
-	header("Location: pagPrinc.php");
+	$idAnunc = $_POST['id'];
+	$serv= new aService();
+	$res= $serv->enviarSolicitud($inicial, $final, $idAnunc, $cantidad, $comentario);
+	header("Location: solicEnviada.php");
  ?>

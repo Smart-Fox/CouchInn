@@ -106,6 +106,21 @@
 			return $resultSQL;
 		}
 		
+		public function enviarSolicitud($inicial, $final, $idAnunc, $cantidad, $comentario){
+			session_start();
+			$date = date("Y-m-d H:i:s");
+			$inicial=date_create($inicial);
+			$inicial=date_format($inicial,"Y-m-d");
+			$final=date_create($final);
+			$final=date_format($final,"Y-m-d");
+			$user = $_SESSION['id'];
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("INSERT INTO solicitud_reserva(fecha_solicitud, cantidad_personas, comentario, fecha_inicio, fecha_fin, ID_anuncio, ID_usuario) VALUES ('$date', '$cantidad','$comentario', '$inicial', '$final', '$idAnunc', '$user')");
+			$res = $conec->ejecutarSQL($consulta);
+			return($res);
+		}
+		
 		public function notificarPregunta($id){  /* al que publico el anuncio se le informa que recibio una pregunta */
 			$conec=new dbManager();
 			$conec->conectar();
