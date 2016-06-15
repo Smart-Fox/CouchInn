@@ -169,7 +169,7 @@
 			return $resultSQL;
 		}
 
-		public function publicarRespuesta($idPregunta, $idUser, $respuesta){
+		public function publicarRespuesta($idPregunta, $respuesta){
 			$date = date("Y-m-d H:i:s");
 			$conec = new dbManager();
 			$conec->conectar();
@@ -181,11 +181,11 @@
 		public function levantarRespuestaAnuncio($idPregunta){
 			$conec = new dbManager();
 			$conec->conectar();
-			$consulta = "SELECT *, respuesta.ID_usuario AS respuesta_ID_usuario,
-								   respuesta.texto AS respuesta_texto
-							FROM respuesta 
-								INNER JOIN usuario ON respuesta.ID_usuario=usuario.ID 
+			$consulta = "SELECT *, respuesta.texto AS respuesta_texto
+							FROM respuesta 							
 								INNER JOIN pregunta ON respuesta.ID_pregunta=pregunta.ID
+								INNER JOIN anuncio ON pregunta.ID_anuncio = anuncio.ID
+								INNER JOIN usuario ON anuncio.ID_usuario=usuario.ID 
 							WHERE ID_pregunta=$idPregunta";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
