@@ -69,7 +69,7 @@
 		
 		var rangesS=[];
 		var rangesE=[];
-		
+				
 		$(function cargarFechas() {
 			var inicialArray = eval(<?php echo $objJason1; ?>);
 			var finalArray = eval(<?php echo $objJason2; ?>);
@@ -97,21 +97,28 @@
 						}
 					}
 					return [true, ''];
-				} 
+				},
+				onSelect:function(date) { 
+					$('#final').datepicker("refresh");
+					$('#final').val("");
+				}
 			}); 
 		});
-
+		
 		$(function() { 
 			$("#final").datepicker({ 
 				numberOfMonths: 1,
 				beforeShowDay: function(date) {
-					var dateToday=new Date();
-					dateToday.setDate(dateToday.getDate()-1);
-					if(date<dateToday){
+					var currentDate = $( "#inicial" ).datepicker( "getDate" );
+					currentDate.setDate(currentDate.getDate());
+					if(date<currentDate){
 						return [false, ''];
 					}else{
 						for(var j=0;j<rangesS.length;j++){
 							if(date >= rangesS[j] && date <= rangesE[j]){
+								return [false, '']; 
+							}
+							if(date >= rangesS[j] && currentDate < rangesS[j]){
 								return [false, '']; 
 							}
 						}
