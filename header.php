@@ -5,7 +5,28 @@
 			$this->user = $us;
 		}
 		public function buildHeader(){
-			echo "	
+			echo "	<script type=\"text/javascript\" >
+						$(document).ready(function()
+						{
+							$(\"#notificationLink\").click(function()
+							{
+							$(\"#notificationContainer\").fadeToggle(300);
+							$(\"#notification_count\").fadeOut(\"slow\");
+							return false;
+							});
+							$(document).click(function()
+							{
+							$(\"#notificationContainer\").hide();
+							});
+
+							//Popup on click
+							$(\"#notificationContainer\").click(function()
+							{
+							return false;
+							});
+
+							});
+							</script>
 					<nav class='navbar navbar-default navbar-fixed-top'>
 						<div class=\"header\">
 							<div class='row'>
@@ -20,6 +41,8 @@
 					echo "
 							<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>
 								<a href='miCuenta.php'><button class='btn22' type='button'>Mi<br>cuenta</button></a>
+								<button class='btn22' type='button'> Notificaciones</button>
+								 
 								<a href=\"panelAdmin.php\"><button type=button class='btn22'>Panel de<br>administrador</button></a>
 								<a href=\"cerrarSesion.php\"><button type=button class='btn22'>Cerrar<br>Sesión</button></a>
 							</div>
@@ -28,7 +51,8 @@
 				case ("premium"):
 					echo "	
 							<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>
-								<a href='miCuenta.php'><button class='btn2' type='button'>Mi cuenta</button></a>
+								<a href='miCuenta.php'><button class='btn2' type='button'>Mi <br> cuenta</button></a>
+								<button class='btn22' type='button'> Notificaciones</button>
 								<a href=\"cerrarSesion.php\"><button type=\"button\" class=\"btn2\">Cerrar Sesión</button></a>
 							</div>
 					";
@@ -36,9 +60,17 @@
 				case ("common"):
 					echo "	
 							<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>
-								<a href='miCuenta.php'><button class='btn22' type='button'>Mi cuenta</button></a>
-								<a href='infoPremium.php'><button type='button' class='btn22'>Comprar premium</button></a>
-								<a href='cerrarSesion.php'><button type='button' class='btn22'>Cerrar Sesión</button></a>
+								<a href='miCuenta.php'><button class='btn22' type='button'>Mi <br> cuenta</button></a>
+								<div id=\"notification_li\" style=\"float:left\">
+								<span id=\"notification_count\"></span>
+								<a href=# id=\"notificationLink\"><button class='btn22' type='button'> Notif</button></a>
+								<div id=\"notificationContainer\">
+								<div id=\"notificationTitle\">Notifications</div>
+								<div id=\"notificationsBody\" class=\"notifications\"></div>
+								</div>
+								</div>
+								<a href='infoPremium.php'><button type='button' class='btn22'>Comprar <br> premium</button></a>
+								<a href='cerrarSesion.php'><button type='button' class='btn22'>Cerrar  <br> Sesión</button></a>
 							</div>
 					";
 					break;

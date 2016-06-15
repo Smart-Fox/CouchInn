@@ -14,7 +14,7 @@
 		include('header.php');
 		session_start();
 		if(isset($_SESSION['usuario'])){
-			if(isset($_POST['anunc']){
+			if(isset($_POST['anunc'])){
 				$id=$_POST['anunc'];
 				$service = new cabecera($_SESSION['usuario']);
 				$service->buildHeader();
@@ -34,7 +34,7 @@
 		<div id='feedback' class='col-xs-12 col-md-12'>
 			<form id="back" action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
 				<input class='hidden' name='anunc' value='<?php echo $id; ?>'>	
-				<button type=submit class='btn2'>Volver</button>				
+				<button type='submit' class='btn2'>Volver</button>				
 			</form>
 		</div>
 	</div>
