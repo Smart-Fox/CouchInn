@@ -24,7 +24,7 @@
 			header('Location:index.html');
 		}
 		$serv = new aService();
-		$preg = $serv->preguntasEnviadas($id);
+		$preg = $serv->preguntasRecibidas($id);
 		if($preg){
 			while($row = $preg->fetch_assoc()){
 				echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
