@@ -148,7 +148,7 @@
 		public function solicitudesEnviadas($idUser){
 			$conec = new dbManager();
 			$conec->conectar();	
-			$consulta = ("SELECT * 	FROM solicitud_reserva 
+			$consulta = ("SELECT *, solicitud_reserva.ID as solicitud_ID FROM solicitud_reserva 
 									INNER JOIN anuncio ON solicitud_reserva.ID_anuncio = anuncio.ID
 									WHERE solicitud_reserva.ID_usuario='$idUser';");
 			return ($conec->ejecutarSQL($consulta));
@@ -167,6 +167,22 @@
 			$conec = new dbManager();
 			$conec->conectar();	
 			$consulta = ("SELECT * 	FROM solicitud_reserva WHERE ID='$id';");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		
+		public function cancelarSolicitudHuesped($id){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("UPDATE solicitud_reserva SET estado='cancelada', Visto_autor='0', Visto_huesped='1' WHERE ID='$id'");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		
+		public function cancelarSolicitudAutor($id){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("UPDATE solicitud_reserva SET estado='cancelada', Visto_autor='1', Visto_huesped='0' WHERE ID='$id'");
+			$conec->ejecutarSQL($consulta);
+			$consulta = ("DELETE FROM reserva WHERE ID_solicitud='$id'");
 			return ($conec->ejecutarSQL($consulta));
 		}
 		

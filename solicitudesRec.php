@@ -55,7 +55,7 @@
 						<div class='row'>
 							<form action='responderSolicitud.php' method='POST' enctype='multipart/form-data'>
 								<input class=hidden name='resp' value='cancelar'></input>
-								<input class=hidden name='solic' value='".$row['ID']."'></input>
+								<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
 								<center><button type='submit' class='btn22'>Cancelar reserva</button></center>
 							</form>
 						</div>
@@ -66,12 +66,12 @@
 						<div class='row'>
 							<form action='responderSolicitud.php' method='POST' enctype='multipart/form-data'>
 								<input class=hidden name='resp' value='aceptar'></input>
-								<input class=hidden name='solic' value='".$row['ID']."'></input>
+								<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
 								<center><button type='submit' class='btn22'>Aceptar</button></center>
 							</form>
 							<form action='responderSolicitud.php' method='POST' enctype='multipart/form-data'>
 								<input class=hidden name='resp' value='rechazar'></input>
-								<input class=hidden name='solic' value='".$row['ID']."'></input>
+								<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
 								<center><button type='submit' class='btn22'>Rechazar</button></center>
 							</form>
 						</div>
