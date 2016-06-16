@@ -15,10 +15,12 @@
 	<?php
 		include('header.php');
 		include('anuncioService.php');
+		include('cuentaOptions.php');
 		session_start();
 		if(isset($_SESSION['usuario'])){
 			$service = new cabecera($_SESSION['usuario']);
 			$service->buildHeader();
+			$display=new cuentaMenu();
 			$id=$_SESSION['id'];
 		}else{
 			header('Location:index.html');
@@ -37,7 +39,7 @@
 											<div class='row'>
 												<div class='col-xs-12 col-md-12'>
 													<h2>
-														<strong><span class='titulo'>".$row['texto']."</span></strong>
+														<strong><span class='titulo2'>".$row['texto']."</span></strong>
 													</h2>
 												</div>
 											</div>

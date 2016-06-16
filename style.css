@@ -550,6 +550,15 @@ input[type=file]{
 	line-height: 100px;
 }
 
+.buttonlink2{
+	padding: 5px;
+	background: none;
+	border: none;
+	width:100%;
+	text-align:center;
+	line-height: 50px;
+}
+
 span.titulo{
 	line-height: 120px;
 	text-align:center;
@@ -818,4 +827,7 @@ span.labelform2{
 
 #barra-filtros{
 	display:none;
+}
+span.content{
+	line-height:40px;
 }

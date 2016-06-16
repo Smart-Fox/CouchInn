@@ -26,7 +26,7 @@
 			header('Location:index.html');
 		}
 		$serv = new aService();
-		$preg = $serv->preguntasRecibidas($id);
+		$preg = $serv->solicitudesRecibidas($id);
 		if($preg){
 			while($row = $preg->fetch_assoc()){
 				echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
@@ -39,7 +39,7 @@
 											<div class='row'>
 												<div class='col-xs-12 col-md-12'>
 													<h2>
-														<strong><span class='titulo2'>".$row['texto']."</span></strong>
+														<strong><span class='titulo2'>".$row['comentario']."</span></strong>
 													</h2>
 												</div>
 											</div>

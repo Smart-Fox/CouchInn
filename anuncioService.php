@@ -148,7 +148,9 @@
 		public function solicitudesEnviadas($idUser){
 			$conec = new dbManager();
 			$conec->conectar();	
-			$consulta = ("SELECT * FROM solicitud_reserva WHERE ID_usuario='$idUser';");
+			$consulta = ("SELECT * 	FROM solicitud_reserva 
+									INNER JOIN anuncio ON solicitud_reserva.ID_anuncio = anuncio.ID
+									WHERE solicitud_reserva.ID_usuario='$idUser';");
 			return ($conec->ejecutarSQL($consulta));
 		}
 		
@@ -161,7 +163,8 @@
 			return ($conec->ejecutarSQL($consulta));
 		}
 		
-		public function notificarRespuesta($id){  /* al que preguntó se le informa que le respondieron */
+		/*
+		public function notificarRespuesta($id){  //al que preguntó se le informa que le respondieron 
 			$conec=new dbManager();
 			$conec->conectar();
 			$consulta = "SELECT * FROM";
@@ -169,7 +172,7 @@
 			return $resultSQL;
 		}
 		
-		public function notificarSolicitud($id){ /* al que publico el anuncio se le informa que recibio una solicitud */
+		public function notificarSolicitud($id){ // al que publico el anuncio se le informa que recibio una solicitud 
 			$conec=new dbManager();
 			$conec->conectar();
 			$consulta = "SELECT * FROM";
@@ -177,7 +180,7 @@
 			return $resultSQL;
 		}
 		
-		public function notificarReserva($id){ /* al que pidio solicitud se le informa si fue aceptada o rechazada */
+		public function notificarReserva($id){ // al que pidio solicitud se le informa si fue aceptada o rechazada 
 			$conec=new dbManager();
 			$conec->conectar();
 			$consulta = "SELECT * FROM";
@@ -185,13 +188,14 @@
 			return $resultSQL;
 		}
 		
-		public function notificarCalificación($id){ /* al usuario se le informa que recibio una nueva calificación */
+		public function notificarCalificación($id){ // al usuario se le informa que recibio una nueva calificación 
 			$conec=new dbManager();
 			$conec->conectar();
 			$consulta = "SELECT * FROM";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
+		*/
 		
 		public function levantarAnuncio($idAnuncio){
 			$conec = new dbManager();

@@ -26,21 +26,32 @@
 			header('Location:index.html');
 		}
 		$serv = new aService();
-		$preg = $serv->preguntasRecibidas($id);
+		$preg = $serv->solicitudesEnviadas($id);
 		if($preg){
 			while($row = $preg->fetch_assoc()){
+				$inicial = date("d/m/Y", strtotime($row['fecha_inicio']));
+				$final = date("d/m/Y", strtotime($row['fecha_fin']));
+				if($row['cantidad_personas']==1){
+					$persona='persona';
+				}else{
+					$persona='personas';
+				}
 				echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
 							<div class='row'>
 								<div class='col-xs-2 col-md-2'>
 								</div>
 								<div class='col-xs-8 col-md-8 anuncio'>
 									<input class=hidden name='anunc' value=\"".$row['ID_anuncio']."\">
-										<button type='submit' class='buttonlink'>
+										<button type='submit' class='buttonlink2'>
 											<div class='row'>
 												<div class='col-xs-12 col-md-12'>
-													<h2>
-														<strong><span class='titulo2'>".$row['texto']."</span></strong>
-													</h2>
+													<strong><span class='content'>".$row['Titulo']."</span></strong>
+													<br>
+													<span class='content'>Reserva para ".$row['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.".</span>
+													<br>
+													<span class='content'>".$row['comentario']."</span>
+													<br>
+													<span class='content'>Estado: ".$row['estado']."</span>
 												</div>
 											</div>
 										</button>
