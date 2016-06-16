@@ -75,9 +75,9 @@
 			$consulta = ("UPDATE anuncio SET Capacidad = '$cap', Titulo = '$titulo', Descripcion = '$desc', Fecha = '$date', ID_tipo_hospedaje = '$tipo', ID_ciudad = '$ciudad', ID_usuario = '$user' WHERE ID = '$idA'");
 			$res = $conec->ejecutarSQL($consulta);
 			if ($imagen){
-			
-			$consulta = ("UPDATE imagen SET enlace='$imagen' WHERE ID_anuncio='$idA'");
-			$res = $conec->ejecutarSQL($consulta);}
+				$consulta = ("UPDATE imagen SET enlace='$imagen' WHERE ID_anuncio='$idA'");
+				$res = $conec->ejecutarSQL($consulta);
+			}
 			return($res);
 		}
 		
@@ -255,6 +255,14 @@
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
+		
+		public function levantarImagen($id){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * FROM imagen WHERE ID=$id";
+			$resultSQL = $conec->ejecutarSQL($consulta);
+		}
+		
 		public function levantarAnuncioDeUsuario($idUser){
 			$conec = new dbManager();
 			$conec->conectar();
