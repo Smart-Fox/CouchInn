@@ -26,9 +26,9 @@
 			header('Location:index.html');
 		}
 		$serv = new aService();
-		$preg = $serv->solicitudesEnviadas($id);
-		if($preg){
-			while($row = $preg->fetch_assoc()){
+		$solic = $serv->solicitudesEnviadas($id);
+		if($solic){
+			while($row = $solic->fetch_assoc()){
 				$inicial = date("d/m/Y", strtotime($row['fecha_inicio']));
 				$final = date("d/m/Y", strtotime($row['fecha_fin']));
 				if($row['cantidad_personas']==1){
@@ -36,31 +36,54 @@
 				}else{
 					$persona='personas';
 				}
-				echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
+				echo "	
+					<div class='row'>
+						<div class='col-xs-2 col-md-2'>
+						</div>
+						<div class='col-xs-8 col-md-8 anuncio'>
 							<div class='row'>
-								<div class='col-xs-2 col-md-2'>
-								</div>
-								<div class='col-xs-8 col-md-8 anuncio'>
-									<input class=hidden name='anunc' value=\"".$row['ID_anuncio']."\">
-										<button type='submit' class='buttonlink2'>
-											<div class='row'>
-												<div class='col-xs-12 col-md-12'>
-													<strong><span class='content'>".$row['Titulo']."</span></strong>
-													<br>
-													<span class='content'>Reserva para ".$row['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.".</span>
-													<br>
-													<span class='content'>".$row['comentario']."</span>
-													<br>
-													<span class='content'>Estado: ".$row['estado']."</span>
-												</div>
-											</div>
-										</button>
-									</input>
-								</div>
-								<div class='col-xs-2 col-md-2'>
-								</div>
+								<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
+									<input class=hidden name='anunc' value=\"".$row['ID_anuncio']."\"></input>
+									<button type='submit' class='buttonlink2'>
+										<div class='col-xs-12 col-md-12'>
+											<strong><span class='content'>".$row['Titulo']."</span></strong>
+											<br>
+											<span class='content'>Reserva para ".$row['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.".</span>
+											<br>
+											<span class='content'>".$row['comentario']."</span>
+											<br>
+											<span class='content'>Estado: ".$row['estado']."</span>
+										</div>
+									</button>
+								</form>
+							</div>";
+				if ($row['estado']=='aceptada'){
+					echo"
+							<div class='row'>
+								<form action='responderSolicitud.php' method='POST' enctype='multipart/form-data'>
+									<input class=hidden name='resp' value='cancelar'></input>
+									<input class=hidden name='solic' value='".$row['ID']."'></input>
+									<center><button type='submit' class='btn22'>Cancelar reserva</button></center>
+								</form>
 							</div>
-						</form>
+					";
+				}
+				if ($row['estado']=='pendiente'){
+					echo"
+							<div class='row'>
+								<form action='responderSolicitud.php' method='POST' enctype='multipart/form-data'>
+									<input class=hidden name='resp' value='cancelar'></input>
+									<input class=hidden name='solic' value='".$row['ID']."'></input>
+									<center><button type='submit' class='btn22'>Cancelar solicitud</button></center>
+								</form>
+							</div>
+					";
+				}
+				echo"
+						</div>
+						<div class='col-xs-2 col-md-2'>
+						</div>
+					</div>	
 				";
 			}
 		}

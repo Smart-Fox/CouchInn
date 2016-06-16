@@ -163,6 +163,13 @@
 			return ($conec->ejecutarSQL($consulta));
 		}
 		
+		public function levantarSolicitud($id){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT * 	FROM solicitud_reserva WHERE ID='$id';");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		
 		/*
 		public function notificarRespuesta($id){  //al que preguntó se le informa que le respondieron 
 			$conec=new dbManager();

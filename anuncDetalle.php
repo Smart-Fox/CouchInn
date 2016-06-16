@@ -72,7 +72,7 @@
 					</div>
 					<div class='row row-pie'>
 						<div class='col-xs-4 col-md-4'>
-							<a href='pagPrinc.php'><button class='btn22'>Volver</button></a>
+							<a href='pagPrinc.php'><button class='btn22'>Salir</button></a>
 						</div>
 						<div class='col-xs-4 col-md-4'>
 							<?php

@@ -26,30 +26,62 @@
 			header('Location:index.html');
 		}
 		$serv = new aService();
-		$preg = $serv->solicitudesRecibidas($id);
-		if($preg){
-			while($row = $preg->fetch_assoc()){
-				echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
+		$solic = $serv->solicitudesRecibidas($id);
+		if($solic){
+			while($row = $solic->fetch_assoc()){
+				echo "	
+					<div class='row'>
+						<div class='col-xs-2 col-md-2'>
+						</div>
+						<div class='col-xs-8 col-md-8 anuncio'>
 							<div class='row'>
-								<div class='col-xs-2 col-md-2'>
-								</div>
-								<div class='col-xs-8 col-md-8 anuncio'>
-									<input class=hidden name='anunc' value=\"".$row['ID_anuncio']."\">
-										<button type='submit' class='buttonlink'>
-											<div class='row'>
-												<div class='col-xs-12 col-md-12'>
-													<h2>
-														<strong><span class='titulo2'>".$row['comentario']."</span></strong>
-													</h2>
-												</div>
-											</div>
-										</button>
-									</input>
-								</div>
-								<div class='col-xs-2 col-md-2'>
-								</div>
-							</div>
-						</form>
+								<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
+									<input class=hidden name='anunc' value=\"".$row['ID_anuncio']."\"></input>
+									<button type='submit' class='buttonlink2'>
+										<div class='col-xs-12 col-md-12'>
+											<strong><span class='content'>".$row['Titulo']."</span></strong>
+											<br>
+											<span class='content'>Reserva para ".$row['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.".</span>
+											<br>
+											<span class='content'>".$row['comentario']."</span>
+											<br>
+											<span class='content'>Estado: ".$row['estado']."</span>
+										</div>
+									</button>
+								</form>
+							</div>";
+				if ($row['estado']=='aceptada'){
+					echo"
+						<div class='row'>
+							<form action='responderSolicitud.php' method='POST' enctype='multipart/form-data'>
+								<input class=hidden name='resp' value='cancelar'></input>
+								<input class=hidden name='solic' value='".$row['ID']."'></input>
+								<center><button type='submit' class='btn22'>Cancelar reserva</button></center>
+							</form>
+						</div>
+					";
+				}
+				if ($row['estado']=='pendiente'){
+					echo"
+						<div class='row'>
+							<form action='responderSolicitud.php' method='POST' enctype='multipart/form-data'>
+								<input class=hidden name='resp' value='aceptar'></input>
+								<input class=hidden name='solic' value='".$row['ID']."'></input>
+								<center><button type='submit' class='btn22'>Aceptar</button></center>
+							</form>
+							<form action='responderSolicitud.php' method='POST' enctype='multipart/form-data'>
+								<input class=hidden name='resp' value='rechazar'></input>
+								<input class=hidden name='solic' value='".$row['ID']."'></input>
+								<center><button type='submit' class='btn22'>Rechazar</button></center>
+							</form>
+						</div>
+					";
+				}
+				echo "
+						</div>
+						<div class='col-xs-2 col-md-2'>
+						</div>
+					</div>	
 				";
 			}
 		}
