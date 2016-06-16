@@ -121,14 +121,6 @@
 			return($res);
 		}
 		
-		public function notificarPregunta($id){  /* al que publico el anuncio se le informa que recibio una pregunta */
-			$conec=new dbManager();
-			$conec->conectar();
-			$consulta = "SELECT * FROM";
-			$resultSQL = $conec->ejecutarSQL($consulta);
-			return $resultSQL;
-		}
-		
 		public function preguntasEnviadas($idUser){
 			$conec = new dbManager();
 			$conec->conectar();	
@@ -194,6 +186,14 @@
 		}
 		
 		/*
+		public function notificarPregunta($id){  //al que publico el anuncio se le informa que recibio una pregunta
+			$conec=new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * FROM";
+			$resultSQL = $conec->ejecutarSQL($consulta);
+			return $resultSQL;
+		}
+		
 		public function notificarRespuesta($id){  //al que preguntó se le informa que le respondieron 
 			$conec=new dbManager();
 			$conec->conectar();
@@ -305,6 +305,22 @@
 								INNER JOIN anuncio ON pregunta.ID_anuncio=anuncio.ID
 								INNER JOIN usuario ON anuncio.ID_usuario=usuario.ID 
 							WHERE ID_pregunta=$idPregunta";
+			$resultSQL = $conec->ejecutarSQL($consulta);
+			return $resultSQL;
+		}
+		
+		public function darDeBajaAnuncio($idAnuncio){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = ("UPDATE anuncio SET activo='0' WHERE ID='$idAnuncio'");
+			$resultSQL = $conec->ejecutarSQL($consulta);
+			return $resultSQL;
+		}
+
+		public function activarAnuncio($idAnuncio){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = ("UPDATE anuncio SET activo='1' WHERE ID='$idAnuncio'");
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}

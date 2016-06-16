@@ -44,6 +44,26 @@
 					<h1><strong><span> <?php echo $row['Titulo'];?></span></strong></h1>
 				</div>
 				<div class='col-xs-1 col-md-1'>
+					<?php
+						if($_SESSION['id']==$row['usuario_ID']){  //si es el mismo usuario que le aparezca la opcion de eliminar anuncio
+							if ($row['activo'] == '1'){
+							echo "
+								<form action='darBajaPublic.php' method='POST' enctype='multipart/form-data'>
+									<input class='hidden' name='anunc' value= ".$id.">
+									
+									<button type='submit' class='btn22'>Eliminar anuncio</button>
+								</form>
+								";
+							}else{
+								echo "
+									<form action='darAltaPublic.php' method='POST' enctype='multipart/form-data'>
+										<input class='hidden' name='anunc' value= ".$id.">
+										<button type='submit' class='btn22'>Publicar anuncio</button>
+									</form>
+								";
+							}
+						}
+					?>
 				</div>
 			</div>
 			<div class='row row-anuncio'>
@@ -165,7 +185,6 @@
 				echo "<br> <br>";
 				echo "<h2>Consultas sobre el anuncio</h2>";
 				$preg = $serv1->levantarPreguntasAnuncio($row['ID_anuncio']);
-				//var_dump($preg->fetch_assoc());
 				while($rowPreg = $preg->fetch_assoc()){
 					echo "<hr>";
 					echo " 
@@ -180,48 +199,46 @@
 								</div>
 								<div class='col-xs-2 col-md-2'> 
 								</div>
-							</div>";
-						$resp = $serv1->levantarRespuestaAnuncio($rowPreg['pregunta_ID']);
-						//var_dump($resp->fetch_assoc());
-						//var_dump($resp->num_rows==0);
-						if($resp->num_rows>0){  //si existe una respuesta para la pregunta, se publica
-							echo "<hr>";
-							$rowResp = $resp->fetch_assoc();
-							echo " 
+							</div>
+					";
+					$resp = $serv1->levantarRespuestaAnuncio($rowPreg['pregunta_ID']);
+					if($resp->num_rows>0){  //si existe una respuesta para la pregunta, se publica
+						echo "<hr>";
+						$rowResp = $resp->fetch_assoc();
+						echo " 
+							<div class='row'>
+								<div class='col-xs-2 col-md-2'>
+									<span style='color:red'><i>Respuesta</i></span>
+								</div>
+								<div class='col-xs-8 col-md-8 '>
+									Usuario: ".$rowResp['Username']."
+									<br>
+									<strong><span class='titulo2'>".$rowResp['respuesta_texto']."</span></strong> 
+								</div>
+								<div class='col-xs-2 col-md-2'> 
+								</div>
+							</div>
+						";
+					}else{		// si no existe se deja el campo para responder junto al boton.
+						echo " 
+							<form action='responder.php' method='POST' enctype='multipart/form-data'>
 								<div class='row'>
 									<div class='col-xs-2 col-md-2'>
-										<span style='color:red'><i>Respuesta</i></span>
 									</div>
-									<div class='col-xs-8 col-md-8 '>
-										Usuario: ".$rowResp['Username']."
-										<br>
-										<strong><span class='titulo2'>".$rowResp['respuesta_texto']."</span></strong> 
+									<div class='col-xs-7 col-md-7'>
+										<textarea class='form-control custom'  type='text' name='respuesta' id='respuesta' placeholder='Escribe tu respuesta' required style='width: 650px; height: 50px;'></textarea> 												
+										<input class='hidden' name='anunc' value= ".$id."> 
+										<input class='hidden' name='idpreg' value= ".$rowPreg['pregunta_ID'].">														
 									</div>
-									<div class='col-xs-2 col-md-2'> 
+									<div class='col-xs-3 col-md-3'>											
+										<button type='submit' class='btn22'>Responder</button>
 									</div>
 								</div>
-							";
-						}else{		// si no existe se deja el campo para responder junto al boton.
-							echo " 
-								<form action='responder.php' method='POST' enctype='multipart/form-data'>
-									<div class='row'>
-										<div class='col-xs-2 col-md-2'>
-										</div>
-										<div class='col-xs-7 col-md-7'>
-											<textarea class='form-control custom'  type='text' name='respuesta' id='respuesta' placeholder='Escribe tu respuesta' required style='width: 650px; height: 50px;'></textarea> 												
-											<input class='hidden' name='anunc' value= ".$id."> 
-											<input class='hidden' name='idpreg' value= ".$rowPreg['pregunta_ID'].">														
-										</div>
-										<div class='col-xs-3 col-md-3'>											
-											<button type='submit' class='btn22'>Responder</button>
-										</div>
-									</div>
-								</form>
-							";
-						}
+						</form>
+						";
+					}
 				}
-			}
-			
+			}	
 		?>
 		</div>
 	</center>
