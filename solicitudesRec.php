@@ -29,6 +29,13 @@
 		$solic = $serv->solicitudesRecibidas($id);
 		if($solic){
 			while($row = $solic->fetch_assoc()){
+				$inicial = date("d/m/Y", strtotime($row['fecha_inicio']));
+				$final = date("d/m/Y", strtotime($row['fecha_fin']));
+				if($row['cantidad_personas']==1){
+					$persona='persona';
+				}else{
+					$persona='personas';
+				}
 				echo "	
 					<div class='row'>
 						<div class='col-xs-2 col-md-2'>
@@ -53,7 +60,7 @@
 				if ($row['estado']=='aceptada'){
 					echo"
 						<div class='row'>
-							<form action='responderSolicitud.php' method='POST' enctype='multipart/form-data'>
+							<form action='cancelarSolic.php' method='POST' enctype='multipart/form-data'>
 								<input class=hidden name='resp' value='cancelar'></input>
 								<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
 								<center><button type='submit' class='btn22'>Cancelar reserva</button></center>
@@ -63,18 +70,28 @@
 				}
 				if ($row['estado']=='pendiente'){
 					echo"
-						<div class='row'>
-							<form action='responderSolicitud.php' method='POST' enctype='multipart/form-data'>
-								<input class=hidden name='resp' value='aceptar'></input>
-								<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
-								<center><button type='submit' class='btn22'>Aceptar</button></center>
-							</form>
-							<form action='responderSolicitud.php' method='POST' enctype='multipart/form-data'>
-								<input class=hidden name='resp' value='rechazar'></input>
-								<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
-								<center><button type='submit' class='btn22'>Rechazar</button></center>
-							</form>
-						</div>
+						<center>
+							<div class='row'>
+								<div class='col-xs-4 col-md-4'>
+								</div>
+								<div class='col-xs-2 col-md-2'>
+									<form action='responderSolicitud.php' method='POST' enctype='multipart/form-data'>
+										<input class=hidden name='resp' value='aceptar'></input>
+										<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
+										<button type='submit' class='btn22'>Aceptar</button>
+									</form>
+								</div>
+								<div class='col-xs-2 col-md-2'>
+									<form action='responderSolicitud.php' method='POST' enctype='multipart/form-data'>
+										<input class=hidden name='resp' value='rechazar'></input>
+										<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
+										<button type='submit' class='btn22'>Rechazar</button>
+									</form>
+								</div>
+								<div class='col-xs-4 col-md-4'>
+								</div>
+							</div>
+						</center>
 					";
 				}
 				echo "

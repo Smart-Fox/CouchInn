@@ -17,11 +17,11 @@
 		break;
 		
 		case 'aceptar':
-		
+			
 		break;
 		
 		case 'rechazar':
-		
+			$serv->rechazarSolicitud($idSolic);
 		break;
 	}
 	if ($row['ID_usuario']==$idUser){
