@@ -1,4 +1,4 @@
-* {
+﻿* {
     -webkit-box-sizing: border-box!important;
     -moz-box-sizing: border-box!important;
     box-sizing: border-box!important;
@@ -397,9 +397,24 @@ textarea{
 	padding: 8px;
 	width:	100%;
 	height: 278px;
+	color: #999;
 }
 
-#tipo,#provSelect,#ciudadSelect{
+textarea#comm{
+	margin-top: 0px !important;
+	margin-bottom: 10px !important;
+	resize: none;
+	color: #999;
+	border-radius: 4px;
+	border: 1px solid #ccc;
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	font-size: 12px;
+	padding: 8px;
+	width:	100%;
+	height: 154px;
+}
+
+#tipo,#provSelect,#ciudadSelect,#inicial,#final,#cantidad{
 	margin-top: 0px !important;
 	width: 100% !important;
 	height:36px !important;
@@ -442,6 +457,7 @@ input[type=file]{
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
 	width: 100%;
 	margin-top: 0px !important;
+	color: #999;
 }
 
 
@@ -532,6 +548,15 @@ input[type=file]{
 	width:100%;
 	text-align:center;
 	line-height: 100px;
+}
+
+.buttonlink2{
+	padding: 5px;
+	background: none;
+	border: none;
+	width:100%;
+	text-align:center;
+	line-height: 50px;
 }
 
 span.titulo{
@@ -802,4 +827,7 @@ span.labelform2{
 
 #barra-filtros{
 	display:none;
+}
+span.content{
+	line-height:40px;
 }
