@@ -131,7 +131,7 @@
 		public function preguntasRecibidas($idUser){
 			$conec = new dbManager();
 			$conec->conectar();	
-			$consulta = ("SELECT * 	FROM pregunta 
+			$consulta = ("SELECT *	FROM pregunta 
 									INNER JOIN anuncio ON pregunta.ID_anuncio = anuncio.ID
 									WHERE anuncio.ID_usuario='$idUser';");
 			return ($conec->ejecutarSQL($consulta));
@@ -142,7 +142,8 @@
 			$conec->conectar();	
 			$consulta = ("SELECT *, solicitud_reserva.ID as solicitud_ID FROM solicitud_reserva 
 									INNER JOIN anuncio ON solicitud_reserva.ID_anuncio = anuncio.ID
-									WHERE solicitud_reserva.ID_usuario='$idUser';");
+									WHERE solicitud_reserva.ID_usuario='$idUser'
+									ORDER BY estado;");
 			return ($conec->ejecutarSQL($consulta));
 		}
 		
@@ -151,7 +152,8 @@
 			$conec->conectar();	
 			$consulta = ("SELECT *,	solicitud_reserva.ID as solicitud_ID FROM solicitud_reserva 
 									INNER JOIN anuncio ON solicitud_reserva.ID_anuncio = anuncio.ID
-									WHERE anuncio.ID_usuario='$idUser';");
+									WHERE anuncio.ID_usuario='$idUser'
+									ORDER BY estado;");
 			return ($conec->ejecutarSQL($consulta));
 		}
 		
@@ -281,8 +283,7 @@
  							FROM pregunta 
  								INNER JOIN usuario ON pregunta.ID_usuario=usuario.ID 
  								INNER JOIN anuncio ON pregunta.ID_anuncio=anuncio.ID
-								
- 							WHERE ID_anuncio=$idAnuncio";
+							WHERE ID_anuncio=$idAnuncio";
  			$resultSQL = $conec->ejecutarSQL($consulta);
  			return $resultSQL;
  		}
