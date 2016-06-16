@@ -58,7 +58,6 @@
 					</script>
 				";
 			}
-			
 			$anun = $serv->levantarAnuncios($tipo, $ciudad, $provincia, $capacidad);
 			echo "<center><div id='botonesprinc'><a href='publicar.php'><button type=button class='btn5'>Publicar un anuncio</button></a> <button type=button class='btn5' onclick='mostrarFiltros();'>Filtrar anuncios</button></div></center>";
 			?>

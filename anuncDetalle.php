@@ -27,7 +27,7 @@
 				$serv = new aService();
 				$anun = $serv->levantarAnuncio($id);
 				$row = $anun->fetch_assoc();
-				$fecha=date('d/m/Y H:i', strtotime($row['Fecha']));
+				$fecha=date('m/d/Y H:i', strtotime($row['Fecha']));
 			}else{
 				header('Location:pagPrinc.php');
 			}
@@ -72,7 +72,7 @@
 					</div>
 					<div class='row row-pie'>
 						<div class='col-xs-4 col-md-4'>
-							<a href='pagPrinc.php'><button class='btn22'>Volver</button></a>
+							<a href='pagPrinc.php'><button class='btn22'>Salir</button></a>
 						</div>
 						<div class='col-xs-4 col-md-4'>
 							<?php
@@ -102,229 +102,127 @@
 					</div>
 				</div>
 			</div>
-<<<<<<< HEAD
-
-				
-				
-				<?php
-
-
-					if ($_SESSION['id']!=$row['usuario_ID']) { //si el usuario de la sesión es != al del anuncio
-						echo 	"<hr>";
-						echo   "<div class='row'>
-									<div class='col-xs-2 col-md-2'>
-									</div>
-									<div class='col-xs-8 col-md-8'>
-										<form id='preg' action='preguntar.php' method='POST'>
-										
-											<h2>Preguntas al usuario</h2>
-											<br>
-											<textarea class='form-control custom'  type='text' name='pregunta' id='pregunta' placeholder='Escribe tu pregunta' required style='width: 500px; height: 100px;'></textarea>
-											<input class='hidden' name='anunc' value= ".$id.">
-											<button type='submit' class='btn22' >Preguntar</button>
-										
-										</form>
-										<br>
-									</div>
-			
-									<div class='col-xs-2 col-md-2'>
-									</div>
-								</div>";
-							
-							
-
-							$preg1 = $serv->levantarPreguntasAnuncio($row['ID_anuncio']); 
-
-
-							//var_dump($preg1->fetch_assoc());
-							echo "<br> <br>";
-							while($rowPreg = $preg1->fetch_assoc()){   //se publican las preguntas. Faltaria un if pa q no haga todo al dope
-							echo "<hr>";
-							echo " 
-									<div class='row'>
-										<div class='col-xs-2 col-md-2'>
-											<span style='color:blue'><i>Pregunta</i></span>
-										</div>
-										<div class='col-xs-8 col-md-8 '>
-											Usuario: ".$rowPreg['Username']."
-											<br>
-											<strong><span class='titulo2'>".$rowPreg['texto']."</span></strong> 
-										</div>
-										<div class='col-xs-2 col-md-2'> 
-										</div>
-									</div>";
-
-							$resp = $serv->levantarRespuestaAnuncio($rowPreg['pregunta_ID']);
-								//var_dump($resp->fetch_assoc());
-								//var_dump($resp->num_rows==0);
-								if($resp->num_rows>0){  //si existe una respuesta para la pregunta, se publica
-									
-									$rowResp = $resp->fetch_assoc();
-									echo " 
-									<div class='row'>
-										<div class='col-xs-2 col-md-2'>
-											<span style='color:red'><i>Respuesta</i></span>
-										</div>
-										<div class='col-xs-8 col-md-8 '>
-											Usuario: ".$rowResp['Username']."
-											<br>
-											<strong><span class='titulo2'>".$rowResp['respuesta_texto']."</span></strong> 
-										</div>
-										<div class='col-xs-2 col-md-2'> 
-										</div>
-									</div>";
-									
-								}
-
-
-
-							}
-
-
-						
-					}else{  //el usuario de la sesion es el mismo que el del anuncio
-							
-							echo "<hr>";
-							$serv1 = new aService();
-							
-							echo "<br> <br>";
-							echo "<h2>Consultas sobre el anuncio</h2>";
-
-
-							$preg = $serv1->levantarPreguntasAnuncio($row['ID_anuncio']);
-							//var_dump($preg->fetch_assoc());
-							while($rowPreg = $preg->fetch_assoc()){
-							echo "<hr>";
-=======
-			<?php
-				if ($_SESSION['id']!=$row['usuario_ID']) { //si el usuario de la sesión es != al del anuncio
-					echo 	"<hr>";
-					echo   "<div class='row'>
-								<div class='col-xs-2 col-md-2'>
+		<?php
+			if ($_SESSION['id']!=$row['usuario_ID']) { //si el usuario de la sesión es != al del anuncio
+				echo 	"<hr>";
+				echo"	<div class='row'>
+							<div class='col-xs-2 col-md-2'>
 								</div>
-								<div class='col-xs-8 col-md-8'>
-									<form id='preg' action='preguntar.php' method='POST'>
-										<h2>Preguntas al usuario</h2>
-										<textarea class='form-control custom'  type='text' name='pregunta' id='pregunta' placeholder='Escribe tu pregunta' required style='width: 500px; height: 100px;'></textarea>
-										<input class='hidden' name='anunc' value= ".$id.">
-										<button type='submit' class='btn22' >Preguntar</button>
-									</form>
-								</div>
+							<div class='col-xs-8 col-md-8'>
+								<form id='preg' action='preguntar.php' method='POST'>
+									<h2>Preguntas al usuario</h2>
+									<br>
+									<textarea class='form-control custom'  type='text' name='pregunta' id='pregunta' placeholder='Escribe tu pregunta' required style='width: 500px; height: 100px;'></textarea>
+									<input class='hidden' name='anunc' value= ".$id.">
+									<button type='submit' class='btn22' >Preguntar</button>
+								</form>
+								<br>
+							</div>
+							<div class='col-xs-2 col-md-2'>
+							</div>
+						</div>
+				";
+				$preg1 = $serv->levantarPreguntasAnuncio($row['ID_anuncio']); 
+				echo "<br> <br>";
+				while($rowPreg = $preg1->fetch_assoc()){   //se publican las preguntas. Faltaria un if pa q no haga todo al dope
+					echo "<hr>";
+					echo " 
+						<div class='row'>
+							<div class='col-xs-2 col-md-2'>
+								<span style='color:blue'><i>Pregunta</i></span>
+							</div>
+							<div class='col-xs-8 col-md-8 '>
+								Usuario: ".$rowPreg['Username']."
+								<br>
+								<strong><span class='titulo2'>".$rowPreg['texto']."</span></strong> 
+							</div>
+							<div class='col-xs-2 col-md-2'> 
+							</div>
+						</div>
+					";
+					$resp = $serv->levantarRespuestaAnuncio($rowPreg['pregunta_ID']);
+					if($resp->num_rows>0){  //si existe una respuesta para la pregunta, se publica
+						$rowResp = $resp->fetch_assoc();
+						echo " 
+							<div class='row'>
 								<div class='col-xs-2 col-md-2'>
+									<span style='color:red'><i>Respuesta</i></span>
+								</div>
+								<div class='col-xs-8 col-md-8 '>
+									Usuario: ".$rowResp['Username']."
+									<br>
+									<strong><span class='titulo2'>".$rowResp['respuesta_texto']."</span></strong> 
+								</div>
+								<div class='col-xs-2 col-md-2'> 
+								</div>
+							</div>
+						";
+					}
+				}
+			}else{  //el usuario de la sesion es el mismo que el del anuncio
+				echo "<hr>";
+				$serv1 = new aService();
+				echo "<br> <br>";
+				echo "<h2>Consultas sobre el anuncio</h2>";
+				$preg = $serv1->levantarPreguntasAnuncio($row['ID_anuncio']);
+				//var_dump($preg->fetch_assoc());
+				while($rowPreg = $preg->fetch_assoc()){
+					echo "<hr>";
+					echo " 
+							<div class='row'>
+								<div class='col-xs-2 col-md-2'>
+									<span style='color:blue'><i>Pregunta</i></span>
+								</div>
+								<div class='col-xs-8 col-md-8 '>
+									Usuario: ".$rowPreg['Username']."
+									<br>
+									<strong><span class='titulo2'>".$rowPreg['texto']."</span></strong> 
+								</div>
+								<div class='col-xs-2 col-md-2'> 
 								</div>
 							</div>";
-					$preg1 = $serv->levantarPreguntasAnuncio($row['ID_anuncio']); 
-					//var_dump($preg1->fetch_assoc());
-					while($rowPreg = $preg1->fetch_assoc()){
-						echo "	<div class='row'>
+						$resp = $serv1->levantarRespuestaAnuncio($rowPreg['pregunta_ID']);
+						//var_dump($resp->fetch_assoc());
+						//var_dump($resp->num_rows==0);
+						if($resp->num_rows>0){  //si existe una respuesta para la pregunta, se publica
+							echo "<hr>";
+							$rowResp = $resp->fetch_assoc();
+							echo " 
+								<div class='row'>
 									<div class='col-xs-2 col-md-2'>
+										<span style='color:red'><i>Respuesta</i></span>
 									</div>
-									<div class='col-xs-8 col-md-8 anuncio'>
-										Usuario: ".$rowPreg['Username']."
+									<div class='col-xs-8 col-md-8 '>
+										Usuario: ".$rowResp['Username']."
 										<br>
-										<strong><span class='titulo2'>".$rowPreg['texto']."</span></strong>
+										<strong><span class='titulo2'>".$rowResp['respuesta_texto']."</span></strong> 
+									</div>
 									<div class='col-xs-2 col-md-2'> 
 									</div>
-								</div>";
-					}
-				}else{  //el usuario de la sesion es el mismo que el del anuncio
-					echo "<hr>";
-						$serv1 = new aService();
-						$preg = $serv1->levantarPreguntasAnuncio($row['ID_anuncio']);
-						echo "<br> <br>";
-						echo "<h2>Consultas sobre el anuncio</h2>";
-						while($rowPreg = $preg->fetch_assoc()){
->>>>>>> refs/remotes/origin/rosario
+								</div>
+							";
+						}else{		// si no existe se deja el campo para responder junto al boton.
 							echo " 
-									<div class='row'>
-										<div class='col-xs-2 col-md-2'>
-											<span style='color:blue'><i>Pregunta</i></span>
-										</div>
-										<div class='col-xs-8 col-md-8 '>
-											Usuario: ".$rowPreg['Username']."
-											<strong><span class='titulo2'>".$rowPreg['texto']."</span></strong> 
-										</div>
-										<div class='col-xs-2 col-md-2'> 
-<<<<<<< HEAD
-										</div>
-									</div>";
-
-								$resp = $serv1->levantarRespuestaAnuncio($rowPreg['pregunta_ID']);
-								//var_dump($resp->fetch_assoc());
-								//var_dump($resp->num_rows==0);
-								if($resp->num_rows>0){  //si existe una respuesta para la pregunta, se publica
-									echo "<hr>";
-									$rowResp = $resp->fetch_assoc();
-									echo " 
-									<div class='row'>
-										<div class='col-xs-2 col-md-2'>
-											<span style='color:red'><i>Respuesta</i></span>
-										</div>
-										<div class='col-xs-8 col-md-8 '>
-											Usuario: ".$rowResp['Username']."
-											<br>
-											<strong><span class='titulo2'>".$rowResp['respuesta_texto']."</span></strong> 
-										</div>
-										<div class='col-xs-2 col-md-2'> 
-										</div>
-									</div>";
-									
-								}else{		// si no existe se deja el campo para responder junto al boton.
-
-									echo " <form action='responder.php' method='POST' enctype='multipart/form-data'>
-									
+								<form action='responder.php' method='POST' enctype='multipart/form-data'>
 									<div class='row'>
 										<div class='col-xs-2 col-md-2'>
 										</div>
-											<div class='col-xs-7 col-md-7'>
-												<textarea class='form-control custom'  type='text' name='respuesta' id='respuesta' placeholder='Escribe tu respuesta' required style='width: 650px; height: 50px;'></textarea> 												
-												<input class='hidden' name='anunc' value= ".$id."> 
-												<input class='hidden' name='idpreg' value= ".$rowPreg['pregunta_ID'].">														
-											</div>
+										<div class='col-xs-7 col-md-7'>
+											<textarea class='form-control custom'  type='text' name='respuesta' id='respuesta' placeholder='Escribe tu respuesta' required style='width: 650px; height: 50px;'></textarea> 												
+											<input class='hidden' name='anunc' value= ".$id."> 
+											<input class='hidden' name='idpreg' value= ".$rowPreg['pregunta_ID'].">														
+										</div>
 										<div class='col-xs-3 col-md-3'>											
 											<button type='submit' class='btn22'>Responder</button>
 										</div>
-
-										
 									</div>
-									
-									</form>
-
-
-									";
-								}
-
-			
-							}
-
-=======
-										</div>
-									</div>
-								";
-							if ($_POST['num5'] != "5"){
-								echo " 	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
-											<div class='row'>
-												<div class='col-xs-2 col-md-2'>
-												</div>
-												<div class='col-xs-7 col-md-7'>
-													<textarea class='form-control custom'  type='text' name='pregunta' id='pregunta' placeholder='Escribe tu respuesta' required style='width: 650px; height: 50px;'></textarea> 
-													<input class='hidden' name='num5' value='5'>
-													<input class='hidden' name='anunc' value= ".$id.">
-													<input class='hidden' name='user' value= ".$_SESSION['id'].">
-												</div>
-												<div class='col-xs-3 col-md-3'>
-													<button type='submit' class='btn22'>Responder</button>
-												</div>
-											</div>
-										</form>
-									";
-							}else{
-								echo "respuet";
-							}
+								</form>
+							";
 						}
->>>>>>> refs/remotes/origin/rosario
-					}
-			?>
+				}
+			}
+			
+		?>
 		</div>
 	</center>
 </body>

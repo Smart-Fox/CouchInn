@@ -129,7 +129,65 @@
 			return $resultSQL;
 		}
 		
-		public function notificarRespuesta($id){  /* al que preguntó se le informa que le respondieron */
+		public function preguntasEnviadas($idUser){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT * FROM pregunta WHERE ID_usuario='$idUser';");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		
+		public function preguntasRecibidas($idUser){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT * 	FROM pregunta 
+									INNER JOIN anuncio ON pregunta.ID_anuncio = anuncio.ID
+									WHERE anuncio.ID_usuario='$idUser';");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		
+		public function solicitudesEnviadas($idUser){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT *, solicitud_reserva.ID as solicitud_ID FROM solicitud_reserva 
+									INNER JOIN anuncio ON solicitud_reserva.ID_anuncio = anuncio.ID
+									WHERE solicitud_reserva.ID_usuario='$idUser';");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		
+		public function solicitudesRecibidas($idUser){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT * 	FROM solicitud_reserva 
+									INNER JOIN anuncio ON solicitud_reserva.ID_anuncio = anuncio.ID
+									WHERE anuncio.ID_usuario='$idUser';");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		
+		public function levantarSolicitud($id){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT * 	FROM solicitud_reserva WHERE ID='$id';");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		
+		public function cancelarSolicitudHuesped($id){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("UPDATE solicitud_reserva SET estado='cancelada', Visto_autor='0', Visto_huesped='1' WHERE ID='$id'");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		
+		public function cancelarSolicitudAutor($id){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("UPDATE solicitud_reserva SET estado='cancelada', Visto_autor='1', Visto_huesped='0' WHERE ID='$id'");
+			$conec->ejecutarSQL($consulta);
+			$consulta = ("DELETE FROM reserva WHERE ID_solicitud='$id'");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		
+		/*
+		public function notificarRespuesta($id){  //al que preguntó se le informa que le respondieron 
 			$conec=new dbManager();
 			$conec->conectar();
 			$consulta = "SELECT * FROM";
@@ -137,7 +195,7 @@
 			return $resultSQL;
 		}
 		
-		public function notificarSolicitud($id){ /* al que publico el anuncio se le informa que recibio una solicitud */
+		public function notificarSolicitud($id){ // al que publico el anuncio se le informa que recibio una solicitud 
 			$conec=new dbManager();
 			$conec->conectar();
 			$consulta = "SELECT * FROM";
@@ -145,7 +203,7 @@
 			return $resultSQL;
 		}
 		
-		public function notificarReserva($id){ /* al que pidio solicitud se le informa si fue aceptada o rechazada */
+		public function notificarReserva($id){ // al que pidio solicitud se le informa si fue aceptada o rechazada 
 			$conec=new dbManager();
 			$conec->conectar();
 			$consulta = "SELECT * FROM";
@@ -153,13 +211,14 @@
 			return $resultSQL;
 		}
 		
-		public function notificarCalificación($id){ /* al usuario se le informa que recibio una nueva calificación */
+		public function notificarCalificación($id){ // al usuario se le informa que recibio una nueva calificación 
 			$conec=new dbManager();
 			$conec->conectar();
 			$consulta = "SELECT * FROM";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
+		*/
 		
 		public function levantarAnuncio($idAnuncio){
 			$conec = new dbManager();
@@ -207,25 +266,25 @@
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
-
+		
 		public function levantarPreguntasAnuncio($idAnuncio){
-			$conec = new dbManager();
-			$conec->conectar();
+ 			$conec = new dbManager();
+ 			$conec->conectar(); 
 			$consulta = "SELECT *, pregunta.ID AS pregunta_ID
-							FROM pregunta 
-								INNER JOIN usuario ON pregunta.ID_usuario=usuario.ID 
-								INNER JOIN anuncio ON pregunta.ID_anuncio=anuncio.ID
+ 							FROM pregunta 
+ 								INNER JOIN usuario ON pregunta.ID_usuario=usuario.ID 
+ 								INNER JOIN anuncio ON pregunta.ID_anuncio=anuncio.ID
 								
-							WHERE ID_anuncio=$idAnuncio";
-			$resultSQL = $conec->ejecutarSQL($consulta);
-			return $resultSQL;
-		}
+ 							WHERE ID_anuncio=$idAnuncio";
+ 			$resultSQL = $conec->ejecutarSQL($consulta);
+ 			return $resultSQL;
+ 		}
 
 		public function publicarRespuesta($idPregunta, $respuesta){
 			$date = date("Y-m-d H:i:s");
 			$conec = new dbManager();
 			$conec->conectar();
-			$consulta = ("INSERT INTO respuesta(fecha, texto, ID_pregunta, ID_usuario) VALUES('$date', '$respuesta', '$idPregunta', '$idUser')");	
+			$consulta = ("INSERT INTO respuesta(fecha, texto, ID_pregunta) VALUES('$date', '$respuesta', '$idPregunta')");	
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
@@ -234,16 +293,13 @@
 			$conec = new dbManager();
 			$conec->conectar();
 			$consulta = "SELECT *, respuesta.texto AS respuesta_texto
-							FROM respuesta 							
+							FROM respuesta 
 								INNER JOIN pregunta ON respuesta.ID_pregunta=pregunta.ID
-								INNER JOIN anuncio ON pregunta.ID_anuncio = anuncio.ID
+								INNER JOIN anuncio ON pregunta.ID_anuncio=anuncio.ID
 								INNER JOIN usuario ON anuncio.ID_usuario=usuario.ID 
 							WHERE ID_pregunta=$idPregunta";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
-
-	
 	}
-	
 ?>

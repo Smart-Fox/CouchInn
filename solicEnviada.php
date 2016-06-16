@@ -18,7 +18,7 @@
 			$service->buildHeader();
 			echo "	<div class='row'>
 						<div id='feedback' class='col-xs-12 col-md-12'>
-							<span>La solicitud fue enviada exitosamente. Cuando su solicitud sea aceptada o rechazada recibirá una notificación.</span>
+							<span>La solicitud fue enviada exitosamente. Puede ver el estado de su solicitud aquí.</span>
 						</div>
 					</div>
 					<div class='row'>
