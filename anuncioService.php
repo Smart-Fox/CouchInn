@@ -301,5 +301,21 @@
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
+
+		public function darDeBajaAnuncio($idAnuncio){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = ("UPDATE anuncio SET activo='0' WHERE ID='$idAnuncio'");
+			$resultSQL = $conec->ejecutarSQL($consulta);
+			return $resultSQL;
+		}
+
+		public function activarAnuncio($idAnuncio){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = ("UPDATE anuncio SET activo='1' WHERE ID='$idAnuncio'");
+			$resultSQL = $conec->ejecutarSQL($consulta);
+			return $resultSQL;
+		}
 	}
 ?>
