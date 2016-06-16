@@ -122,30 +122,33 @@
 					}else{
 						$link='logo.png';
 					}
-					echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
-								<div class='row'>
-									<div class='col-xs-2 col-md-2'>
-									</div>
-									<div class='col-xs-8 col-md-8 anuncio'>
-										<input class=hidden name='anunc' value=\"".$row['anuncio_ID']."\">
-											<button type='submit' class='buttonlink'>
-												<div class='row'>
-													<div class='col-xs-3 col-md-3' id='img'>
-														<img src= img/".$link." class='imgAnun'>
+
+					if($row['activo'] == '1'){
+						echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
+									<div class='row'>
+										<div class='col-xs-2 col-md-2'>
+										</div>
+										<div class='col-xs-8 col-md-8 anuncio'>
+											<input class=hidden name='anunc' value=\"".$row['anuncio_ID']."\">
+												<button type='submit' class='buttonlink'>
+													<div class='row'>
+														<div class='col-xs-3 col-md-3' id='img'>
+															<img src= img/".$link." class='imgAnun'>
+														</div>
+														<div class='col-xs-9 col-md-9'>
+															<h2>
+																<strong><span class='titulo'>".$row['Titulo']."</span></strong>
+															</h2>
+														</div>
 													</div>
-													<div class='col-xs-9 col-md-9'>
-														<h2>
-															<strong><span class='titulo'>".$row['Titulo']."</span></strong>
-														</h2>
-													</div>
-												</div>
-											</button>
-										</input>
+												</button>
+											</input>
+										</div>
+										<div class='col-xs-2 col-md-2'>
+										</div>
 									</div>
-									<div class='col-xs-2 col-md-2'>
-									</div>
-								</div>
-							</form>";
+								</form>";
+					}
 				}
 			}
 			if($anun->num_rows==0){
