@@ -27,7 +27,7 @@
 		}
 		$serv = new aService();
 		$solic = $serv->solicitudesRecibidas($id);
-		if($solic){
+		if($solic->num_rows>0){
 			while($row = $solic->fetch_assoc()){
 				$inicial = date("d/m/Y", strtotime($row['fecha_inicio']));
 				$final = date("d/m/Y", strtotime($row['fecha_fin']));
@@ -101,6 +101,20 @@
 					</div>	
 				";
 			}
+		}else{
+			echo"
+				<center>
+					<div class='row'>
+						<div class='col-xs-2 col-md-2'>
+						</div>
+						<div class='col-xs-8 col-md-8'>
+							<strong><span class='titulo2'>No hay solicitudes recibidas</span></strong>
+						</div>
+						<div class='col-xs-2 col-md-2'>
+						</div>
+					</div>
+				</center>
+			";
 		}
 	?>
 	

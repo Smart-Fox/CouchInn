@@ -27,7 +27,7 @@
 		}
 		$serv = new aService();
 		$preg = $serv->preguntasRecibidas($id);
-		if($preg){
+		if($preg->num_rows>0){
 			while($row = $preg->fetch_assoc()){
 				echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
 							<div class='row'>
@@ -50,6 +50,20 @@
 						</form>
 				";
 			}
+		}else{
+			echo"
+				<center>
+					<div class='row'>
+						<div class='col-xs-2 col-md-2'>
+						</div>
+						<div class='col-xs-8 col-md-8'>
+							<strong><span class='titulo2'>No hay preguntas recibidas</span></strong>
+						</div>
+						<div class='col-xs-2 col-md-2'>
+						</div>
+					</div>
+				</center>
+			";
 		}
 	?>
 	
