@@ -4,6 +4,12 @@
 		public function __construct($us){
 			$this->user = $us;
 		}
+		private function getPreguntas(){
+			$conec = new dbManager();
+			$conec->conectar();
+			$id=$_SESSION['id'];
+			$consulta="SELECT * FROM pregunta WHERE pregunta.ID_usuario = $id AND pregunta.Visto=0";
+		}
 		public function buildHeader(){
 			echo "	<script type=\"text/javascript\" >
 						$(document).ready(function()
@@ -41,7 +47,14 @@
 					echo "
 							<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>
 								<a href='miCuenta.php'><button class='btn22' type='button'>Mi<br>cuenta</button></a>
-								<button class='btn22' type='button'> Notificaciones</button>
+								<div id=\"notification_li\" style=\"float:left\">
+								<span id=\"notification_count\"></span>
+								<a href=# id=\"notificationLink\"><button class='btn22' type='button'> Notif</button></a>
+								<div id=\"notificationContainer\">
+								<div id=\"notificationTitle\">Notifications</div>
+								<div id=\"notificationsBody\" class=\"notifications\"></div>
+								</div>
+								</div>
 								 
 								<a href=\"panelAdmin.php\"><button type=button class='btn22'>Panel de<br>administrador</button></a>
 								<a href=\"cerrarSesion.php\"><button type=button class='btn22'>Cerrar<br>Sesión</button></a>
@@ -52,7 +65,14 @@
 					echo "	
 							<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>
 								<a href='miCuenta.php'><button class='btn2' type='button'>Mi <br> cuenta</button></a>
-								<button class='btn22' type='button'> Notificaciones</button>
+								<div id=\"notification_li\" style=\"float:left\">
+								<span id=\"notification_count\"></span>
+								<a href=# id=\"notificationLink\"><button class='btn22' type='button'> Notif</button></a>
+								<div id=\"notificationContainer\">
+								<div id=\"notificationTitle\">Notifications</div>
+								<div id=\"notificationsBody\" class=\"notifications\"></div>
+								</div>
+								</div>
 								<a href=\"cerrarSesion.php\"><button type=\"button\" class=\"btn2\">Cerrar Sesión</button></a>
 							</div>
 					";
