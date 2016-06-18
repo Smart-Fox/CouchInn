@@ -34,7 +34,8 @@
 		$nomUser = $rowUs['Username'];
 		
 		if ($_SESSION['id'] == $id){
-			
+			include('cuentaOptions.php');
+			$display=new cuentaMenu();
 			$nombre = $rowUs['Nombre'];
 			$apellido = $rowUs['Apellido'];
 			$email = $rowUs['Email'];
@@ -55,7 +56,7 @@
 										Email: 	<strong><span class='titulo2'>".$email."</span></strong> <br>
 										Tipo Usuario:	<strong><span class='titulo2'>".$tipo."</span></strong>
 									</h3>
-									<a href='pagPrinc.php'><button class='btn22'>Salir</button></a> <a href='editUser.php'><button class='btn22'>Editar</button></a>
+									<a href='editUser.php'><button class='btn22'>Editar</button></a>
 								</div>
 							</div>
 						</div>

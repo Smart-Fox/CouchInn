@@ -18,11 +18,10 @@
 		$boolean=false;
 		$resp = $_POST['respuesta'];
 		$idAnun = $_POST['anunc'];
-		$idUser = $_SESSION['id'];
 		$idPreg = $_POST['idpreg'];
 		$serv = new aService();
 		
-		$serv->publicarRespuesta($idPreg, $idUser, $resp);
+		$serv->publicarRespuesta($idPreg, $resp);
 		unset($_POST['respuesta']);
 		$boolean=true;
 		if($boolean){
