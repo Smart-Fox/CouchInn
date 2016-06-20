@@ -17,7 +17,12 @@
 		break;
 		
 		case 'aceptar':
-			
+			$superp=$serv->levantarSolicitudesFecha($row['fecha_inicio'], $row['fecha_fin']);
+			if ($superp->num_rows=0){
+				$serv->aceptarSolicitud($idSolic);
+			}else{
+				header('Location: solicSuperp.php');
+			}
 		break;
 		
 		case 'rechazar':

@@ -164,6 +164,13 @@
 			return ($conec->ejecutarSQL($consulta));
 		}
 		
+		public function levantarSolicitudesFecha($inicial, $final){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT * 	FROM solicitud_reserva WHERE ID='$id';");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		
 		public function cancelarSolicitudHuesped($id){
 			$conec = new dbManager();
 			$conec->conectar();	
@@ -184,6 +191,13 @@
 			$conec = new dbManager();
 			$conec->conectar();	
 			$consulta = ("UPDATE solicitud_reserva SET estado='rechazada', Visto_autor='1', Visto_huesped='0' WHERE ID='$id'");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		
+		public function aceptarSolicitud($id){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("UPDATE solicitud_reserva SET estado='aceptada', Visto_autor='1', Visto_huesped='0' WHERE ID='$id'");
 			return ($conec->ejecutarSQL($consulta));
 		}
 		
