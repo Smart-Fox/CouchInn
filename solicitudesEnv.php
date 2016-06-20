@@ -60,10 +60,22 @@
 				if ($row['estado']=='aceptada'){
 					echo"
 							<div class='row'>
-								<form action='cancelarSolic.php' method='POST' enctype='multipart/form-data'>
-									<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
-									<center><button type='submit' class='btn22'>Cancelar reserva</button></center>
-								</form>
+								<div class='col-xs-4 col-md-4'>
+								</div>
+								<div class='col-xs-2 col-md-2'>
+									<form action='verDatos.php' method='POST' enctype='multipart/form-data'>
+										<input class=hidden name='user' value='".$row['anuncio_user']."'></input>
+										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
+									</form>
+								</div>
+								<div class='col-xs-2 col-md-2'>	
+									<form action='cancelarSolic.php' method='POST' enctype='multipart/form-data'>
+										<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
+										<center><button type='submit' class='btn22'>Cancelar reserva</button></center>
+									</form>
+								</div>
+								<div class='col-xs-4 col-md-4'>
+								</div>
 							</div>
 					";
 				}

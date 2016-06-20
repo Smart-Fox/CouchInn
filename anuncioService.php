@@ -140,7 +140,8 @@
 		public function solicitudesEnviadas($idUser){
 			$conec = new dbManager();
 			$conec->conectar();	
-			$consulta = ("SELECT *, solicitud_reserva.ID as solicitud_ID FROM solicitud_reserva 
+			$consulta = ("SELECT *, solicitud_reserva.ID as solicitud_ID, anuncio.ID_usuario as anuncio_user
+									FROM solicitud_reserva 
 									INNER JOIN anuncio ON solicitud_reserva.ID_anuncio = anuncio.ID
 									WHERE solicitud_reserva.ID_usuario='$idUser'
 									ORDER BY estado;");
@@ -150,8 +151,10 @@
 		public function solicitudesRecibidas($idUser){
 			$conec = new dbManager();
 			$conec->conectar();	
-			$consulta = ("SELECT *,	solicitud_reserva.ID as solicitud_ID FROM solicitud_reserva 
+			$consulta = ("SELECT *,	solicitud_reserva.ID as solicitud_ID, solicitud_reserva.ID_usuario as solicitud_user
+									FROM solicitud_reserva 
 									INNER JOIN anuncio ON solicitud_reserva.ID_anuncio = anuncio.ID
+									INNER JOIN usuario ON solicitud_reserva.ID_usuario = usuario.ID
 									WHERE anuncio.ID_usuario='$idUser'
 									ORDER BY estado;");
 			return ($conec->ejecutarSQL($consulta));
@@ -167,7 +170,7 @@
 		public function levantarSolicitudesFecha($inicial, $final){
 			$conec = new dbManager();
 			$conec->conectar();	
-			$consulta = ("SELECT * 	FROM solicitud_reserva WHERE ID='$id';");
+			$consulta = ("SELECT * 	FROM solicitud_reserva WHERE fecha_inicio BETWEEN $inicial AND $final OR fecha_fin BETWEEN $inicial AND $final;");
 			return ($conec->ejecutarSQL($consulta));
 		}
 		
@@ -198,6 +201,9 @@
 			$conec = new dbManager();
 			$conec->conectar();	
 			$consulta = ("UPDATE solicitud_reserva SET estado='aceptada', Visto_autor='1', Visto_huesped='0' WHERE ID='$id'");
+			$conec->ejecutarSQL($consulta);
+			$date = date("Y-m-d");
+			$consulta = ("INSERT INTO reserva(fecha_aceptacion,ID_solicitud) VALUES ('$date' , '$id')");
 			return ($conec->ejecutarSQL($consulta));
 		}
 		

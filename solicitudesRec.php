@@ -50,6 +50,8 @@
 											<br>
 											<span class='content'>Reserva para ".$row['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.".</span>
 											<br>
+											<span class='content'>Pedido por ".$row['Username'].".</span>
+											<br>
 											<span class='content'>".$row['comentario']."</span>
 											<br>
 											<span class='content'>Estado: ".$row['estado']."</span>
@@ -60,11 +62,23 @@
 				if ($row['estado']=='aceptada'){
 					echo"
 						<div class='row'>
-							<form action='cancelarSolic.php' method='POST' enctype='multipart/form-data'>
-								<input class=hidden name='resp' value='cancelar'></input>
-								<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
-								<center><button type='submit' class='btn22'>Cancelar reserva</button></center>
-							</form>
+							<div class='col-xs-4 col-md-4'>
+							</div>
+							<div class='col-xs-2 col-md-2'>
+								<form action='verDatos.php' method='POST' enctype='multipart/form-data'>
+									<input class=hidden name='user' value='".$row['solicitud_user']."'></input>
+									<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
+								</form>
+							</div>
+							<div class='col-xs-2 col-md-2'>	
+								<form action='cancelarSolic.php' method='POST' enctype='multipart/form-data'>
+									<input class=hidden name='resp' value='cancelar'></input>
+									<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
+									<center><button type='submit' class='btn22'>Cancelar reserva</button></center>
+								</form>
+							</div>
+							<div class='col-xs-4 col-md-4'>
+							</div>
 						</div>
 					";
 				}
@@ -72,7 +86,13 @@
 					echo"
 						<center>
 							<div class='row'>
-								<div class='col-xs-4 col-md-4'>
+								<div class='col-xs-3 col-md-3'>
+								</div>
+								<div class='col-xs-2 col-md-2'>
+									<form method='POST' action='verPerfil.php'>
+										<input class='hidden' name='id' value='".$row['solicitud_user']."'>
+										<button class='btn22' type='submit'>Ver perfil</button>
+									</form>
 								</div>
 								<div class='col-xs-2 col-md-2'>
 									<form action='responderSolicitud.php' method='POST' enctype='multipart/form-data'>
@@ -88,7 +108,7 @@
 										<button type='submit' class='btn22'>Rechazar</button>
 									</form>
 								</div>
-								<div class='col-xs-4 col-md-4'>
+								<div class='col-xs-3 col-md-3'>
 								</div>
 							</div>
 						</center>
