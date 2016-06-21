@@ -101,10 +101,10 @@
 										<input class=hidden name='anunc' value=\"".$row['anuncio_ID']."\">
 											<button type='submit' class='buttonlink'>
 												<div class='row'>
-													<div class='col-xs-4 col-md-4'>
-														<img src= img/".$row['enlace']." class=imgAnun align='center'>
+													<div class='col-xs-3 col-md-3' id='img'>
+														<img src= img/".$row['enlace']." class='imgAnun'>
 													</div>
-													<div class='col-xs-8 col-md-8'>
+													<div class='col-xs-9 col-md-9'>
 														<h2>
 															<strong><span class='titulo'>".$row['Titulo']."</span></strong>
 														</h2>

@@ -19,7 +19,10 @@
 				case ("admin"):
 					echo "
 							<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>
-								<a href='miCuenta.php'><button class='btn22' type='button'>Mi<br>cuenta</button></a>
+								<form method='POST' action='verPerfil.php' class='headerform'>
+										<input class='hidden' name='id' value=".$_SESSION['id'].">
+										<button class='btn22' type='submit'>Mi<br>cuenta</button>
+								</form>
 								<a href=\"panelAdmin.php\"><button type=button class='btn22'>Panel de<br>administrador</button></a>
 								<a href=\"cerrarSesion.php\"><button type=button class='btn22'>Cerrar<br>Sesión</button></a>
 							</div>
@@ -28,7 +31,10 @@
 				case ("premium"):
 					echo "	
 							<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>
-								<a href='miCuenta.php'><button class='btn2' type='button'>Mi cuenta</button></a>
+								<form method='POST' action='verPerfil.php' class='headerform'>
+										<input class='hidden' name='id' value=".$_SESSION['id'].">
+										<button class='btn2' type='submit'>Mi cuenta</button>
+								</form>
 								<a href=\"cerrarSesion.php\"><button type=\"button\" class=\"btn2\">Cerrar Sesión</button></a>
 							</div>
 					";
@@ -36,7 +42,10 @@
 				case ("common"):
 					echo "	
 							<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>
-								<a href='miCuenta.php'><button class='btn22' type='button'>Mi cuenta</button></a>
+								<form method='POST' action='verPerfil.php' class='headerform'>
+									<input class='hidden' name='id' value=".$_SESSION['id'].">
+									<button class='btn22' type='submit'>Mi cuenta</button>
+								</form>
 								<a href='infoPremium.php'><button type='button' class='btn22'>Comprar premium</button></a>
 								<a href='cerrarSesion.php'><button type='button' class='btn22'>Cerrar Sesión</button></a>
 							</div>

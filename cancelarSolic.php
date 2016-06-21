@@ -22,37 +22,20 @@
 			$service->buildHeader();
 			$display=new cuentaMenu();
 			$id=$_SESSION['id'];
+			$solic=$_POST['solic'];
 		}else{
 			header('Location:index.html');
 		}
-		$serv = new aService();
-		$preg = $serv->preguntasRecibidas($id);
-		if($preg){
-			while($row = $preg->fetch_assoc()){
-				echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
-							<div class='row'>
-								<div class='col-xs-2 col-md-2'>
-								</div>
-								<div class='col-xs-8 col-md-8 anuncio'>
-									<input class=hidden name='anunc' value=\"".$row['ID_anuncio']."\">
-										<button type='submit' class='buttonlink'>
-											<div class='row'>
-												<div class='col-xs-12 col-md-12'>
-													<h2>
-														<strong><span class='titulo2'>".$row['texto']."</span></strong>
-													</h2>
-												</div>
-											</div>
-										</button>
-									</input>
-								</div>
-								<div class='col-xs-2 col-md-2'>
-								</div>
-							</div>
-						</form>
-				";
-			}
-		}
+		echo "	<form action='responderSolicitud.php' method='POST' enctype='multipart/form-data'>
+					<input class=hidden name='resp' value='cancelar'></input>
+					<input class=hidden name='solic' value='".$solic."'></input>
+					<center>
+						<span class='content2'>¿Confirma que desea cancelar la reserva? Esta operación no se puede revertir.</span><br>
+						<a href='miCuenta.php'><button type='button' class='btn22'>Salir</button></a>
+						<button type='submit' class='btn22'>Confirmar</button>
+					</center>
+				</form>
+		";
 	?>
 	
 </body>
