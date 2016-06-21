@@ -48,7 +48,7 @@
 			break;
 			
 			case 'aceptar':
-				$superp=$serv->levantarSolicitudesFecha($row['fecha_inicio'], $row['fecha_fin'], $idSolic);
+				$superp=$serv->levantarSolicitudesFecha($row['fecha_inicio'], $row['fecha_fin'], $idSolic, $row['ID_anuncio']);
 				if ($superp->num_rows==0){
 					$serv->aceptarSolicitud($idSolic);
 				}else{

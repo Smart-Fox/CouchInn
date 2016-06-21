@@ -167,14 +167,18 @@
 			return ($conec->ejecutarSQL($consulta));
 		}
 		
-		public function levantarSolicitudesFecha($inicial, $final, $id){
+		public function levantarSolicitudesFecha($inicial, $final, $idS, $idA){
 			$conec = new dbManager();
 			$conec->conectar();	
 			$consulta = ("SELECT *, solicitud_reserva.ID as solicitud_ID, solicitud_reserva.ID_usuario as solicitud_user
 									FROM solicitud_reserva 
 									INNER JOIN anuncio ON solicitud_reserva.ID_anuncio = anuncio.ID
 									INNER JOIN usuario ON solicitud_reserva.ID_usuario = usuario.ID
-									WHERE (estado='pendiente') AND ((fecha_inicio>='$inicial' AND fecha_inicio<='$final') OR (fecha_fin>='$inicial' AND fecha_fin<='$final')) AND (solicitud_reserva.ID!=$id);");
+									WHERE 	((estado='pendiente')
+									AND 	(solicitud_reserva.ID_anuncio=$idA)
+									AND 	(((fecha_inicio>='$inicial' AND fecha_inicio<='$final') OR (fecha_fin>='$inicial' AND fecha_fin<='$final'))
+									OR		(('$inicial'>=fecha_inicio AND '$inicial'<=fecha_fin) OR ('$final'>=fecha_inicio AND '$final'<=fecha_fin)))
+									AND 	(solicitud_reserva.ID!=$idS));");
 			return ($conec->ejecutarSQL($consulta));
 		}
 		
