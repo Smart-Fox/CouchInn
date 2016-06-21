@@ -831,3 +831,18 @@ span.labelform2{
 span.content{
 	line-height:40px;
 }
+
+.consultaDet{
+	
+	border-radius: 8px;
+	border: 2px solid #96ac3c;
+	margin: 30px;
+	padding: 20px;
+	width:80%;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	flex-flow: column wrap;
+}
+
+}
