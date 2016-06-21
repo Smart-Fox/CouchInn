@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Preguntas enviadas</title>
+	<title>Solicitudes recibidas</title>
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel='stylesheet' href='style.css'/>
@@ -48,9 +48,7 @@
 										<div class='col-xs-12 col-md-12'>
 											<strong><span class='content'>".$row['Titulo']."</span></strong>
 											<br>
-											<span class='content'>Reserva para ".$row['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.".</span>
-											<br>
-											<span class='content'>Pedido por ".$row['Username'].".</span>
+											<span class='content'>Reserva para ".$row['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.", pedida por ".$row['Username'].".</span>
 											<br>
 											<span class='content'>".$row['comentario']."</span>
 											<br>
