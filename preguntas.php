@@ -10,6 +10,16 @@
 	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript" src= "js/objeto.js"></script>
 	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
+	<script type="text/javascript">
+		function showRec(){
+			document.getElementById('recibidas').style.display = 'inline';
+			document.getElementById('enviadas').style.display = 'none';			
+		}
+		function showEnv(){
+			document.getElementById('enviadas').style.display = 'inline';
+			document.getElementById('recibidas').style.display = 'none';			
+		}
+	</script>
 </head>
 <body>
 	<?php
@@ -25,8 +35,27 @@
 		}else{
 			header('Location:index.html');
 		}
+		echo"
+			<div class='row'>
+				<div class='col-xs-4 col-md-4'>
+				</div>
+				<div class='col-xs-2 col-md-2'>
+					<div class='centered'>
+						<button type=button class='btn2' onclick='showEnv();'>Preguntas enviadas</button>
+					</div>
+				</div>
+				<div class='col-xs-2 col-md-2'>
+					<div class='centered'>
+						<button type=button class='btn2' onclick='showRec();'>Preguntas recibidas</button>
+					</div>
+				</div>
+				<div class='col-xs-4 col-md-4'>
+				</div>
+			</div>
+		";
 		$serv = new aService();
 		$preg = $serv->preguntasRecibidas($id);
+		echo "<div id='recibidas'>";
 		if($preg->num_rows>0){
 			while($row = $preg->fetch_assoc()){
 				echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
@@ -65,6 +94,48 @@
 				</center>
 			";
 		}
+		echo "</div>";
+		$preg2 = $serv->preguntasEnviadas($id);
+		echo "<div id='enviadas'>";
+		if($preg2->num_rows>0){
+			while($row2 = $preg2->fetch_assoc()){
+				echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
+							<div class='row'>
+								<div class='col-xs-2 col-md-2'>
+								</div>
+								<div class='col-xs-8 col-md-8 anuncio'>
+									<input class=hidden name='anunc' value=\"".$row2['ID_anuncio']."\">
+										<button type='submit' class='buttonlink'>
+											<div class='row'>
+												<div class='col-xs-12 col-md-12'>
+													<strong><span class='titulo2'>".$row2['texto']."</span></strong>
+												</div>
+											</div>
+										</button>
+									</input>
+								</div>
+								<div class='col-xs-2 col-md-2'>
+								</div>
+							</div>
+						</form>
+				";
+			}
+		}else{
+			echo"
+				<center>
+					<div class='row'>
+						<div class='col-xs-2 col-md-2'>
+						</div>
+						<div class='col-xs-8 col-md-8'>
+							<strong><span class='titulo2'>No hay preguntas enviadas</span></strong>
+						</div>
+						<div class='col-xs-2 col-md-2'>
+						</div>
+					</div>
+				</center>
+			";
+		}
+		echo "</div>";
 	?>
 	
 </body>
