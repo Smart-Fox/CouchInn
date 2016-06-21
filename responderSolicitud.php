@@ -72,7 +72,7 @@
 							<div class='col-xs-4 col-md-4'>
 							</div>
 							<div class='col-xs-2 col-md-2'>
-								<a href='solicitudesRec.php'><button class='btn22'>Cancelar</button></a>
+								<a href='solicitudes.php'><button class='btn22'>Cancelar</button></a>
 							</div>
 							<div class='col-xs-2 col-md-2'>	
 								<form action='solicSuperp.php' method='POST' enctype='multipart/form-data'>
@@ -94,9 +94,9 @@
 		}
 		if($bool){
 			if ($row['ID_usuario']==$idUser){
-				header('Location: solicitudesEnv.php');
+				header('Location: solicitudes.php');
 			}else{
-				header('Location: solicitudesRec.php');
+				header('Location: solicitudes.php');
 			}
 		}
 	?>

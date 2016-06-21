@@ -9,5 +9,5 @@
 	while($row2 = $superp->fetch_assoc()){
 		$serv->rechazarSolicitud($row2['solicitud_ID']);
 	}
-	header('Location: solicitudesRec.php');
+	header('Location: solicitudes.php');
 ?>
