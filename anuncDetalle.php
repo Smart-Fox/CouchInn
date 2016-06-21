@@ -129,6 +129,7 @@
 		
 		</div>
 
+		<div class='anunciodet'>
 			<?php
 				$preg1 = $serv->levantarPreguntasAnuncio($row['ID_anuncio']); 
 					echo "<br> <br>";
