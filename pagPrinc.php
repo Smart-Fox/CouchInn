@@ -122,7 +122,6 @@
 					}else{
 						$link='logo.png';
 					}
-					
 					if($row['activo'] == '1'){
 						echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
 									<div class='row'>
@@ -147,7 +146,8 @@
 										<div class='col-xs-2 col-md-2'>
 										</div>
 									</div>
-								</form>";
+								</form>
+						";
 					}
 				}
 			}

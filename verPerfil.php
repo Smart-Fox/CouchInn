@@ -57,7 +57,6 @@
 										Tipo Usuario:	<strong><span class='titulo2'>".$tipo."</span></strong>
 									</h3>
 									<a href='editUser.php'><button class='btn22'>Editar</button></a>
-									
 								</div>
 							</div>
 						</div>
@@ -94,60 +93,30 @@
 						</div>";
 			if($anun){
 				while($row = $anun->fetch_assoc()){
-					if ($_SESSION['id'] == $id){	//si es el mismo usuario del anuncio se publican todos los anuncios
-						echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
-									<div class='row'>
-										<div class='col-xs-2 col-md-2'>
-										</div>
-										<div class='col-xs-8 col-md-8 anuncio'>
-											<input class=hidden name='anunc' value=\"".$row['anuncio_ID']."\">
-												<button type='submit' class='buttonlink'>
-													<div class='row'>
-														<div class='col-xs-4 col-md-4'>
-															<img src= img/".$row['enlace']." class=imgAnun align='center'>
-														</div>
-														<div class='col-xs-8 col-md-8'>
-															<h2>
-																<strong><span class='titulo'>".$row['Titulo']."</span></strong>
-															</h2>
-														</div>
-													</div>
-												</button>
-											</input>
-										</div>
-										<div class='col-xs-2 col-md-2'>
-										</div>
+					echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
+								<div class='row'>
+									<div class='col-xs-2 col-md-2'>
 									</div>
-								</form>";
-					}else{
-						if ($row['activo'] == '1'){		// si no es el mismo del anuncio se publican solo las que están activas
-
-							echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
-									<div class='row'>
-										<div class='col-xs-2 col-md-2'>
-										</div>
-										<div class='col-xs-8 col-md-8 anuncio'>
-											<input class=hidden name='anunc' value=\"".$row['anuncio_ID']."\">
-												<button type='submit' class='buttonlink'>
-													<div class='row'>
-														<div class='col-xs-4 col-md-4'>
-															<img src= img/".$row['enlace']." class=imgAnun align='center'>
-														</div>
-														<div class='col-xs-8 col-md-8'>
-															<h2>
-																<strong><span class='titulo'>".$row['Titulo']."</span></strong>
-															</h2>
-														</div>
+									<div class='col-xs-8 col-md-8 anuncio'>
+										<input class=hidden name='anunc' value=\"".$row['anuncio_ID']."\">
+											<button type='submit' class='buttonlink'>
+												<div class='row'>
+													<div class='col-xs-3 col-md-3' id='img'>
+														<img src= img/".$row['enlace']." class='imgAnun'>
 													</div>
-												</button>
-											</input>
-										</div>
-										<div class='col-xs-2 col-md-2'>
-										</div>
+													<div class='col-xs-9 col-md-9'>
+														<h2>
+															<strong><span class='titulo'>".$row['Titulo']."</span></strong>
+														</h2>
+													</div>
+												</div>
+											</button>
+										</input>
 									</div>
-								</form>";
-						}
-					}
+									<div class='col-xs-2 col-md-2'>
+									</div>
+								</div>
+							</form>";
 				}
 			}
 	?>

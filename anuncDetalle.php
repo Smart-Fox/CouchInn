@@ -66,7 +66,6 @@
 								</form>
 								";
 							}
-
 						}
 						?>
 				</div>
@@ -129,11 +128,14 @@
 			</div>
 		
 		</div>
-
-		<div class='consultaDet'>
 			<?php
+					$preg1 = $serv->levantarPreguntasAnuncio($row['ID_anuncio']); 
+					if (($preg1->num_rows==0)&&($_SESSION['id']==$row['usuario_ID'])){
 
-				$preg1 = $serv->levantarPreguntasAnuncio($row['ID_anuncio']); 
+					}else{
+						echo "<div class='anunciodet'>";
+					}
+					if ($preg1->num_rows>0){
 					echo "<br> <br>";
 					while($rowPreg = $preg1->fetch_assoc()){   //se publican las preguntas. Faltaria un if pa q no haga todo al dope
 							echo "<hr>";
@@ -152,8 +154,6 @@
 								</div>
 							";
 							$resp = $serv->levantarRespuestaAnuncio($rowPreg['pregunta_ID']);
-
-
 							if($resp->num_rows>0){  //si existe una respuesta para la pregunta, se publica
 								$rowResp = $resp->fetch_assoc();
 									echo " 
@@ -170,7 +170,6 @@
 											</div>
 										</div>
 									";
-
 							}else{
 								if ($_SESSION['id']==$row['usuario_ID']){
 									echo " 
@@ -191,9 +190,8 @@
 										";
 								}
 							}
-
 					} //end del While de las preguntas
-
+				}
 					if ($_SESSION['id']!=$row['usuario_ID']){  //si no es el usuario autor del anuncio, se publica el campo para Preguntar
 						echo 	"<hr>";
 							echo"	<div class='row'>
@@ -215,8 +213,11 @@
 							";
 					}
 
+		if (($preg1->num_rows==0)&&($_SESSION['id']==$row['usuario_ID'])){
+		}else{
+			echo "</div>";
+		}
 ?>
-		</div>
 	</center>
 </body>
 </html>
