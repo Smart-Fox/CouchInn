@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Preguntas recibidas</title>
+	<title>Preguntas</title>
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel='stylesheet' href='style.css'/>
@@ -13,11 +13,15 @@
 	<script type="text/javascript">
 		function showRec(){
 			document.getElementById('recibidas').style.display = 'inline';
-			document.getElementById('enviadas').style.display = 'none';			
+			$("#rec").addClass("selected");
+			document.getElementById('enviadas').style.display = 'none';
+			$("#env").removeClass("selected");			
 		}
 		function showEnv(){
 			document.getElementById('enviadas').style.display = 'inline';
-			document.getElementById('recibidas').style.display = 'none';			
+			$("#env").addClass("selected");
+			document.getElementById('recibidas').style.display = 'none';
+			$("#rec").removeClass("selected");			
 		}
 	</script>
 </head>
@@ -41,12 +45,12 @@
 				</div>
 				<div class='col-xs-2 col-md-2'>
 					<div class='centered'>
-						<button type=button class='btn2' onclick='showEnv();'>Preguntas enviadas</button>
+						<button type=button id='env' class='btn2' onclick='showEnv();'>Preguntas enviadas</button>
 					</div>
 				</div>
 				<div class='col-xs-2 col-md-2'>
 					<div class='centered'>
-						<button type=button class='btn2' onclick='showRec();'>Preguntas recibidas</button>
+						<button type=button id='rec' class='btn2' onclick='showRec();'>Preguntas recibidas</button>
 					</div>
 				</div>
 				<div class='col-xs-4 col-md-4'>
@@ -127,6 +131,7 @@
 						<div class='col-xs-2 col-md-2'>
 						</div>
 						<div class='col-xs-8 col-md-8'>
+							<br>
 							<strong><span class='titulo2'>No hay preguntas enviadas</span></strong>
 						</div>
 						<div class='col-xs-2 col-md-2'>
