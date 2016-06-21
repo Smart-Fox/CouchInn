@@ -44,31 +44,7 @@
 					<h1><strong><span> <?php echo $row['Titulo'];?></span></strong></h1>
 				</div>
 				<div class='col-xs-1 col-md-1'>
-
-					<?php
-						if($_SESSION['id']==$row['usuario_ID']){  //si es el mismo usuario que le aparezca la opcion de eliminar anuncio
-							if ($row['activo'] == '1'){
-							echo "
-							
-								<form action='darBajaPublic.php' method='POST' enctype='multipart/form-data'>
-									<input class='hidden' name='anunc' value= ".$id.">
-									
-									<button type='submit' class='btn22'>Eliminar anuncio</button>
-								</form>
-								";
-							}else{
-								echo "
-							
-								<form action='darAltaPublic.php' method='POST' enctype='multipart/form-data'>
-									<input class='hidden' name='anunc' value= ".$id.">
-									
-									<button type='submit' class='btn22'>Publicar anuncio</button>
-								</form>
-								";
-							}
-						}
-						?>
-				</div>
+			</div>
 			</div>
 			<div class='row row-anuncio'>
 				<div class='col-xs-6 col-md-6 col-anunc'>
@@ -118,20 +94,46 @@
 							?>
 						</div>
 						<div class='col-xs-4 col-md-4'>
-							<form method='POST' action='verPerfil.php'>
-								<input class='hidden' name='id' value='<?php echo $row['usuario_ID']; ?>'>
-								<button class='btn22' type='submit'>Ver perfil</button>
-							</form>
+							<?php
+								if($_SESSION['id']==$row['usuario_ID']){  //si es el mismo usuario que le aparezca la opcion de eliminar anuncio
+									if ($row['activo'] == '1'){
+									echo "
+										<form action='darBajaPublic.php' method='POST' enctype='multipart/form-data'>
+											<input class='hidden' name='anunc' value= ".$id.">
+											<button type='submit' class='btn22'>Eliminar anuncio</button>
+										</form>
+										";
+									}else{
+										echo "
+									
+										<form action='darAltaPublic.php' method='POST' enctype='multipart/form-data'>
+											<input class='hidden' name='anunc' value= ".$id.">
+											<button type='submit' class='btn22'>Publicar anuncio</button>
+										</form>
+										";
+									}
+								}else{
+									echo "
+										<form method='POST' action='verPerfil.php'>
+											<input class='hidden' name='id' value='".$row['usuario_ID']."'>
+											<button class='btn22' type='submit'>Ver perfil</button>
+										</form>
+									";
+								}
+							?>
 						</div>
 					</div>
 				</div>
 			</div>
 		
 		</div>
-
-		<div class='anunciodet'>
 			<?php
-				$preg1 = $serv->levantarPreguntasAnuncio($row['ID_anuncio']); 
+					$preg1 = $serv->levantarPreguntasAnuncio($row['ID_anuncio']); 
+					if (($preg1->num_rows==0)&&($_SESSION['id']==$row['usuario_ID'])){
+					}else{
+						echo "<div class='anunciodet'>";
+					}
+					if ($preg1->num_rows>0){
 					echo "<br> <br>";
 					while($rowPreg = $preg1->fetch_assoc()){   //se publican las preguntas. Faltaria un if pa q no haga todo al dope
 							echo "<hr>";
@@ -187,6 +189,7 @@
 								}
 							}
 					} //end del While de las preguntas
+				}
 					if ($_SESSION['id']!=$row['usuario_ID']){  //si no es el usuario autor del anuncio, se publica el campo para Preguntar
 						echo 	"<hr>";
 							echo"	<div class='row'>
@@ -207,8 +210,11 @@
 									</div>
 							";
 					}
+		if (($preg1->num_rows==0)&&($_SESSION['id']==$row['usuario_ID'])){
+		}else{
+			echo "</div>";
+		}
 ?>
-		</div>
 	</center>
 </body>
 </html>
