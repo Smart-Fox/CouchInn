@@ -75,9 +75,9 @@
 			$consulta = ("UPDATE anuncio SET Capacidad = '$cap', Titulo = '$titulo', Descripcion = '$desc', Fecha = '$date', ID_tipo_hospedaje = '$tipo', ID_ciudad = '$ciudad', ID_usuario = '$user' WHERE ID = '$idA'");
 			$res = $conec->ejecutarSQL($consulta);
 			if ($imagen){
-			
-			$consulta = ("UPDATE imagen SET enlace='$imagen' WHERE ID_anuncio='$idA'");
-			$res = $conec->ejecutarSQL($consulta);}
+				$consulta = ("UPDATE imagen SET enlace='$imagen' WHERE ID_anuncio='$idA'");
+				$res = $conec->ejecutarSQL($consulta);
+			}
 			return($res);
 		}
 		
@@ -186,32 +186,36 @@
 			$consulta = ("UPDATE solicitud_reserva SET estado='rechazada', Visto_autor='1', Visto_huesped='0' WHERE ID='$id'");
 			return ($conec->ejecutarSQL($consulta));
 		}
-		
+		public function getPreguntas($id){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta="SELECT * FROM pregunta INNER JOIN anuncio ON anuncio.id=pregunta.ID_anuncio WHERE anuncio.ID_usuario = $id AND pregunta.Visto=0";
+			$res= $conec->ejecutarSQL($consulta);
+			return $res;
+		}
+		public function getRespuestas($id){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta="SELECT * FROM respuesta INNER JOIN pregunta ON respuesta.ID_pregunta=pregunta.ID WHERE respuesta.visto=0 AND pregunta.ID_usuario=$id";
+			$res= $conec->ejecutarSQL($consulta);
+			return $res;
+		}	
+		public function getSolicitud($id){ 
+			$conec=new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * FROM solicitud_reserva INNER JOIN anuncio ON solicitud_reserva.ID_anuncio=anuncio.ID WHERE solicitud_reserva.Visto_autor=0 AND anuncio.ID_usuario=$id ";
+			$resultSQL = $conec->ejecutarSQL($consulta);
+			return $resultSQL;
+		}
+		public function respuestaSeen($id){
+			$conec= new dbManager();
+			$conec->conectar();
+			$consulta = "UPDATE `respuesta` SET `Visto`=1 WHERE ID =$id";
+			$res = $conec->ejecutarSQL($consulta);
+			return $res;
+
+		}
 		/*
-		public function notificarPregunta($id){  //al que publico el anuncio se le informa que recibio una pregunta
-			$conec=new dbManager();
-			$conec->conectar();
-			$consulta = "SELECT * FROM";
-			$resultSQL = $conec->ejecutarSQL($consulta);
-			return $resultSQL;
-		}
-		
-		public function notificarRespuesta($id){  //al que preguntó se le informa que le respondieron 
-			$conec=new dbManager();
-			$conec->conectar();
-			$consulta = "SELECT * FROM";
-			$resultSQL = $conec->ejecutarSQL($consulta);
-			return $resultSQL;
-		}
-		
-		public function notificarSolicitud($id){ // al que publico el anuncio se le informa que recibio una solicitud 
-			$conec=new dbManager();
-			$conec->conectar();
-			$consulta = "SELECT * FROM";
-			$resultSQL = $conec->ejecutarSQL($consulta);
-			return $resultSQL;
-		}
-		
 		public function notificarReserva($id){ // al que pidio solicitud se le informa si fue aceptada o rechazada 
 			$conec=new dbManager();
 			$conec->conectar();
@@ -255,6 +259,14 @@
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
+		
+		public function levantarImagen($id){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * FROM imagen WHERE ID=$id";
+			$resultSQL = $conec->ejecutarSQL($consulta);
+		}
+		
 		public function levantarAnuncioDeUsuario($idUser){
 			$conec = new dbManager();
 			$conec->conectar();

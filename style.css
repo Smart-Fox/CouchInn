@@ -533,16 +533,25 @@ input[type=file]{
 
 .imgAnun{
 	border: 2px solid #ccc;
-	float: left;
-	margin: 5px;
-	max-height: 150px; 
-	max-width: 150px;
-	vertical-align: 0%!important;
+	max-height: 100%;
+	max-width: 100%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
 
+#img{
+	height:150px;
+	width: 150px;
+	margin: 0px !important;
+	padding: 0px !important;
 }
 
 .buttonlink{
-	padding: 5px;
+	padding: 10px;
 	background: none;
 	border: none;
 	width:100%;
@@ -835,14 +844,13 @@ position:relative
 #notificationContainer 
 {
 background-color: #fff;
-border: 1px solid rgba(100, 100, 100, .4);
 -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
 overflow: visible;
 position: absolute;
 top: 30px;
 margin-left: -170px;
 width: 400px;
-z-index: -1;
+z-index: 1;
 display: none; /*Enable this after jquery implementation */
 }
 /*// Popup Arrow*/
@@ -883,6 +891,12 @@ padding: 8px;
 font-size: 12px;
 border-top: 1px solid #dddddd;
 }
+#notificationsBody form {
+	padding: 10px;
+}
+#notificationsBody form span {
+	padding-right: 10px;
+}
 #notification_count
 {
 padding: 3px 7px 3px 7px;
@@ -902,5 +916,9 @@ font-size: 11px;
 	display:inline-block;
 	margin-top: 20px !important;
 	margin-bottom: 20px !important;
+}
+
+.headerform{
+	display:inline-block;
 
 }

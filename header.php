@@ -4,13 +4,8 @@
 		public function __construct($us){
 			$this->user = $us;
 		}
-		private function getPreguntas(){
-			$conec = new dbManager();
-			$conec->conectar();
-			$id=$_SESSION['id'];
-			$consulta="SELECT * FROM pregunta WHERE pregunta.ID_usuario = $id AND pregunta.Visto=0";
-		}
 		public function buildHeader(){
+
 			echo "	<script type=\"text/javascript\" >
 						$(document).ready(function()
 						{
@@ -45,8 +40,7 @@
 			switch ($_SESSION['type']){
 				case ("admin"):
 					echo "
-							<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>
-								<a href='miCuenta.php'><button class='btn22' type='button'>Mi<br>cuenta</button></a>
+							<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>		
 								<div id=\"notification_li\" style=\"float:left\">
 								<span id=\"notification_count\"></span>
 								<a href=# id=\"notificationLink\"><button class='btn22' type='button'> Notif</button></a>
@@ -55,7 +49,10 @@
 								<div id=\"notificationsBody\" class=\"notifications\"></div>
 								</div>
 								</div>
-								 
+								<form method='POST' action='verPerfil.php' class='headerform'>
+										<input class='hidden' name='id' value=".$_SESSION['id'].">
+										<button class='btn22' type='submit'>Mi<br>cuenta</button>
+								</form>
 								<a href=\"panelAdmin.php\"><button type=button class='btn22'>Panel de<br>administrador</button></a>
 								<a href=\"cerrarSesion.php\"><button type=button class='btn22'>Cerrar<br>Sesión</button></a>
 							</div>
@@ -64,7 +61,6 @@
 				case ("premium"):
 					echo "	
 							<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>
-								<a href='miCuenta.php'><button class='btn2' type='button'>Mi <br> cuenta</button></a>
 								<div id=\"notification_li\" style=\"float:left\">
 								<span id=\"notification_count\"></span>
 								<a href=# id=\"notificationLink\"><button class='btn22' type='button'> Notif</button></a>
@@ -73,6 +69,10 @@
 								<div id=\"notificationsBody\" class=\"notifications\"></div>
 								</div>
 								</div>
+								<form method='POST' action='verPerfil.php' class='headerform'>
+										<input class='hidden' name='id' value=".$_SESSION['id'].">
+										<button class='btn2' type='submit'>Mi cuenta</button>
+								</form>
 								<a href=\"cerrarSesion.php\"><button type=\"button\" class=\"btn2\">Cerrar Sesión</button></a>
 							</div>
 					";
@@ -80,17 +80,22 @@
 				case ("common"):
 					echo "	
 							<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>
+
 								<a href='miCuenta.php'><button class='btn22' type='button'>Mi <br> cuenta</button></a>
 								<div id=\"notification_li\" style=\"float:left\">
 								<span id=\"notification_count\"></span>
-								<a href=# id=\"notificationLink\"><button class='btn22' type='button'> Notif</button></a>
+								<a href=# id=\"notificationLink\"><button class='btn22' type='button' onclick=\"getNotificaciones(".$_SESSION['id'].");\"> Notif</button></a>
 								<div id=\"notificationContainer\">
-								<div id=\"notificationTitle\">Notifications</div>
+								<div id=\"notificationTitle\">Notificaciones</div>
 								<div id=\"notificationsBody\" class=\"notifications\"></div>
 								</div>
 								</div>
-								<a href='infoPremium.php'><button type='button' class='btn22'>Comprar <br> premium</button></a>
-								<a href='cerrarSesion.php'><button type='button' class='btn22'>Cerrar  <br> Sesión</button></a>
+								<form method='POST' action='verPerfil.php' class='headerform'>
+									<input class='hidden' name='id' value=".$_SESSION['id'].">
+									<button class='btn22' type='submit'>Mi cuenta</button>
+								</form>
+								<a href='infoPremium.php'><button type='button' class='btn22'>Comprar premium</button></a>
+								<a href='cerrarSesion.php'><button type='button' class='btn22'>Cerrar Sesión</button></a>
 							</div>
 					";
 					break;

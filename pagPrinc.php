@@ -10,6 +10,8 @@
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript" src= "js/objeto.js"></script>
+	<script type="text/javascript" src= "js/not.js"></script>
+	<script type="text/javascript" src= "js/ver.js"></script>
 	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
 	<script type="text/javascript">
 		function mostrarFiltros(){
@@ -48,6 +50,7 @@
 			}else{
 				$ciudad=$_POST['ciudad'];
 			}
+
 			if (($capacidad!=-1)||($provincia!=-1)||($ciudad!=-1)||($tipo!=-1)){
 				echo "
 					<script type='text/javascript'>
