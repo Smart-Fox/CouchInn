@@ -871,6 +871,10 @@ body .ui-tooltip {
 	font-weight: normal;
 	color: #555555;
 }
+.ui-state-disabled .ui-state-default {
+	color:#000;
+	background: #e6e6e6 url("images/rojo.png") 50% 50% repeat-x;
+}
 .ui-state-default a,
 .ui-state-default a:link,
 .ui-state-default a:visited {
