@@ -10,8 +10,11 @@
 	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript" src= "js/objeto.js"></script>
 	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
-	<script type="text/javascript">
-	</script>
+	<script src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
+	<script type="text/javascript" src= "js/not.js"></script>
+	<script type="text/javascript" src= "js/verSolicitudes.js"></script>
+	<script type="text/javascript" src= "js/ver.js"></script>	</script>
 </head>
 <body>
 	<?php

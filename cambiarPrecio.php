@@ -6,6 +6,11 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel='stylesheet' href='style.css'/>
+	<script src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
+	<script type="text/javascript" src= "js/not.js"></script>
+	<script type="text/javascript" src= "js/verSolicitudes.js"></script>
+	<script type="text/javascript" src= "js/ver.js"></script>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 </head>
 <body>

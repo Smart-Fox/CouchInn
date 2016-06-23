@@ -3,8 +3,19 @@
 	$serv = new aService();
 	$vID = $_POST['vId'];
 	$tipo = $_POST['tipo'];
-	if ($tipo = 'r') {
-		$resultado = $serv->respuestaSeen($vID);
-	} 
+	switch($tipo){
+		case("r"): 	
+			$resultado = $serv->respuestaSeen($vID);
+		break;
+		case("p"):
+			$resultado = $serv->preguntaSeen($vID);
+		break;
+		case("sr"):
+			$resultado = $serv->solicitudRSeen($vID);
+		break;
+	}
+	
+	
+
 	
 ?>

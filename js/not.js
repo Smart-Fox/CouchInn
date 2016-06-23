@@ -21,7 +21,7 @@ var getNotificaciones = function(id){
 					b.type = 'submit';
 					b.classList= "btn";
 					b.innerHTML= "Ver";
-					var forma = 'form_'+obj['respuestas'][i].ID_anuncio;
+					var forma = 'form_'+i+'r';
 					b.setAttribute('onclick','verAnuncio('+forma+','+obj["respuestas"][i].ID+',"r")');
 					var mensaje = document.createElement("form");
 					mensaje.action = "anuncDetalle.php";
@@ -46,12 +46,13 @@ var getNotificaciones = function(id){
 					b.type = "submit";
 					b.classList="btn";
 					b.innerHTML="Ver";
-					b.setAttribute('form',"form"+i);
+					console.log(obj['preguntas'][i]);
+					var forma = 'form_'+i+'p';
+					b.setAttribute('onclick','verAnuncio('+forma+','+obj["preguntas"][i].ID+',"p")');
 					var mensaje = document.createElement("form");
 					mensaje.action = "anuncDetalle.php";
 					mensaje.method ="POST";
-					mensaje.enctype='multipart/form-data'
-					mensaje.id = "form"+i;
+					mensaje.id = forma;
 					var lab = document.createElement("span");
 					lab.innerHTML = "Tiene una nueva pregunta";
 					mensaje.appendChild(lab);
@@ -62,30 +63,33 @@ var getNotificaciones = function(id){
 				}
 			}
 				if(obj['solicitudes']){
-				for (var i = 0; i < obj['solicitudes'].length; i++) {
-					var input = document.createElement("input");
-					input.className = "hidden";
-					input.name = "anunc";
-					input.setAttribute('value',obj['solicitudes'][i].ID_anuncio);
+					var lab = document.createElement("span");
+					if(obj['solicitudes'].length>1){
+						lab.innerHTML = "Tiene nuevas solicitudes de reserva";
+					} else { 
+						lab.innerHTML = "Tiene una nueva solicitud de reserva";
+					 }
 					var b = document.createElement("button");
 					b.type = "submit";
-					b.name = "sumbit";
 					b.classList="btn";
 					b.innerHTML="Ver";
-					b.setAttribute('form',"form"+i);
+					b.setAttribute('form',"f1");
+					console.log(obj["solicitudes"]);
+					b.setAttribute('onclick','verSolicitudes("f1",'+obj["solicitudes"][0].ID_usuario+',"sr")');
+					var input = document.createElement("input");
+					input.className = "hidden";
+					input.name = "tipo";
+					input.setAttribute('value','recibidas');
 					var mensaje = document.createElement("form");
-					mensaje.action = "solicitudesRec.php";
+					mensaje.action = "solicitudes.php";
 					mensaje.method ="POST";
-					mensaje.enctype='multipart/form-data'
-					mensaje.id = "form"+i;
-					var lab = document.createElement("span");
-					lab.innerHTML = "Tiene una nueva solicitud de reserva";
-					mensaje.appendChild(lab);
+					mensaje.id = "f1";
 					mensaje.appendChild(input);
+					mensaje.appendChild(lab);
 					mensaje.appendChild(b);
 					contenedor.appendChild(mensaje);
 
-				}
+				
 			}
 		}
 	});

@@ -1,4 +1,4 @@
-var verAnuncio = function(formId,vistoId,tipo){	
+var verSolicitudes = function(formId,vistoId,tipo){	
 	$.ajax({
 		url: 'ajax/marcarVisto.php',
 		data: { 
@@ -7,8 +7,8 @@ var verAnuncio = function(formId,vistoId,tipo){
 		},
 		type: 'POST',
 		success: function(response){
-			console.log(formId);
-			formId.submit();
+			var f = document.getElementById(formId);
+			f.submit();
 		}
 
 	});

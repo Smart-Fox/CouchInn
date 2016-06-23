@@ -31,21 +31,20 @@
 					<nav class='navbar navbar-default navbar-fixed-top'>
 						<div class=\"header\">
 							<div class='row'>
-								<div id=\"logo\" class='col-xs-4 col-md-4'>
+								<div id=\"logo\" class='col-xs-3 col-md-3'>
 									<a href=\"pagPrinc.php\"><img src=logo.png width=200></a>
-								</div>
-								<div id=\"vertcentered2\" class='col-xs-4 col-md-4'>
-									<span>Bienvenido ", $_SESSION['usuario'], "</span>
 								</div>";
 			switch ($_SESSION['type']){
 				case ("admin"):
-					echo "
-							<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>		
+					echo "	<div id=\"vertcentered2\" class='col-xs-3 col-md-3' style='text-align:right'>
+									<span>Bienvenido ", $_SESSION['usuario'], "</span>
+								</div>
+							<div id=\"opcionesuser\" class='col-xs-5 col-md-5' style='float:right'>		
 								<div id=\"notification_li\" style=\"float:left\">
 								<span id=\"notification_count\"></span>
-								<a href=# id=\"notificationLink\"><button class='btn22' type='button'> Notif</button></a>
+								<a href=# id=\"notificationLink\"><button class='btn22' type='button' onclick=\"getNotificaciones(".$_SESSION['id'].");\"> Notificaciones</button></a>
 								<div id=\"notificationContainer\">
-								<div id=\"notificationTitle\">Notifications</div>
+								<div id=\"notificationTitle\">Notificaciones</div>
 								<div id=\"notificationsBody\" class=\"notifications\"></div>
 								</div>
 								</div>
@@ -59,32 +58,13 @@
 					";
 					break;
 				case ("premium"):
-					echo "	
-							<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>
+					echo "	<div id=\"vertcentered2\" class='col-xs-5 col-md-5'>
+									<span>Bienvenido ", $_SESSION['usuario'], "</span>
+								</div>
+							<div id=\"opcionesuser\" class='col-xs-4 col-md-4' style=\"float:right\">
 								<div id=\"notification_li\" style=\"float:left\">
 								<span id=\"notification_count\"></span>
-								<a href=# id=\"notificationLink\"><button class='btn22' type='button'> Notif</button></a>
-								<div id=\"notificationContainer\">
-								<div id=\"notificationTitle\">Notifications</div>
-								<div id=\"notificationsBody\" class=\"notifications\"></div>
-								</div>
-								</div>
-								<form method='POST' action='verPerfil.php' class='headerform'>
-										<input class='hidden' name='id' value=".$_SESSION['id'].">
-										<button class='btn2' type='submit'>Mi cuenta</button>
-								</form>
-								<a href=\"cerrarSesion.php\"><button type=\"button\" class=\"btn2\">Cerrar Sesión</button></a>
-							</div>
-					";
-					break;
-				case ("common"):
-					echo "	
-							<div id=\"opcionesuser\" class='col-xs-4 col-md-4'>
-
-								<a href='miCuenta.php'><button class='btn22' type='button'>Mi <br> cuenta</button></a>
-								<div id=\"notification_li\" style=\"float:left\">
-								<span id=\"notification_count\"></span>
-								<a href=# id=\"notificationLink\"><button class='btn22' type='button' onclick=\"getNotificaciones(".$_SESSION['id'].");\"> Notif</button></a>
+								<a href=# id=\"notificationLink\"><button class='btn22' type='button' onclick=\"getNotificaciones(".$_SESSION['id'].");\"> Notificaciones</button></a>
 								<div id=\"notificationContainer\">
 								<div id=\"notificationTitle\">Notificaciones</div>
 								<div id=\"notificationsBody\" class=\"notifications\"></div>
@@ -94,8 +74,30 @@
 									<input class='hidden' name='id' value=".$_SESSION['id'].">
 									<button class='btn22' type='submit'>Mi cuenta</button>
 								</form>
-								<a href='infoPremium.php'><button type='button' class='btn22'>Comprar premium</button></a>
+								
 								<a href='cerrarSesion.php'><button type='button' class='btn22'>Cerrar Sesión</button></a>
+							</div>
+					";
+					break;
+				case ("common"):
+					echo "	<div id=\"vertcentered2\" class='col-xs-4 col-md-4' style='text-align:right'>
+									<span>Bienvenido ", $_SESSION['usuario'], "</span>
+								</div>
+							<div id=\"opcionesuser\" class='col-xs-4 col-md-4' style='float:right'>		
+								<div id=\"notification_li\" style=\"float:left\">
+								<span id=\"notification_count\"></span>
+								<a href=# id=\"notificationLink\"><button class='btn22' type='button' onclick=\"getNotificaciones(".$_SESSION['id'].");\"> Notificaciones</button></a>
+								<div id=\"notificationContainer\">
+								<div id=\"notificationTitle\">Notificaciones</div>
+								<div id=\"notificationsBody\" class=\"notifications\"></div>
+								</div>
+								</div>
+								<form method='POST' action='verPerfil.php' class='headerform'>
+									<input class='hidden' name='id' value=".$_SESSION['id'].">
+									<button class='btn22' type='submit'>Mi<br> cuenta</button>
+								</form>
+								<a href='infoPremium.php'><button type='button' class='btn22'>Comprar<br> premium</button></a>
+								<a href='cerrarSesion.php'><button type='button' class='btn22'>Cerrar<br> Sesión</button></a>
 							</div>
 					";
 					break;
