@@ -89,10 +89,10 @@
 								INNER JOIN imagen ON imagen.ID_anuncio=anuncio.ID
 								INNER JOIN usuario ON anuncio.ID_usuario=usuario.ID
 								INNER JOIN ciudad ON ciudad.ID=anuncio.ID_ciudad
-						WHERE 	(1=(CASE WHEN $tipo=-1 THEN 1 ELSE 0 END) Or anuncio.ID_tipo_hospedaje=$tipo)
-						AND 	(1=(CASE WHEN $provincia=-1 THEN 1 ELSE 0 END) Or ciudad.ID_provincia=$provincia)
-						AND 	(1=(CASE WHEN $ciudad=-1 THEN 1 ELSE 0 END) Or ciudad.ID=$ciudad)
-						AND 	(1=(CASE WHEN $capacidad=-1 THEN 1 ELSE 0 END) Or anuncio.capacidad>=$capacidad)
+						WHERE 	(1=(CASE WHEN $tipo=-1 THEN 1 ELSE 0 END) OR anuncio.ID_tipo_hospedaje=$tipo)
+						AND 	(1=(CASE WHEN $provincia=-1 THEN 1 ELSE 0 END) OR ciudad.ID_provincia=$provincia)
+						AND 	(1=(CASE WHEN $ciudad=-1 THEN 1 ELSE 0 END) OR ciudad.ID=$ciudad)
+						AND 	(1=(CASE WHEN $capacidad=-1 THEN 1 ELSE 0 END) OR anuncio.capacidad>=$capacidad)
 						ORDER BY anuncio.ID DESC";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
