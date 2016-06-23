@@ -124,15 +124,19 @@
 		public function preguntasEnviadas($idUser){
 			$conec = new dbManager();
 			$conec->conectar();	
-			$consulta = ("SELECT * FROM pregunta WHERE ID_usuario='$idUser';");
+			$consulta = ("SELECT *,pregunta.ID as pregunta_ID	
+									FROM pregunta 
+									INNER JOIN anuncio ON pregunta.ID_anuncio = anuncio.ID
+									WHERE pregunta.ID_usuario='$idUser';");
 			return ($conec->ejecutarSQL($consulta));
 		}
 		
 		public function preguntasRecibidas($idUser){
 			$conec = new dbManager();
 			$conec->conectar();	
-			$consulta = ("SELECT *	FROM pregunta 
+			$consulta = ("SELECT *, pregunta.ID as pregunta_ID	FROM pregunta 
 									INNER JOIN anuncio ON pregunta.ID_anuncio = anuncio.ID
+									INNER JOIN usuario ON anuncio.ID_usuario = usuario.ID
 									WHERE anuncio.ID_usuario='$idUser';");
 			return ($conec->ejecutarSQL($consulta));
 		}
@@ -223,10 +227,17 @@
 			$res= $conec->ejecutarSQL($consulta);
 			return $res;
 		}
+		public function cantidad($id){
+			$conec = new dbManager();
+			$conec->conectar();
+			/* $consulta="SELECT count(*) FROM respuesta INNER JOIN pregunta ON respuesta.ID_pregunta=pregunta.ID GROUP BY respuesta.ID WHERE respuesta.visto=0 AND pregunta.ID_usuario=$id"; */
+			$res= $conec->ejecutarSQL($consulta);
+			return $res;
+		}
 		public function getRespuestas($id){
 			$conec = new dbManager();
 			$conec->conectar();
-			$consulta="SELECT * FROM respuesta INNER JOIN pregunta ON respuesta.ID_pregunta=pregunta.ID WHERE respuesta.visto=0 AND pregunta.ID_usuario=$id";
+			$consulta="SELECT respuesta.ID, pregunta.ID_anuncio FROM respuesta INNER JOIN pregunta ON respuesta.ID_pregunta=pregunta.ID WHERE respuesta.visto=0 AND pregunta.ID_usuario=$id";
 			$res= $conec->ejecutarSQL($consulta);
 			return $res;
 		}
@@ -248,7 +259,7 @@
 		public function respuestaSeen($id){
 			$conec= new dbManager();
 			$conec->conectar();
-			$consulta = "UPDATE `respuesta` SET `Visto`=1 WHERE `ID` IN (SELECT x.ID FROM (SELECT respuesta.ID FROM respuesta INNER JOIN pregunta ON respuesta.ID_pregunta = pregunta.ID WHERE pregunta.ID=$id) AS x)";
+			$consulta = "UPDATE `respuesta` SET `Visto`=1 WHERE ID =$id";
 			$res = $conec->ejecutarSQL($consulta);
 			return $res;
 
@@ -343,7 +354,7 @@
 		public function levantarPreguntasAnuncio($idAnuncio){
  			$conec = new dbManager();
  			$conec->conectar(); 
-			$consulta = "SELECT *, pregunta.ID AS pregunta_ID
+			$consulta = "SELECT *, pregunta.ID AS pregunta_ID, anuncio.ID_usuario AS autor_ID
  							FROM pregunta 
  								INNER JOIN usuario ON pregunta.ID_usuario=usuario.ID 
  								INNER JOIN anuncio ON pregunta.ID_anuncio=anuncio.ID

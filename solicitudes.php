@@ -10,8 +10,6 @@
 	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript" src= "js/objeto.js"></script>
 	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
-	<script src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
 	<script type="text/javascript" src= "js/not.js"></script>
 	<script type="text/javascript" src= "js/verSolicitudes.js"></script>
 	<script type="text/javascript" src= "js/ver.js"></script>
@@ -44,7 +42,6 @@
 		}else{
 			header('Location:index.html');
 		}
-		
 		echo "
 			<div class='row'>
 				<div class='col-xs-4 col-md-4'>
@@ -233,7 +230,7 @@
 					echo"
 							<div class='row'>
 								<form action='cancelarSolic.php' method='POST' enctype='multipart/form-data'>
-									<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
+									<input class=hidden name='solic' value='".$row2['solicitud_ID']."'></input>
 									<center><button type='submit' class='btn22'>Cancelar solicitud</button></center>
 								</form>
 							</div>
@@ -262,17 +259,29 @@
 			";
 		}
 		echo "</div>";
-	?>
-	<?php
-	if ($_POST['tipo']=='recibidas'){
-			echo "<script type=\"text/javascript\">
+	
+	if(isset($_POST['tipo'])){
+		if ($_POST['tipo']=='recibidas'){
+			echo "
+				<script type='text/javascript'>
 					window.onload = function mostrarR(){
 						console.log('hola');
 						document.getElementById('rec').click();
-					}	</script>
-					";
+					}	
+				</script>
+			";
 		}
+		if ($_POST['tipo']=='enviadas'){
+			echo "
+				<script type='text/javascript'>
+					window.onload = function mostrarE(){
+						console.log('hola');
+						document.getElementById('env').click();
+					}	
+				</script>
+			";
+		}
+	}
 	?>
-	
 </body>
 </html>
