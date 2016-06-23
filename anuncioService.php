@@ -347,7 +347,7 @@
 		public function levantarPreguntasAnuncio($idAnuncio){
  			$conec = new dbManager();
  			$conec->conectar(); 
-			$consulta = "SELECT *, pregunta.ID AS pregunta_ID
+			$consulta = "SELECT *, pregunta.ID AS pregunta_ID, anuncio.ID_usuario AS autor_ID
  							FROM pregunta 
  								INNER JOIN usuario ON pregunta.ID_usuario=usuario.ID 
  								INNER JOIN anuncio ON pregunta.ID_anuncio=anuncio.ID
