@@ -259,8 +259,7 @@
 			";
 		}
 		echo "</div>";
-	?>
-	<?php
+	
 	if(isset($_POST['tipo'])){
 		if ($_POST['tipo']=='recibidas'){
 			echo "
@@ -268,6 +267,16 @@
 					window.onload = function mostrarR(){
 						console.log('hola');
 						document.getElementById('rec').click();
+					}	
+				</script>
+			";
+		}
+		if ($_POST['tipo']=='enviadas'){
+			echo "
+				<script type='text/javascript'>
+					window.onload = function mostrarE(){
+						console.log('hola');
+						document.getElementById('env').click();
 					}	
 				</script>
 			";
