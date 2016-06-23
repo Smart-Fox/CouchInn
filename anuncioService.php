@@ -124,15 +124,19 @@
 		public function preguntasEnviadas($idUser){
 			$conec = new dbManager();
 			$conec->conectar();	
-			$consulta = ("SELECT * FROM pregunta WHERE ID_usuario='$idUser';");
+			$consulta = ("SELECT *,pregunta.ID as pregunta_ID	
+									FROM pregunta 
+									INNER JOIN anuncio ON pregunta.ID_anuncio = anuncio.ID
+									WHERE pregunta.ID_usuario='$idUser';");
 			return ($conec->ejecutarSQL($consulta));
 		}
 		
 		public function preguntasRecibidas($idUser){
 			$conec = new dbManager();
 			$conec->conectar();	
-			$consulta = ("SELECT *	FROM pregunta 
+			$consulta = ("SELECT *, pregunta.ID as pregunta_ID	FROM pregunta 
 									INNER JOIN anuncio ON pregunta.ID_anuncio = anuncio.ID
+									INNER JOIN usuario ON anuncio.ID_usuario = usuario.ID
 									WHERE anuncio.ID_usuario='$idUser';");
 			return ($conec->ejecutarSQL($consulta));
 		}
@@ -204,7 +208,6 @@
 			$consulta = ("UPDATE solicitud_reserva SET estado='rechazada', Visto_autor='1', Visto_huesped='0' WHERE ID='$id'");
 			return ($conec->ejecutarSQL($consulta));
 		}
-		
 		public function aceptarSolicitud($id){
 			$conec = new dbManager();
 			$conec->conectar();	
@@ -214,32 +217,61 @@
 			$consulta = ("INSERT INTO reserva(fecha_aceptacion,ID_solicitud) VALUES ('$date' , '$id')");
 			return ($conec->ejecutarSQL($consulta));
 		}
-		
-		/*
+
+	
 		public function notificarPregunta($id){  //al que publico el anuncio se le informa que recibio una pregunta
 			$conec=new dbManager();
+
 			$conec->conectar();
-			$consulta = "SELECT * FROM";
-			$resultSQL = $conec->ejecutarSQL($consulta);
-			return $resultSQL;
+			$consulta="SELECT * FROM pregunta INNER JOIN anuncio ON anuncio.id=pregunta.ID_anuncio WHERE anuncio.ID_usuario = $id AND pregunta.Visto=0";
+			$res= $conec->ejecutarSQL($consulta);
+			return $res;
 		}
+		public function getRespuestas($id){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta="SELECT * FROM respuesta INNER JOIN pregunta ON respuesta.ID_pregunta=pregunta.ID WHERE respuesta.visto=0 AND pregunta.ID_usuario=$id";
+			$res= $conec->ejecutarSQL($consulta);
+			return $res;
+		}
+		public function getPreguntas($id){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta="SELECT pregunta.ID, pregunta.ID_anuncio, pregunta.Visto FROM pregunta INNER JOIN anuncio ON anuncio.id=pregunta.ID_anuncio WHERE anuncio.ID_usuario = $id AND pregunta.Visto=0";
+			$res= $conec->ejecutarSQL($consulta);
+			return $res;
+		}	
 		
-		public function notificarRespuesta($id){  //al que preguntó se le informa que le respondieron 
+		public function getSolicitud($id){ 
 			$conec=new dbManager();
 			$conec->conectar();
-			$consulta = "SELECT * FROM";
+			$consulta = "SELECT anuncio.ID_usuario,solicitud_reserva.ID FROM solicitud_reserva INNER JOIN anuncio ON solicitud_reserva.ID_anuncio=anuncio.ID WHERE solicitud_reserva.Visto_autor=0 AND anuncio.ID_usuario=$id ";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
-		
-		public function notificarSolicitud($id){ // al que publico el anuncio se le informa que recibio una solicitud 
-			$conec=new dbManager();
+		public function respuestaSeen($id){
+			$conec= new dbManager();
 			$conec->conectar();
-			$consulta = "SELECT * FROM";
-			$resultSQL = $conec->ejecutarSQL($consulta);
-			return $resultSQL;
+			$consulta = "UPDATE `respuesta` SET `Visto`=1 WHERE ID =$id";
+			$res = $conec->ejecutarSQL($consulta);
+			return $res;
+
 		}
-		
+		public function preguntaSeen($id){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "UPDATE `pregunta` SET `Visto`=1 WHERE ID=$id";
+			$res = $conec->ejecutarSQL($consulta);
+			return $res;
+		}
+		public function solicitudRSeen($id){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "UPDATE `solicitud_reserva` SET `Visto_autor`=1 WHERE `ID_anuncio` IN (SELECT anuncio.ID FROM anuncio INNER JOIN usuario ON anuncio.ID_usuario = usuario.ID WHERE usuario.ID=$id)";
+			$res = $conec->ejecutarSQL($consulta);
+			return $res;
+		}
+		/*
 		public function notificarReserva($id){ // al que pidio solicitud se le informa si fue aceptada o rechazada 
 			$conec=new dbManager();
 			$conec->conectar();

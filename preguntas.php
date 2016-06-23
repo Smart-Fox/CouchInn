@@ -10,6 +10,9 @@
 	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript" src= "js/objeto.js"></script>
 	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
+	<script type="text/javascript" src= "js/not.js"></script>
+	<script type="text/javascript" src= "js/ver.js"></script>
+	<script type="text/javascript" src= "js/verSolicitudes.js"></script>
 	<script type="text/javascript">
 		function showRec(){
 			document.getElementById('recibidas').style.display = 'inline';
@@ -56,31 +59,94 @@
 				<div class='col-xs-4 col-md-4'>
 				</div>
 			</div>
+			<center>
 		";
 		$serv = new aService();
 		$preg = $serv->preguntasRecibidas($id);
 		echo "<div id='recibidas'>";
 		if($preg->num_rows>0){
 			while($row = $preg->fetch_assoc()){
-				echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
-							<div class='row'>
+				echo "		<div class='row'>
 								<div class='col-xs-2 col-md-2'>
 								</div>
 								<div class='col-xs-8 col-md-8 anuncio'>
-									<input class=hidden name='anunc' value=\"".$row['ID_anuncio']."\">
-										<button type='submit' class='buttonlink'>
-											<div class='row'>
-												<div class='col-xs-12 col-md-12'>
-													<strong><span class='titulo2'>".$row['texto']."</span></strong>
-												</div>
-											</div>
-										</button>
-									</input>
-								</div>
-								<div class='col-xs-2 col-md-2'>
-								</div>
-							</div>
+									<div class='row'>
+										<span class='titulo2'><strong>".$row['Titulo']."</strong></span>
+									</div>
+									<br>
+									<div class='row'>
+										<div class='col-xs-1 col-md-1'>
+										</div>
+										<div class='col-xs-2 col-md-2'>
+											<span class='content'><strong>Pregunta:</strong></span>
+										</div>
+										<div class='col-xs-8 col-md-8'>
+											<span class='content'>".$row['texto']."</span>
+										</div>
+										<div class='col-xs-1 col-md-1'>
+										</div>
+									</div>
+									<div class='row'>
+										<div class='col-xs-1 col-md-1'>
+										</div>
+										<div class='col-xs-2 col-md-2'>
+										</div>
+										<div class='col-xs-8 col-md-8'>
+											<span class='content'>Enviada por ".$row['Username']."</span>
+										</div>
+										<div class='col-xs-1 col-md-1'>
+										</div>
+									</div>
+				";
+				$resp = $serv->levantarRespuestaAnuncio($row['pregunta_ID']);
+				if($resp->num_rows>0){  //si existe una respuesta para la pregunta, se publica
+					$rowResp = $resp->fetch_assoc();
+						echo "
+									<br>	
+									<div class='row'>
+										<div class='col-xs-1 col-md-1'>
+										</div>
+										<div class='col-xs-2 col-md-2'>
+											<span class='content'><strong>Respuesta:</strong></span>
+										</div>
+										<div class='col-xs-8 col-md-8'>
+											<span class='content'>".$rowResp['respuesta_texto']."</span>
+										</div>
+										<div class='col-xs-1 col-md-1'>
+										</div>
+									</div>
+						";
+				}else{
+					echo " 		<br>					
+								<form action='responder.php' method='POST' enctype='multipart/form-data'>
+									<div class='row'>
+										<div class='col-xs-1 col-md-1'>
+										</div>
+										<div class='col-xs-10 col-md-10'>
+											<textarea class='form-control custom'  type='text' name='respuesta' id='respuesta' placeholder='Escribe tu respuesta' required style='width: 100%; height: 50px;'></textarea> 												
+											<input class='hidden' name='anunc' value='".$row['ID_anuncio']."'> 
+											<input class='hidden' name='idpreg' value='".$row['pregunta_ID']."'>														
+										</div>
+										<div class='col-xs-1 col-md-1'>											
+										</div>
+									</div>
+									<div class='row'>
+										<center><button type='submit' class='btn22'>Responder</button>
+									</div>
+								</form>
+							
+						";
+				}
+				echo"
+						<br>
+						<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
+							<input class=hidden name='anunc' value='".$row['ID_anuncio']."'>
+							<button type='submit' class='btn22'>Ir al anuncio</button>
 						</form>
+						</div>
+						<div class='col-xs-2 col-md-2'>
+						</div>
+					</div>
 				";
 			}
 		}else{
@@ -103,25 +169,56 @@
 		echo "<div id='enviadas'>";
 		if($preg2->num_rows>0){
 			while($row2 = $preg2->fetch_assoc()){
-				echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
-							<div class='row'>
+				echo "		<div class='row'>
 								<div class='col-xs-2 col-md-2'>
 								</div>
 								<div class='col-xs-8 col-md-8 anuncio'>
-									<input class=hidden name='anunc' value=\"".$row2['ID_anuncio']."\">
-										<button type='submit' class='buttonlink'>
-											<div class='row'>
-												<div class='col-xs-12 col-md-12'>
-													<strong><span class='titulo2'>".$row2['texto']."</span></strong>
-												</div>
-											</div>
-										</button>
-									</input>
-								</div>
-								<div class='col-xs-2 col-md-2'>
-								</div>
-							</div>
+									<div class='row'>
+										<span class='titulo2'><strong>".$row2['Titulo']."</strong></span>
+									</div>
+									<br>
+									<div class='row'>
+										<div class='col-xs-1 col-md-1'>
+										</div>
+										<div class='col-xs-2 col-md-2'>
+											<span class='content'><strong>Pregunta:</strong></span>
+										</div>
+										<div class='col-xs-8 col-md-8'>
+											<span class='content'>".$row2['texto']."</span>
+										</div>
+										<div class='col-xs-1 col-md-1'>
+										</div>
+									</div>
+				";
+				$resp2 = $serv->levantarRespuestaAnuncio($row2['pregunta_ID']);
+				if($resp2->num_rows>0){  //si existe una respuesta para la pregunta, se publica
+					$rowResp2 = $resp2->fetch_assoc();
+						echo "
+									<br>	
+									<div class='row'>
+										<div class='col-xs-1 col-md-1'>
+										</div>
+										<div class='col-xs-2 col-md-2'>
+											<span class='content'><strong>Respuesta:</strong></span>
+										</div>
+										<div class='col-xs-8 col-md-8'>
+											<span class='content'>".$rowResp2['respuesta_texto']."</span>
+										</div>
+										<div class='col-xs-1 col-md-1'>
+										</div>
+									</div>
+						";
+				}
+				echo"
+						<br>
+						<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
+							<input class=hidden name='anunc' value='".$row2['ID_anuncio']."'>
+							<button type='submit' class='btn22'>Ir al anuncio</button>
 						</form>
+						</div>
+						<div class='col-xs-2 col-md-2'>
+						</div>
+					</div>
 				";
 			}
 		}else{

@@ -10,6 +10,9 @@
 	<script type="text/javascript" src= "js/objeto.js"></script>
 	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	<script type="text/javascript" src= "js/not.js"></script>
+	<script type="text/javascript" src= "js/verSolicitudes.js"></script>
+	<script type="text/javascript" src= "js/ver.js"></script>
 </head>
 <body>	
 	<?php
@@ -56,7 +59,6 @@
 								include('anuncioService.php');
 								$serv = new aService();
 								$tipos = $serv->levantarTipos();
-								print_r($tipos);
 								while ($row = $tipos->fetch_assoc()){
 									echo "<option value=\"" . $row['ID']. "\">". $row['Nombre']."</option>";
 								}

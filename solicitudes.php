@@ -10,6 +10,9 @@
 	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript" src= "js/objeto.js"></script>
 	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
+	<script type="text/javascript" src= "js/not.js"></script>
+	<script type="text/javascript" src= "js/verSolicitudes.js"></script>
+	<script type="text/javascript" src= "js/ver.js"></script>
 	<script type="text/javascript">
 		function showRec(){
 			document.getElementById('recibidas').style.display = 'inline';
@@ -39,7 +42,8 @@
 		}else{
 			header('Location:index.html');
 		}
-		echo"
+		
+		echo "
 			<div class='row'>
 				<div class='col-xs-4 col-md-4'>
 				</div>
@@ -256,6 +260,16 @@
 			";
 		}
 		echo "</div>";
+	?>
+	<?php
+	if ($_POST['tipo']=='recibidas'){
+			echo "<script type=\"text/javascript\">
+					window.onload = function mostrarR(){
+						console.log('hola');
+						document.getElementById('rec').click();
+					}	</script>
+					";
+		}
 	?>
 	
 </body>

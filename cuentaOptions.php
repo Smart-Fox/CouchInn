@@ -22,7 +22,10 @@
 							</div>
 							<div class='col-xs-2 col-md-2'>
 								<div class='centered'>
-									<a href='solicitudes.php'><button type=button class='btn2'>Mis solicitudes</button></a>
+									<form method='POST' action='solicitudes.php'>
+										<input class='hidden' name='tipo' value='norm'>
+										<button type=submit class='btn2'>Mis solicitudes</button>
+									</form>
 								</div>
 							</div>
 							<div class='col-xs-2 col-md-2'>

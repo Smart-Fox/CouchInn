@@ -6,6 +6,11 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel='stylesheet' href='style.css'/>
+	<script src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
+	<script type="text/javascript" src= "js/not.js"></script>
+	<script type="text/javascript" src= "js/ver.js"></script>
+	<script type="text/javascript" src= "js/verSolicitudes.js"></script>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 	<script>
 		window.onload = function(){
@@ -125,6 +130,7 @@
 					</div>
 				</div>
 			</div>
+
 		
 		</div>
 			<?php
@@ -134,8 +140,8 @@
 						echo "<div class='anunciodet'>";
 					}
 					if ($preg1->num_rows>0){
-					echo "<br> <br>";
-					while($rowPreg = $preg1->fetch_assoc()){   //se publican las preguntas. Faltaria un if pa q no haga todo al dope
+						echo "<br> <br>";
+						while($rowPreg = $preg1->fetch_assoc()){   //se publican las preguntas. Faltaria un if pa q no haga todo al dope
 							echo "<hr>";
 							echo " 
 								<div class='row'>
@@ -160,8 +166,6 @@
 												<span style='color:red'><i>Respuesta</i></span>
 											</div>
 											<div class='col-xs-8 col-md-8 '>
-												Usuario: ".$rowResp['Username']."
-												<br>
 												<strong><span class='titulo2'>".$rowResp['respuesta_texto']."</span></strong> 
 											</div>
 											<div class='col-xs-2 col-md-2'> 
@@ -188,8 +192,8 @@
 										";
 								}
 							}
-					} //end del While de las preguntas
-				}
+						} //end del While de las preguntas
+					}	
 					if ($_SESSION['id']!=$row['usuario_ID']){  //si no es el usuario autor del anuncio, se publica el campo para Preguntar
 						echo 	"<hr>";
 							echo"	<div class='row'>
