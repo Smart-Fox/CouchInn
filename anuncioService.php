@@ -248,7 +248,7 @@
 		public function respuestaSeen($id){
 			$conec= new dbManager();
 			$conec->conectar();
-			$consulta = "UPDATE `respuesta` SET `Visto`=1 WHERE ID =$id";
+			$consulta = "UPDATE `respuesta` SET `Visto`=1 WHERE `ID` IN (SELECT x.ID FROM (SELECT respuesta.ID FROM respuesta INNER JOIN pregunta ON respuesta.ID_pregunta = pregunta.ID WHERE pregunta.ID=$id) AS x)";
 			$res = $conec->ejecutarSQL($consulta);
 			return $res;
 
