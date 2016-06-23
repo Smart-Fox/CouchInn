@@ -5,6 +5,7 @@
 			$this->user = $us;
 		}
 		public function buildHeader(){
+			$cant=3;
 			echo "	
 					<script type=\"text/javascript\" >
 						$(document).ready(function()
@@ -33,9 +34,15 @@
 								</div>
 								<div id='opcionesuser' class='col-xs-4 col-md-4'>
 									<div id='notification_li'>
-										<span id='notification_count'>5</span>
+			";
+			if($cant>0){
+				echo "
+					<span id='notification_count'>".$cant."</span>
+				";
+			}
+			echo"
 										<a href=# id='notificationLink'>
-											<button class='btn22' type='button' id='notifbtn' onclick='getNotificaciones(".$_SESSION['id'].");'>
+											<button class='btn22' type='button' onclick='getNotificaciones(".$_SESSION['id'].");'>
 												<img src='theme/images/notif.png' width=30>
 											</button>
 										</a>
@@ -48,7 +55,7 @@
 										<input class='hidden' name='id' value=".$_SESSION['id'].">
 										<button class='btn22' type='submit'>Mi<br>cuenta</button>
 									</form>
-					";
+			";
 			switch ($_SESSION['type']){
 				case ("admin"):
 					echo "				
