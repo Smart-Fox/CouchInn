@@ -10,9 +10,6 @@
 	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript" src= "js/objeto.js"></script>
 	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
-	<script type="text/javascript" src= "js/not.js"></script>
-	<script type="text/javascript" src= "js/verSolicitudes.js"></script>
-	<script type="text/javascript" src= "js/ver.js"></script>
 	<script type="text/javascript">
 		function showRec(){
 			document.getElementById('recibidas').style.display = 'inline';
@@ -84,7 +81,7 @@
 										<div class='col-xs-12 col-md-12'>
 											<strong><span class='content'>".$row['Titulo']."</span></strong>
 											<br>
-											<span class='content'>Reserva para ".$row['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.", pedida por ".$row['Username'].".</span>
+											<span class='content'>Reserva para ".$row['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.", pedida por ".$row['Username']." el ".$row['fecha_solicitud'].".</span>
 											<br>
 											<span class='content'>".$row['comentario']."</span>
 											<br>
