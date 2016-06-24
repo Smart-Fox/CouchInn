@@ -11,15 +11,15 @@
 	<script type="text/javascript">
 		function showRec(){
 			document.getElementById('recibidas').style.display = 'inline';
-			$("#rec").addClass("selected");
+			$("#rec2").addClass("selected");
 			document.getElementById('enviadas').style.display = 'none';
-			$("#env").removeClass("selected");			
+			$("#env2").removeClass("selected");			
 		}
 		function showEnv(){
 			document.getElementById('enviadas').style.display = 'inline';
-			$("#env").addClass("selected");
+			$("#env2").addClass("selected");
 			document.getElementById('recibidas').style.display = 'none';
-			$("#rec").removeClass("selected");			
+			$("#rec2").removeClass("selected");			
 		}
 	</script>
 </head>
@@ -70,7 +70,7 @@
 					<div class='centered'>
 						<form action='preguntas.php' method='POST' enctype='multipart/form-data'>
 							<input class=hidden name='tipo' value='enviadas'>
-							<button type='submit' class='btn2'>Preguntas enviadas</button>
+							<button type='submit' id='env2' class='btn2'>Preguntas enviadas</button>
 						</form>
 						<button type=button id='env' class='hidden' onclick='showEnv();'>
 					</div>
@@ -79,7 +79,7 @@
 					<div class='centered'>
 						<form action='preguntas.php' method='POST' enctype='multipart/form-data'>
 							<input class=hidden name='tipo' value='recibidas'>
-							<button type='submit' class='btn2'>Preguntas recibidas</button>
+							<button type='submit' id='rec2' class='btn2'>Preguntas recibidas</button>
 						</form>
 						<button type=button id='rec' class='hidden' onclick='showRec();'>
 					</div>
@@ -93,6 +93,7 @@
 		echo "<div id='recibidas'>";
 		if($preg->num_rows>0){
 			while($row = $preg->fetch_assoc()){
+				$fecha=date('d/m/Y H:i', strtotime($row['pregunta_fecha']));
 				echo "		<div class='row'>
 								<div class='col-xs-2 col-md-2'>
 								</div>
@@ -107,8 +108,11 @@
 										<div class='col-xs-2 col-md-2'>
 											<span class='content'><strong>Pregunta:</strong></span>
 										</div>
-										<div class='col-xs-8 col-md-8'>
+										<div class='col-xs-6 col-md-6'>
 											<span class='content'>".$row['texto']."</span>
+										</div>
+										<div class='col-xs-2 col-md-2'>
+											<span class='content'>".$fecha."</span>
 										</div>
 										<div class='col-xs-1 col-md-1'>
 										</div>
@@ -118,8 +122,10 @@
 										</div>
 										<div class='col-xs-2 col-md-2'>
 										</div>
-										<div class='col-xs-8 col-md-8'>
+										<div class='col-xs-6 col-md-6'>
 											<span class='content'>Enviada por ".$row['Username']."</span>
+										</div>
+										<div class='col-xs-2 col-md-2'>
 										</div>
 										<div class='col-xs-1 col-md-1'>
 										</div>
@@ -128,21 +134,25 @@
 				$resp = $serv->levantarRespuestaAnuncio($row['pregunta_ID']);
 				if($resp->num_rows>0){  //si existe una respuesta para la pregunta, se publica
 					$rowResp = $resp->fetch_assoc();
-						echo "
-									<br>	
-									<div class='row'>
-										<div class='col-xs-1 col-md-1'>
-										</div>
-										<div class='col-xs-2 col-md-2'>
-											<span class='content'><strong>Respuesta:</strong></span>
-										</div>
-										<div class='col-xs-8 col-md-8'>
-											<span class='content'>".$rowResp['respuesta_texto']."</span>
-										</div>
-										<div class='col-xs-1 col-md-1'>
-										</div>
-									</div>
-						";
+					$fecha=date('d/m/Y H:i', strtotime($rowResp['respuesta_fecha']));
+					echo "
+							<br>	
+							<div class='row'>
+								<div class='col-xs-1 col-md-1'>
+								</div>
+								<div class='col-xs-2 col-md-2'>
+									<span class='content'><strong>Respuesta:</strong></span>
+								</div>
+								<div class='col-xs-6 col-md-6'>
+									<span class='content'>".$rowResp['respuesta_texto']."</span>
+								</div>
+								<div class='col-xs-2 col-md-2'>
+									<span class='content'>".$fecha."</span>
+								</div>
+								<div class='col-xs-1 col-md-1'>
+								</div>
+							</div>
+					";
 				}else{
 					echo " 		<br>					
 								<form action='responder.php' method='POST' enctype='multipart/form-data'>
@@ -196,6 +206,7 @@
 		echo "<div id='enviadas'>";
 		if($preg2->num_rows>0){
 			while($row2 = $preg2->fetch_assoc()){
+				$fecha=date('d/m/Y H:i', strtotime($row2['pregunta_fecha']));
 				echo "		<div class='row'>
 								<div class='col-xs-2 col-md-2'>
 								</div>
@@ -210,8 +221,11 @@
 										<div class='col-xs-2 col-md-2'>
 											<span class='content'><strong>Pregunta:</strong></span>
 										</div>
-										<div class='col-xs-8 col-md-8'>
+										<div class='col-xs-6 col-md-6'>
 											<span class='content'>".$row2['texto']."</span>
+										</div>
+										<div class='col-xs-2 col-md-2'>
+											<span class='content'>".$fecha."</span>
 										</div>
 										<div class='col-xs-1 col-md-1'>
 										</div>
@@ -220,20 +234,24 @@
 				$resp2 = $serv->levantarRespuestaAnuncio($row2['pregunta_ID']);
 				if($resp2->num_rows>0){  //si existe una respuesta para la pregunta, se publica
 					$rowResp2 = $resp2->fetch_assoc();
-						echo "
-									<br>	
-									<div class='row'>
-										<div class='col-xs-1 col-md-1'>
-										</div>
-										<div class='col-xs-2 col-md-2'>
-											<span class='content'><strong>Respuesta:</strong></span>
-										</div>
-										<div class='col-xs-8 col-md-8'>
-											<span class='content'>".$rowResp2['respuesta_texto']."</span>
-										</div>
-										<div class='col-xs-1 col-md-1'>
-										</div>
-									</div>
+					$fecha=date('d/m/Y H:i', strtotime($rowResp2['respuesta_fecha']));
+					echo "
+							<br>	
+							<div class='row'>
+								<div class='col-xs-1 col-md-1'>
+								</div>
+								<div class='col-xs-2 col-md-2'>
+									<span class='content'><strong>Respuesta:</strong></span>
+								</div>
+								<div class='col-xs-6 col-md-6'>
+									<span class='content'>".$rowResp2['respuesta_texto']."</span>
+								</div>
+								<div class='col-xs-2 col-md-2'>
+									<span class='content'>".$fecha."</span>
+								</div>
+								<div class='col-xs-1 col-md-1'>
+								</div>
+							</div>
 						";
 				}
 				echo"
