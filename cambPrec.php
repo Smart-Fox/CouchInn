@@ -7,7 +7,6 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css"/>
 	<link rel='stylesheet' href='style.css'/>
 	<script src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 	<script>
 		function validarPrec() {
