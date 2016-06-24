@@ -17,12 +17,12 @@
 					<script type='text/javascript'>
 						$(document).ready(function()
 						{
-							$(\"#notificationLink\").click(function(){
-								$(\"#notificationContainer\").fadeToggle(300);
+							$('#notificationLink').click(function(){
+								$('#notificationContainer').fadeToggle(300);
 								return false;
 							});
 							$(document).click(function(){
-								$(\"#notificationContainer\").hide();
+								$('#notificationContainer').hide();
 							});
 						});
 					</script>
@@ -30,7 +30,7 @@
 						<div class='header'>
 							<div class='row'>
 								<div id='logo' class='col-xs-4 col-md-4'>
-									<a href=\"pagPrinc.php\"><img src=logo.png width=200></a>
+									<a href='pagPrinc.php'><img src=logo.png width=200></a>
 								</div>
 								<div id='vertcentered2' class='col-xs-4 col-md-4'>
 									<span>Bienvenido ", $_SESSION['usuario'], "</span>

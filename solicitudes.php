@@ -32,10 +32,35 @@
 		include('cuentaOptions.php');
 		session_start();
 		if(isset($_SESSION['usuario'])){
+				if(isset($_POST['tipo'])){
+					$serv = new aService();
+					$id=$_SESSION['id'];
+					if ($_POST['tipo']=='recibidas'){
+						$serv->marcarLeidasSolicAutor($id);
+						echo "
+							<script type='text/javascript'>
+								window.onload = function mostrarR(){
+									console.log('hola');
+									document.getElementById('rec').click();
+								}	
+							</script>
+						";
+					}
+					if ($_POST['tipo']=='enviadas'){
+						$serv->marcarLeidasSolicHuesped($id);
+						echo "
+							<script type='text/javascript'>
+								window.onload = function mostrarE(){
+									console.log('hola');
+									document.getElementById('env').click();
+								}	
+							</script>
+						";
+					}
+				}
 			$service = new cabecera($_SESSION['usuario']);
 			$service->buildHeader();
 			$display=new cuentaMenu();
-			$id=$_SESSION['id'];
 		}else{
 			header('Location:index.html');
 		}
@@ -57,7 +82,6 @@
 				</div>
 			</div>
 		";
-		$serv = new aService();
 		$solic = $serv->solicitudesRecibidas($id);
 		echo "<div id='recibidas'>";
 		if($solic->num_rows>0){
@@ -256,30 +280,6 @@
 			";
 		}
 		echo "</div>";
-	if(isset($_POST['tipo'])){
-		if ($_POST['tipo']=='recibidas'){
-			$serv->marcarLeidasSolicAutor($id);
-			echo "
-				<script type='text/javascript'>
-					window.onload = function mostrarR(){
-						console.log('hola');
-						document.getElementById('rec').click();
-					}	
-				</script>
-			";
-		}
-		if ($_POST['tipo']=='enviadas'){
-			$serv->marcarLeidasSolicHuesped($id);
-			echo "
-				<script type='text/javascript'>
-					window.onload = function mostrarE(){
-						console.log('hola');
-						document.getElementById('env').click();
-					}	
-				</script>
-			";
-		}
-	}
 	?>
 </body>
 </html>

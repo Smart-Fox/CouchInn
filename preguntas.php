@@ -32,10 +32,35 @@
 		include('cuentaOptions.php');
 		session_start();
 		if(isset($_SESSION['usuario'])){
+			$serv = new aService();
+			$id=$_SESSION['id'];
+			if(isset($_POST['tipo'])){
+				if ($_POST['tipo']=='recibidas'){
+					$serv->marcarLeidasPregRec($id);
+				echo "
+					<script type='text/javascript'>
+						window.onload = function mostrarR(){
+							console.log('hola');
+							document.getElementById('rec').click();
+						}	
+					</script>
+				";
+				}
+				if ($_POST['tipo']=='enviadas'){
+					$serv->marcarLeidasPregEnv($id);
+					echo "
+						<script type='text/javascript'>
+							window.onload = function mostrarE(){
+								console.log('hola');
+								document.getElementById('env').click();
+							}	
+						</script>
+					";
+				}
+			}
 			$service = new cabecera($_SESSION['usuario']);
 			$service->buildHeader();
 			$display=new cuentaMenu();
-			$id=$_SESSION['id'];
 		}else{
 			header('Location:index.html');
 		}
@@ -66,7 +91,6 @@
 			</div>
 			<center>
 		";
-		$serv = new aService();
 		$preg = $serv->preguntasRecibidas($id);
 		echo "<div id='recibidas'>";
 		if($preg->num_rows>0){
@@ -243,30 +267,6 @@
 			";
 		}
 		echo "</div>";
-	if(isset($_POST['tipo'])){
-		if ($_POST['tipo']=='recibidas'){
-			$serv->marcarLeidasPregRec($_SESSION('id'));
-			echo "
-				<script type='text/javascript'>
-					window.onload = function mostrarR(){
-						console.log('hola');
-						document.getElementById('rec').click();
-					}	
-				</script>
-			";
-		}
-		if ($_POST['tipo']=='enviadas'){
-			$serv->marcarLeidasPregEnv($_SESSION('id'));
-			echo "
-				<script type='text/javascript'>
-					window.onload = function mostrarE(){
-						console.log('hola');
-						document.getElementById('env').click();
-					}	
-				</script>
-			";
-		}
-	}
 	?>
 	
 </body>
