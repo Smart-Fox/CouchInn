@@ -8,11 +8,6 @@
 	<link rel='stylesheet' href='style.css'/>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 	<script src="js/jquery.min.js"></script>
-	<script type="text/javascript" src= "js/objeto.js"></script>
-	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
-	<script type="text/javascript" src= "js/not.js"></script>
-	<script type="text/javascript" src= "js/verSolicitudes.js"></script>
-	<script type="text/javascript" src= "js/ver.js"></script>
 	<script type="text/javascript">
 		function showRec(){
 			document.getElementById('recibidas').style.display = 'inline';
@@ -35,10 +30,35 @@
 		include('cuentaOptions.php');
 		session_start();
 		if(isset($_SESSION['usuario'])){
+				if(isset($_POST['tipo'])){
+					$serv = new aService();
+					$id=$_SESSION['id'];
+					if ($_POST['tipo']=='recibidas'){
+						$serv->marcarLeidasSolicAutor($id);
+						echo "
+							<script type='text/javascript'>
+								window.onload = function mostrarR(){
+									console.log('hola');
+									document.getElementById('rec').click();
+								}	
+							</script>
+						";
+					}
+					if ($_POST['tipo']=='enviadas'){
+						$serv->marcarLeidasSolicHuesped($id);
+						echo "
+							<script type='text/javascript'>
+								window.onload = function mostrarE(){
+									console.log('hola');
+									document.getElementById('env').click();
+								}	
+							</script>
+						";
+					}
+				}
 			$service = new cabecera($_SESSION['usuario']);
 			$service->buildHeader();
 			$display=new cuentaMenu();
-			$id=$_SESSION['id'];
 		}else{
 			header('Location:index.html');
 		}
@@ -60,7 +80,6 @@
 				</div>
 			</div>
 		";
-		$serv = new aService();
 		$solic = $serv->solicitudesRecibidas($id);
 		echo "<div id='recibidas'>";
 		if($solic->num_rows>0){
@@ -84,7 +103,7 @@
 										<div class='col-xs-12 col-md-12'>
 											<strong><span class='content'>".$row['Titulo']."</span></strong>
 											<br>
-											<span class='content'>Reserva para ".$row['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.", pedida por ".$row['Username'].".</span>
+											<span class='content'>Reserva para ".$row['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.", pedida por ".$row['Username']." el ".$row['fecha_solicitud'].".</span>
 											<br>
 											<span class='content'>".$row['comentario']."</span>
 											<br>
@@ -259,29 +278,6 @@
 			";
 		}
 		echo "</div>";
-	
-	if(isset($_POST['tipo'])){
-		if ($_POST['tipo']=='recibidas'){
-			echo "
-				<script type='text/javascript'>
-					window.onload = function mostrarR(){
-						console.log('hola');
-						document.getElementById('rec').click();
-					}	
-				</script>
-			";
-		}
-		if ($_POST['tipo']=='enviadas'){
-			echo "
-				<script type='text/javascript'>
-					window.onload = function mostrarE(){
-						console.log('hola');
-						document.getElementById('env').click();
-					}	
-				</script>
-			";
-		}
-	}
 	?>
 </body>
 </html>

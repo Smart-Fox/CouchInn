@@ -116,7 +116,7 @@
 			$user = $_SESSION['id'];
 			$conec = new dbManager();
 			$conec->conectar();	
-			$consulta = ("INSERT INTO solicitud_reserva(fecha_solicitud, cantidad_personas, comentario, fecha_inicio, fecha_fin, ID_anuncio, ID_usuario) VALUES ('$date', '$cantidad','$comentario', '$inicial', '$final', '$idAnunc', '$user')");
+			$consulta = ("INSERT INTO solicitud_reserva(fecha_solicitud, cantidad_personas, comentario, fecha_inicio, fecha_fin, ID_anuncio, ID_usuario, Visto_huesped) VALUES ('$date', '$cantidad','$comentario', '$inicial', '$final', '$idAnunc', '$user', 1)");
 			$res = $conec->ejecutarSQL($consulta);
 			return($res);
 		}
@@ -129,6 +129,95 @@
 									INNER JOIN anuncio ON pregunta.ID_anuncio = anuncio.ID
 									WHERE pregunta.ID_usuario='$idUser';");
 			return ($conec->ejecutarSQL($consulta));
+		}
+		
+		public function marcarPregLeida($id){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT *, pregunta.ID AS pregunta_ID FROM anuncio
+									INNER JOIN pregunta ON pregunta.ID_anuncio = anuncio.ID
+									WHERE anuncio.ID='$id';");
+			$serv=$conec->ejecutarSQL($consulta);
+			while($row=$serv->fetch_assoc()){
+				$aux=$row['pregunta_ID'];
+				$consulta=("UPDATE pregunta SET Visto='1' WHERE ID='$aux'");
+				$conec->ejecutarSQL($consulta);
+			}
+			return (1);
+		}
+		
+		public function marcarLeidasPregRec($id){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT *, pregunta.ID AS pregunta_ID FROM anuncio
+									INNER JOIN pregunta ON pregunta.ID_anuncio = anuncio.ID
+									WHERE anuncio.ID_usuario='$id';");
+			$serv=$conec->ejecutarSQL($consulta);
+			while($row=$serv->fetch_assoc()){
+				$aux=$row['pregunta_ID'];
+				$consulta=("UPDATE pregunta SET Visto='1' WHERE ID='$aux'");
+				$conec->ejecutarSQL($consulta);
+			}
+			return (1);
+		}
+		
+		public function marcarLeidasSolicAutor($id){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT *, solicitud_reserva.ID AS solicitud_reserva_ID FROM anuncio
+									INNER JOIN solicitud_reserva ON solicitud_reserva.ID_anuncio = anuncio.ID
+									WHERE anuncio.ID_usuario='$id';");
+			$serv=$conec->ejecutarSQL($consulta);
+			while($row=$serv->fetch_assoc()){
+				$aux=$row['solicitud_reserva_ID'];
+				$consulta=("UPDATE solicitud_reserva SET Visto_autor='1' WHERE ID='$aux'");
+				$conec->ejecutarSQL($consulta);
+			}
+			return (1);
+		}
+		
+		public function marcarLeidasSolicHuesped($id){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT *	FROM solicitud_reserva
+									WHERE solicitud_reserva.ID_usuario='$id';");
+			$serv=$conec->ejecutarSQL($consulta);
+			while($row=$serv->fetch_assoc()){
+				$aux=$row['ID'];
+				$consulta=("UPDATE solicitud_reserva SET Visto_huesped='1' WHERE ID='$aux'");
+				$conec->ejecutarSQL($consulta);
+			}
+			return (1);
+		}
+		
+		public function marcarRespLeida($id){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT *, respuesta.ID AS respuesta_ID FROM respuesta
+									INNER JOIN pregunta ON pregunta.ID = respuesta.ID_pregunta
+									WHERE pregunta.ID='$id';");
+			$serv=$conec->ejecutarSQL($consulta);
+			while($row=$serv->fetch_assoc()){
+				$aux=$row['respuesta_ID'];
+				$consulta=("UPDATE respuesta SET Visto='1' WHERE ID='$aux'");
+				$conec->ejecutarSQL($consulta);
+			}
+			return (1);
+		}
+		
+		public function marcarLeidasPregEnv($id){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT *, respuesta.ID AS respuesta_ID FROM respuesta
+									INNER JOIN pregunta ON pregunta.ID = respuesta.ID_pregunta
+									WHERE pregunta.ID_usuario='$id';");
+			$serv=$conec->ejecutarSQL($consulta);
+			while($row=$serv->fetch_assoc()){
+				$aux=$row['respuesta_ID'];
+				$consulta=("UPDATE respuesta SET Visto='1' WHERE ID='$aux'");
+				$conec->ejecutarSQL($consulta);
+			}
+			return (1);
 		}
 		
 		public function preguntasRecibidas($idUser){
@@ -148,7 +237,7 @@
 									FROM solicitud_reserva 
 									INNER JOIN anuncio ON solicitud_reserva.ID_anuncio = anuncio.ID
 									WHERE solicitud_reserva.ID_usuario='$idUser'
-									ORDER BY estado;");
+									ORDER BY solicitud_reserva.ID DESC;");
 			return ($conec->ejecutarSQL($consulta));
 		}
 		
@@ -160,7 +249,7 @@
 									INNER JOIN anuncio ON solicitud_reserva.ID_anuncio = anuncio.ID
 									INNER JOIN usuario ON solicitud_reserva.ID_usuario = usuario.ID
 									WHERE anuncio.ID_usuario='$idUser'
-									ORDER BY estado;");
+									ORDER BY solicitud_reserva.ID DESC;");
 			return ($conec->ejecutarSQL($consulta));
 		}
 		
@@ -218,83 +307,52 @@
 			return ($conec->ejecutarSQL($consulta));
 		}
 
-	
-		public function notificarPregunta($id){  //al que publico el anuncio se le informa que recibio una pregunta
-			$conec=new dbManager();
 
-			$conec->conectar();
-			$consulta="SELECT * FROM pregunta INNER JOIN anuncio ON anuncio.id=pregunta.ID_anuncio WHERE anuncio.ID_usuario = $id AND pregunta.Visto=0";
-			$res= $conec->ejecutarSQL($consulta);
-			return $res;
-		}
-		public function cantidad($id){
+		public function notificarPregunta($id){
 			$conec = new dbManager();
 			$conec->conectar();
-			/* $consulta="SELECT count(*) FROM respuesta INNER JOIN pregunta ON respuesta.ID_pregunta=pregunta.ID GROUP BY respuesta.ID WHERE respuesta.visto=0 AND pregunta.ID_usuario=$id"; */
-			$res= $conec->ejecutarSQL($consulta);
-			return $res;
-		}
-		public function getRespuestas($id){
-			$conec = new dbManager();
-			$conec->conectar();
-			$consulta="SELECT respuesta.ID, pregunta.ID_anuncio FROM respuesta INNER JOIN pregunta ON respuesta.ID_pregunta=pregunta.ID WHERE respuesta.visto=0 AND pregunta.ID_usuario=$id";
-			$res= $conec->ejecutarSQL($consulta);
-			return $res;
-		}
-		public function getPreguntas($id){
-			$conec = new dbManager();
-			$conec->conectar();
-			$consulta="SELECT pregunta.ID, pregunta.ID_anuncio, pregunta.Visto FROM pregunta INNER JOIN anuncio ON anuncio.id=pregunta.ID_anuncio WHERE anuncio.ID_usuario = $id AND pregunta.Visto=0";
-			$res= $conec->ejecutarSQL($consulta);
-			return $res;
-		}	
-		
-		public function getSolicitud($id){ 
-			$conec=new dbManager();
-			$conec->conectar();
-			$consulta = "SELECT anuncio.ID_usuario,solicitud_reserva.ID FROM solicitud_reserva INNER JOIN anuncio ON solicitud_reserva.ID_anuncio=anuncio.ID WHERE solicitud_reserva.Visto_autor=0 AND anuncio.ID_usuario=$id ";
-			$resultSQL = $conec->ejecutarSQL($consulta);
-			return $resultSQL;
-		}
-		public function respuestaSeen($id){
-			$conec= new dbManager();
-			$conec->conectar();
-			$consulta = "UPDATE `respuesta` SET `Visto`=1 WHERE ID =$id";
-			$res = $conec->ejecutarSQL($consulta);
-			return $res;
-
-		}
-		public function preguntaSeen($id){
-			$conec = new dbManager();
-			$conec->conectar();
-			$consulta = "UPDATE `pregunta` SET `Visto`=1 WHERE ID=$id";
-			$res = $conec->ejecutarSQL($consulta);
-			return $res;
-		}
-		public function solicitudRSeen($id){
-			$conec = new dbManager();
-			$conec->conectar();
-			$consulta = "UPDATE `solicitud_reserva` SET `Visto_autor`=1 WHERE `ID_anuncio` IN (SELECT anuncio.ID FROM anuncio INNER JOIN usuario ON anuncio.ID_usuario = usuario.ID WHERE usuario.ID=$id)";
-			$res = $conec->ejecutarSQL($consulta);
-			return $res;
-		}
-		/*
-		public function notificarReserva($id){ // al que pidio solicitud se le informa si fue aceptada o rechazada 
-			$conec=new dbManager();
-			$conec->conectar();
-			$consulta = "SELECT * FROM";
+			$consulta = "SELECT *, anuncio.ID AS anuncio_ID
+									FROM anuncio 
+									INNER JOIN pregunta on anuncio.ID=pregunta.ID_anuncio
+									WHERE anuncio.ID_usuario=$id
+									AND pregunta.visto=0";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
 		
-		public function notificarCalificación($id){ // al usuario se le informa que recibio una nueva calificación 
-			$conec=new dbManager();
+		public function notificarRespuesta($id){
+			$conec = new dbManager();
 			$conec->conectar();
-			$consulta = "SELECT * FROM";
+			$consulta = "SELECT *,	anuncio.ID AS anuncio_ID
+									FROM pregunta 
+									INNER JOIN respuesta on pregunta.ID=respuesta.ID_pregunta
+									INNER JOIN anuncio on pregunta.ID_anuncio=anuncio.ID
+									WHERE pregunta.ID_usuario=$id
+									AND respuesta.visto=0";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
-		*/
+		
+		public function notificarSolicitud($id){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * 	FROM solicitud_reserva
+									INNER JOIN anuncio on anuncio.ID=solicitud_reserva.ID_anuncio
+									WHERE anuncio.ID_usuario=$id
+									AND solicitud_reserva.Visto_autor=0";
+			$resultSQL = $conec->ejecutarSQL($consulta);
+			return $resultSQL;
+		}
+		
+		public function notificarRespuestaSolicitud($id){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * 	FROM solicitud_reserva
+									WHERE solicitud_reserva.ID_usuario=$id
+									AND solicitud_reserva.Visto_huesped=0";
+			$resultSQL = $conec->ejecutarSQL($consulta);
+			return $resultSQL;
+		}
 		
 		public function levantarAnuncio($idAnuncio){
 			$conec = new dbManager();
@@ -354,7 +412,7 @@
 		public function levantarPreguntasAnuncio($idAnuncio){
  			$conec = new dbManager();
  			$conec->conectar(); 
-			$consulta = "SELECT *, pregunta.ID AS pregunta_ID, anuncio.ID_usuario AS autor_ID
+			$consulta = "SELECT *, pregunta.ID AS pregunta_ID, anuncio.ID_usuario AS autor_ID, pregunta.ID_usuario AS pregunta_ID_usuario
  							FROM pregunta 
  								INNER JOIN usuario ON pregunta.ID_usuario=usuario.ID 
  								INNER JOIN anuncio ON pregunta.ID_anuncio=anuncio.ID

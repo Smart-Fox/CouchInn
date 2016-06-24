@@ -8,12 +8,6 @@
 	<link rel='stylesheet' href='style.css'/>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 	<script src="js/jquery.min.js"></script>
-	<script type="text/javascript" src= "js/objeto.js"></script>
-	<script src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
-	<script type="text/javascript" src= "js/not.js"></script>
-	<script type="text/javascript" src= "js/ver.js"></script>
-	<script type="text/javascript" src= "js/verSolicitudes.js"></script>
 	<script type="text/javascript">
 		function showRec(){
 			document.getElementById('recibidas').style.display = 'inline';
@@ -36,10 +30,35 @@
 		include('cuentaOptions.php');
 		session_start();
 		if(isset($_SESSION['usuario'])){
+			$serv = new aService();
+			$id=$_SESSION['id'];
+			if(isset($_POST['tipo'])){
+				if ($_POST['tipo']=='recibidas'){
+					$serv->marcarLeidasPregRec($id);
+				echo "
+					<script type='text/javascript'>
+						window.onload = function mostrarR(){
+							console.log('hola');
+							document.getElementById('rec').click();
+						}	
+					</script>
+				";
+				}
+				if ($_POST['tipo']=='enviadas'){
+					$serv->marcarLeidasPregEnv($id);
+					echo "
+						<script type='text/javascript'>
+							window.onload = function mostrarE(){
+								console.log('hola');
+								document.getElementById('env').click();
+							}	
+						</script>
+					";
+				}
+			}
 			$service = new cabecera($_SESSION['usuario']);
 			$service->buildHeader();
 			$display=new cuentaMenu();
-			$id=$_SESSION['id'];
 		}else{
 			header('Location:index.html');
 		}
@@ -49,12 +68,20 @@
 				</div>
 				<div class='col-xs-2 col-md-2'>
 					<div class='centered'>
-						<button type=button id='env' class='btn2' onclick='showEnv();'>Preguntas enviadas</button>
+						<form action='preguntas.php' method='POST' enctype='multipart/form-data'>
+							<input class=hidden name='tipo' value='enviadas'>
+							<button type='submit' class='btn2'>Preguntas enviadas</button>
+						</form>
+						<button type=button id='env' class='hidden' onclick='showEnv();'>
 					</div>
 				</div>
 				<div class='col-xs-2 col-md-2'>
 					<div class='centered'>
-						<button type=button id='rec' class='btn2' onclick='showRec();'>Preguntas recibidas</button>
+						<form action='preguntas.php' method='POST' enctype='multipart/form-data'>
+							<input class=hidden name='tipo' value='recibidas'>
+							<button type='submit' class='btn2'>Preguntas recibidas</button>
+						</form>
+						<button type=button id='rec' class='hidden' onclick='showRec();'>
 					</div>
 				</div>
 				<div class='col-xs-4 col-md-4'>
@@ -62,7 +89,6 @@
 			</div>
 			<center>
 		";
-		$serv = new aService();
 		$preg = $serv->preguntasRecibidas($id);
 		echo "<div id='recibidas'>";
 		if($preg->num_rows>0){
