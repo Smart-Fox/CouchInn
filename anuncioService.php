@@ -124,7 +124,7 @@
 		public function preguntasEnviadas($idUser){
 			$conec = new dbManager();
 			$conec->conectar();	
-			$consulta = ("SELECT *,pregunta.ID as pregunta_ID	
+			$consulta = ("SELECT *,pregunta.ID as pregunta_ID, pregunta.fecha AS pregunta_fecha	
 									FROM pregunta 
 									INNER JOIN anuncio ON pregunta.ID_anuncio = anuncio.ID
 									WHERE pregunta.ID_usuario='$idUser';");
@@ -223,7 +223,8 @@
 		public function preguntasRecibidas($idUser){
 			$conec = new dbManager();
 			$conec->conectar();	
-			$consulta = ("SELECT *, pregunta.ID as pregunta_ID	FROM pregunta 
+			$consulta = ("SELECT *, pregunta.ID as pregunta_ID, pregunta.fecha AS pregunta_fecha
+									FROM pregunta 
 									INNER JOIN anuncio ON pregunta.ID_anuncio = anuncio.ID
 									INNER JOIN usuario ON anuncio.ID_usuario = usuario.ID
 									WHERE anuncio.ID_usuario='$idUser';");
@@ -411,7 +412,7 @@
 		public function levantarPreguntasAnuncio($idAnuncio){
  			$conec = new dbManager();
  			$conec->conectar(); 
-			$consulta = "SELECT *, pregunta.ID AS pregunta_ID, anuncio.ID_usuario AS autor_ID, pregunta.ID_usuario AS pregunta_ID_usuario
+			$consulta = "SELECT *, pregunta.ID AS pregunta_ID, anuncio.ID_usuario AS autor_ID, pregunta.ID_usuario AS pregunta_ID_usuario, pregunta.fecha AS pregunta_fecha
  							FROM pregunta 
  								INNER JOIN usuario ON pregunta.ID_usuario=usuario.ID 
  								INNER JOIN anuncio ON pregunta.ID_anuncio=anuncio.ID
@@ -432,7 +433,7 @@
 		public function levantarRespuestaAnuncio($idPregunta){
 			$conec = new dbManager();
 			$conec->conectar();
-			$consulta = "SELECT *, respuesta.texto AS respuesta_texto
+			$consulta = "SELECT *, respuesta.texto AS respuesta_texto, respuesta.fecha AS respuesta_fecha
 							FROM respuesta 
 								INNER JOIN pregunta ON respuesta.ID_pregunta=pregunta.ID
 								INNER JOIN anuncio ON pregunta.ID_anuncio=anuncio.ID

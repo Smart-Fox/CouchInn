@@ -28,7 +28,7 @@
 				$serv = new aService();
 				$anun = $serv->levantarAnuncio($id);
 				$row = $anun->fetch_assoc();
-				$fecha=date('m/d/Y H:i', strtotime($row['Fecha']));
+				$fecha=date('d/m/Y H:i', strtotime($row['Fecha']));
 			}else{
 				header('Location:pagPrinc.php');
 			}
@@ -140,6 +140,7 @@
 					}
 					if ($preg1->num_rows>0){
 						while($row2 = $preg1->fetch_assoc()){
+							$fecha=date('d/m/Y H:i', strtotime($row2['pregunta_fecha']));
 							echo "		
 										<div class='row'>
 											<div class='col-xs-2 col-md-2'>
@@ -152,27 +153,29 @@
 													<div class='col-xs-2 col-md-2'>
 														<span class='content'><strong>Pregunta:</strong></span>
 													</div>
-													<div class='col-xs-8 col-md-8'>
+													<div class='col-xs-6 col-md-6'>
 														<span class='content'>".$row2['texto']."</span>
+													</div>
+													<div class='col-xs-2 col-md-2'>
+														<span class='content'>".$fecha."</span>
 													</div>
 													<div class='col-xs-1 col-md-1'>
 													</div>
 												</div>
 												<div class='row'>
-													<div class='col-xs-1 col-md-1'>
+													<div class='col-xs-3 col-md-3'>
 													</div>
-													<div class='col-xs-2 col-md-2'>
-													</div>
-													<div class='col-xs-8 col-md-8'>
+													<div class='col-xs-6 col-md-6'>
 														<span class='content'>Enviada por ".$row2['Username']."</span>
 													</div>
-													<div class='col-xs-1 col-md-1'>
+													<div class='col-xs-3 col-md-3'>
 													</div>
 												</div>
 							";
 							$resp = $serv->levantarRespuestaAnuncio($row2['pregunta_ID']);
 							if($resp->num_rows>0){  //si existe una respuesta para la pregunta, se publica
 								$rowResp = $resp->fetch_assoc();
+								$fecha=date('d/m/Y H:i', strtotime($rowResp['respuesta_fecha']));
 								echo "
 										<br>	
 										<div class='row'>
@@ -181,8 +184,11 @@
 											<div class='col-xs-2 col-md-2'>
 												<span class='content'><strong>Respuesta:</strong></span>
 											</div>
-											<div class='col-xs-8 col-md-8'>
+											<div class='col-xs-6 col-md-6'>
 												<span class='content'>".$rowResp['respuesta_texto']."</span>
+											</div>
+											<div class='col-xs-2 col-md-2'>
+												<span class='content'>".$fecha."</span>
 											</div>
 											<div class='col-xs-1 col-md-1'>
 											</div>
