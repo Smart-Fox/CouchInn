@@ -241,6 +241,20 @@
 								</div>
 						";
 					}
+			if (!isset($_POST['reloaded'])){
+				echo "	
+					<form id='back' action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
+						<input class='hidden' name='anunc' value=".$id.">
+						<input class='hidden' name='reloaded' value='1'>
+					</form>
+					<script type='text/javascript'>
+						function submitForm() {
+							document.getElementById('back').submit();
+						}
+						window.onload = submitForm;
+					</script>
+				";
+			}
 			?>
 	</center>
 </body>
