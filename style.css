@@ -889,6 +889,7 @@ span.labelform2{
 	z-index: 1;
 	display: none;
 	border: 2px solid #96ac3c;
+	border-radius: 8px;
 }
 
 #notificationTitle{
@@ -900,6 +901,8 @@ span.labelform2{
 	position: fixed;
 	z-index: 1000;
 	width: 396px;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
 	border-bottom: 1px solid #96ac3c;
 }
 
