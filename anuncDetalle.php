@@ -7,7 +7,6 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel='stylesheet' href='style.css'/>
 	<script src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"></script>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 	<script>
 		window.onload = function(){
@@ -241,7 +240,7 @@
 								</div>
 						";
 					}
-			if (!isset($_POST['reloaded'])){
+			if (!isset($_POST['reloaded'])){ //esto es horrible, pero es lo que se me ocurrio a las 12 de la noche... recarga la pagina para que se actualicen las notificaciones
 				echo "	
 					<form id='back' action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
 						<input class='hidden' name='anunc' value=".$id.">
