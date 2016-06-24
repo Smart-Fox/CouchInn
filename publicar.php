@@ -56,7 +56,6 @@
 								include('anuncioService.php');
 								$serv = new aService();
 								$tipos = $serv->levantarTipos();
-								print_r($tipos);
 								while ($row = $tipos->fetch_assoc()){
 									echo "<option value=\"" . $row['ID']. "\">". $row['Nombre']."</option>";
 								}

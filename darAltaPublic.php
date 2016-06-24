@@ -5,5 +5,4 @@
 	$serv = new aService();
 	$serv->activarAnuncio($idAnun);
 	header('Location: pagPrinc.php');
-
 ?>

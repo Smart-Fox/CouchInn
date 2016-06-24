@@ -6,6 +6,8 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel='stylesheet' href='style.css'/>
+	<script src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"></script>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 	<script>
 		window.onload = function(){
@@ -44,31 +46,7 @@
 					<h1><strong><span> <?php echo $row['Titulo'];?></span></strong></h1>
 				</div>
 				<div class='col-xs-1 col-md-1'>
-
-					<?php
-						if($_SESSION['id']==$row['usuario_ID']){  //si es el mismo usuario que le aparezca la opcion de eliminar anuncio
-							if ($row['activo'] == '1'){
-							echo "
-							
-								<form action='darBajaPublic.php' method='POST' enctype='multipart/form-data'>
-									<input class='hidden' name='anunc' value= ".$id.">
-									
-									<button type='submit' class='btn22'>Eliminar anuncio</button>
-								</form>
-								";
-							}else{
-								echo "
-							
-								<form action='darAltaPublic.php' method='POST' enctype='multipart/form-data'>
-									<input class='hidden' name='anunc' value= ".$id.">
-									
-									<button type='submit' class='btn22'>Publicar anuncio</button>
-								</form>
-								";
-							}
-						}
-						?>
-				</div>
+			</div>
 			</div>
 			<div class='row row-anuncio'>
 				<div class='col-xs-6 col-md-6 col-anunc'>
@@ -101,6 +79,7 @@
 						<div class='col-xs-4 col-md-4'>
 							<?php
 								if ($_SESSION['id']==$row['usuario_ID']) { 
+									$serv->marcarPregLeida($id);
 									echo "
 											<form action='editarPublicacion.php' method='POST' enctype='multipart/form-data'>
 												<input class='hidden' name='anunc' value= ". $id .">
@@ -118,97 +97,151 @@
 							?>
 						</div>
 						<div class='col-xs-4 col-md-4'>
-							<form method='POST' action='verPerfil.php'>
-								<input class='hidden' name='id' value='<?php echo $row['usuario_ID']; ?>'>
-								<button class='btn22' type='submit'>Ver perfil</button>
-							</form>
+							<?php
+								if($_SESSION['id']==$row['usuario_ID']){  //si es el mismo usuario que le aparezca la opcion de eliminar anuncio
+									if ($row['activo'] == '1'){
+									echo "
+										<form action='confirBajaAnunc.php' method='POST' enctype='multipart/form-data'>
+											<input class='hidden' name='anunc' value= ".$id.">
+											<button type='submit' class='btn22'>Despublicar anuncio</button>
+										</form>
+										";
+									}else{
+										echo "
+												<form action='confirAltaAnunc.php' method='POST' enctype='multipart/form-data'>
+													<input class='hidden' name='anunc' value= ".$id.">
+													<button type='submit' class='btn22'>Republicar anuncio</button>
+												</form>
+										";
+									}
+								}else{
+									echo "
+										<form method='POST' action='verPerfil.php'>
+											<input class='hidden' name='id' value='".$row['usuario_ID']."'>
+											<button class='btn22' type='submit'>Ver perfil</button>
+										</form>
+									";
+								}
+							?>
 						</div>
 					</div>
 				</div>
 			</div>
+
 		
 		</div>
-
-		<div class='anunciodet'>
 			<?php
-				$preg1 = $serv->levantarPreguntasAnuncio($row['ID_anuncio']); 
-					echo "<br> <br>";
-					while($rowPreg = $preg1->fetch_assoc()){   //se publican las preguntas. Faltaria un if pa q no haga todo al dope
-							echo "<hr>";
-							echo " 
-								<div class='row'>
+					$preg1 = $serv->levantarPreguntasAnuncio($row['ID_anuncio']);
+					if($_SESSION['id']!=$row['usuario_ID']){
+						echo "<br><h2>Preguntas al usuario</h2><br>";
+					}else{
+						if($preg1->num_rows>0){
+							echo "<br><h2>Preguntas</h2><br>";
+						}
+					}
+					if ($preg1->num_rows>0){
+						while($row2 = $preg1->fetch_assoc()){
+							echo "		
+										<div class='row'>
+											<div class='col-xs-2 col-md-2'>
+											</div>
+											<div class='col-xs-8 col-md-8 anuncio'>
+												<div class='row'>
+													<br>
+													<div class='col-xs-1 col-md-1'>
+													</div>
+													<div class='col-xs-2 col-md-2'>
+														<span class='content'><strong>Pregunta:</strong></span>
+													</div>
+													<div class='col-xs-8 col-md-8'>
+														<span class='content'>".$row2['texto']."</span>
+													</div>
+													<div class='col-xs-1 col-md-1'>
+													</div>
+												</div>
+												<div class='row'>
+													<div class='col-xs-1 col-md-1'>
+													</div>
+													<div class='col-xs-2 col-md-2'>
+													</div>
+													<div class='col-xs-8 col-md-8'>
+														<span class='content'>Enviada por ".$row2['Username']."</span>
+													</div>
+													<div class='col-xs-1 col-md-1'>
+													</div>
+												</div>
+							";
+							$resp = $serv->levantarRespuestaAnuncio($row2['pregunta_ID']);
+							if($resp->num_rows>0){  //si existe una respuesta para la pregunta, se publica
+								$rowResp = $resp->fetch_assoc();
+								echo "
+										<br>	
+										<div class='row'>
+											<div class='col-xs-1 col-md-1'>
+											</div>
+											<div class='col-xs-2 col-md-2'>
+												<span class='content'><strong>Respuesta:</strong></span>
+											</div>
+											<div class='col-xs-8 col-md-8'>
+												<span class='content'>".$rowResp['respuesta_texto']."</span>
+											</div>
+											<div class='col-xs-1 col-md-1'>
+											</div>
+										</div>
+								";
+								if($_SESSION['id']==$row2['pregunta_ID_usuario']){
+									$serv->marcarRespLeida($row2['pregunta_ID']);
+								}
+							}else{
+								if ($_SESSION['id']==$row['usuario_ID']){
+									echo " 	<br>					
+											<form action='responder.php' method='POST' enctype='multipart/form-data'>
+												<div class='row'>
+													<div class='col-xs-1 col-md-1'>
+													</div>
+													<div class='col-xs-10 col-md-10'>
+														<textarea class='form-control custom'  type='text' name='respuesta' id='respuesta' placeholder='Escribe tu respuesta' required style='width: 100%; height: 50px;'></textarea> 												
+														<input class='hidden' name='anunc' value='".$row2['ID_anuncio']."'> 
+														<input class='hidden' name='idpreg' value='".$row2['pregunta_ID']."'>														
+													</div>
+													<div class='col-xs-1 col-md-1'>											
+													</div>
+												</div>
+												<div class='row'>
+													<center><button type='submit' class='btn22'>Responder</button>
+												</div>
+											</form>
+									";
+								}
+							}
+							echo"
+									<br>
+									</div>
 									<div class='col-xs-2 col-md-2'>
-										<span style='color:blue'><i>Pregunta</i></span>
-									</div>
-									<div class='col-xs-8 col-md-8 '>
-										Usuario: ".$rowPreg['Username']."
-										<br>
-										<strong><span class='titulo2'>".$rowPreg['texto']."</span></strong> 
-									</div>
-									<div class='col-xs-2 col-md-2'> 
 									</div>
 								</div>
 							";
-							$resp = $serv->levantarRespuestaAnuncio($rowPreg['pregunta_ID']);
-							if($resp->num_rows>0){  //si existe una respuesta para la pregunta, se publica
-								$rowResp = $resp->fetch_assoc();
-									echo " 
-										<div class='row'>
-											<div class='col-xs-2 col-md-2'>
-												<span style='color:red'><i>Respuesta</i></span>
-											</div>
-											<div class='col-xs-8 col-md-8 '>
-												Usuario: ".$rowResp['Username']."
-												<br>
-												<strong><span class='titulo2'>".$rowResp['respuesta_texto']."</span></strong> 
-											</div>
-											<div class='col-xs-2 col-md-2'> 
-											</div>
-										</div>
-									";
-							}else{
-								if ($_SESSION['id']==$row['usuario_ID']){
-									echo " 
-											<form action='responder.php' method='POST' enctype='multipart/form-data'>
-												<div class='row'>
-													<div class='col-xs-2 col-md-2'>
-													</div>
-													<div class='col-xs-7 col-md-7'>
-														<textarea class='form-control custom'  type='text' name='respuesta' id='respuesta' placeholder='Escribe tu respuesta' required style='width: 650px; height: 50px;'></textarea> 												
-														<input class='hidden' name='anunc' value= ".$id."> 
-														<input class='hidden' name='idpreg' value= ".$rowPreg['pregunta_ID'].">														
-													</div>
-													<div class='col-xs-3 col-md-3'>											
-														<button type='submit' class='btn22'>Responder</button>
-													</div>
-												</div>
-											</form>
-										";
-								}
-							}
-					} //end del While de las preguntas
-					if ($_SESSION['id']!=$row['usuario_ID']){  //si no es el usuario autor del anuncio, se publica el campo para Preguntar
-						echo 	"<hr>";
-							echo"	<div class='row'>
-										<div class='col-xs-2 col-md-2'>
-											</div>
-										<div class='col-xs-8 col-md-8'>
-											<form id='preg' action='preguntar.php' method='POST'>
-												<h2>Preguntas al usuario</h2>
-												<br>
-												<textarea class='form-control custom'  type='text' name='pregunta' id='pregunta' placeholder='Escribe tu pregunta' required style='width: 500px; height: 100px;'></textarea>
-												<input class='hidden' name='anunc' value= ".$id.">
-												<button type='submit' class='btn22' >Preguntar</button>
-											</form>
-											<br>
-										</div>
-										<div class='col-xs-2 col-md-2'>
-										</div>
-									</div>
-							";
+						}
 					}
-?>
-		</div>
+					if ($_SESSION['id']!=$row['usuario_ID']){  //si no es el usuario autor del anuncio, se publica el campo para Preguntar
+						echo"	<div class='row'>
+									<div class='col-xs-2 col-md-2'>
+										</div>
+									<div class='col-xs-8 col-md-8'>
+										<form id='preg' action='preguntar.php' method='POST'>
+											<br>
+											<textarea class='form-control custom'  type='text' name='pregunta' id='pregunta' placeholder='Escribe tu pregunta' required style='width: 500px; height: 100px;'></textarea>
+											<input class='hidden' name='anunc' value= ".$id.">
+											<button type='submit' class='btn22' >Preguntar</button>
+										</form>
+										<br>
+									</div>
+									<div class='col-xs-2 col-md-2'>
+									</div>
+								</div>
+						";
+					}
+			?>
 	</center>
 </body>
 </html>

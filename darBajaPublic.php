@@ -5,5 +5,4 @@
 	$serv = new aService();
 	$serv->darDeBajaAnuncio($idAnun);
 	header('Location: pagPrinc.php');
-
 ?>

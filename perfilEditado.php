@@ -8,6 +8,8 @@
 	<link rel='stylesheet' href='style.css'/>
 	<script language= "javascript" src= "js/validation.js"></script>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	<script src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
 </head>
 <body>
 	<?php

@@ -48,6 +48,7 @@
 			}else{
 				$ciudad=$_POST['ciudad'];
 			}
+
 			if (($capacidad!=-1)||($provincia!=-1)||($ciudad!=-1)||($tipo!=-1)){
 				echo "
 					<script type='text/javascript'>

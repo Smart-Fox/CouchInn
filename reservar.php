@@ -11,7 +11,7 @@
 	<script src="theme/jquery-ui.js"></script>
 	<script type="text/javascript" src= "js/objeto.js"></script>
 	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
-	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
 </head>
 <body>	
 	<?php

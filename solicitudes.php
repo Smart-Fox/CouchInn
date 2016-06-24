@@ -39,7 +39,7 @@
 		}else{
 			header('Location:index.html');
 		}
-		echo"
+		echo "
 			<div class='row'>
 				<div class='col-xs-4 col-md-4'>
 				</div>
@@ -81,7 +81,7 @@
 										<div class='col-xs-12 col-md-12'>
 											<strong><span class='content'>".$row['Titulo']."</span></strong>
 											<br>
-											<span class='content'>Reserva para ".$row['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.", pedida por ".$row['Username'].".</span>
+											<span class='content'>Reserva para ".$row['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.", pedida por ".$row['Username']." el ".$row['fecha_solicitud'].".</span>
 											<br>
 											<span class='content'>".$row['comentario']."</span>
 											<br>
@@ -227,7 +227,7 @@
 					echo"
 							<div class='row'>
 								<form action='cancelarSolic.php' method='POST' enctype='multipart/form-data'>
-									<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
+									<input class=hidden name='solic' value='".$row2['solicitud_ID']."'></input>
 									<center><button type='submit' class='btn22'>Cancelar solicitud</button></center>
 								</form>
 							</div>
@@ -256,7 +256,30 @@
 			";
 		}
 		echo "</div>";
+	if(isset($_POST['tipo'])){
+		if ($_POST['tipo']=='recibidas'){
+			$serv->marcarLeidasSolicAutor($id);
+			echo "
+				<script type='text/javascript'>
+					window.onload = function mostrarR(){
+						console.log('hola');
+						document.getElementById('rec').click();
+					}	
+				</script>
+			";
+		}
+		if ($_POST['tipo']=='enviadas'){
+			$serv->marcarLeidasSolicHuesped($id);
+			echo "
+				<script type='text/javascript'>
+					window.onload = function mostrarE(){
+						console.log('hola');
+						document.getElementById('env').click();
+					}	
+				</script>
+			";
+		}
+	}
 	?>
-	
 </body>
 </html>
