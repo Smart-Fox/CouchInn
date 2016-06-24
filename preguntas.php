@@ -45,12 +45,20 @@
 				</div>
 				<div class='col-xs-2 col-md-2'>
 					<div class='centered'>
-						<button type=button id='env' class='btn2' onclick='showEnv();'>Preguntas enviadas</button>
+						<form action='preguntas.php' method='POST' enctype='multipart/form-data'>
+							<input class=hidden name='tipo' value='enviadas'>
+							<button type='submit' class='btn2'>Preguntas enviadas</button>
+						</form>
+						<button type=button id='env' class='hidden' onclick='showEnv();'>
 					</div>
 				</div>
 				<div class='col-xs-2 col-md-2'>
 					<div class='centered'>
-						<button type=button id='rec' class='btn2' onclick='showRec();'>Preguntas recibidas</button>
+						<form action='preguntas.php' method='POST' enctype='multipart/form-data'>
+							<input class=hidden name='tipo' value='recibidas'>
+							<button type='submit' class='btn2'>Preguntas recibidas</button>
+						</form>
+						<button type=button id='rec' class='hidden' onclick='showRec();'>
 					</div>
 				</div>
 				<div class='col-xs-4 col-md-4'>
@@ -235,6 +243,30 @@
 			";
 		}
 		echo "</div>";
+	if(isset($_POST['tipo'])){
+		if ($_POST['tipo']=='recibidas'){
+			$serv->marcarLeidasPregRec($_SESSION('id'));
+			echo "
+				<script type='text/javascript'>
+					window.onload = function mostrarR(){
+						console.log('hola');
+						document.getElementById('rec').click();
+					}	
+				</script>
+			";
+		}
+		if ($_POST['tipo']=='enviadas'){
+			$serv->marcarLeidasPregEnv($_SESSION('id'));
+			echo "
+				<script type='text/javascript'>
+					window.onload = function mostrarE(){
+						console.log('hola');
+						document.getElementById('env').click();
+					}	
+				</script>
+			";
+		}
+	}
 	?>
 	
 </body>

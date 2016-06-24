@@ -256,9 +256,9 @@
 			";
 		}
 		echo "</div>";
-	
 	if(isset($_POST['tipo'])){
 		if ($_POST['tipo']=='recibidas'){
+			$serv->marcarLeidasSolicAutor($id);
 			echo "
 				<script type='text/javascript'>
 					window.onload = function mostrarR(){
@@ -269,6 +269,7 @@
 			";
 		}
 		if ($_POST['tipo']=='enviadas'){
+			$serv->marcarLeidasSolicHuesped($id);
 			echo "
 				<script type='text/javascript'>
 					window.onload = function mostrarE(){
