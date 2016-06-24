@@ -191,7 +191,7 @@
 										</div>
 								";
 								if($_SESSION['id']==$row2['pregunta_ID_usuario']){
-									$serv->marcarRespLeida($row['pregunta_ID']);
+									$serv->marcarRespLeida($row2['pregunta_ID']);
 								}
 							}else{
 								if ($_SESSION['id']==$row['usuario_ID']){
