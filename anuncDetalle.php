@@ -101,18 +101,17 @@
 								if($_SESSION['id']==$row['usuario_ID']){  //si es el mismo usuario que le aparezca la opcion de eliminar anuncio
 									if ($row['activo'] == '1'){
 									echo "
-										<form action='darBajaPublic.php' method='POST' enctype='multipart/form-data'>
+										<form action='confirBajaAnunc.php' method='POST' enctype='multipart/form-data'>
 											<input class='hidden' name='anunc' value= ".$id.">
-											<button type='submit' class='btn22'>Eliminar anuncio</button>
+											<button type='submit' class='btn22'>Despublicar anuncio</button>
 										</form>
 										";
 									}else{
 										echo "
-									
-										<form action='darAltaPublic.php' method='POST' enctype='multipart/form-data'>
-											<input class='hidden' name='anunc' value= ".$id.">
-											<button type='submit' class='btn22'>Publicar anuncio</button>
-										</form>
+												<form action='confirAltaAnunc.php' method='POST' enctype='multipart/form-data'>
+													<input class='hidden' name='anunc' value= ".$id.">
+													<button type='submit' class='btn22'>Republicar anuncio</button>
+												</form>
 										";
 									}
 								}else{
