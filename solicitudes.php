@@ -175,6 +175,45 @@
 						</center>
 					";
 				}
+				if ($row['estado'] == 'activa'){
+					echo"
+							<div class='row'>
+								<div class='col-xs-4 col-md-4'>
+								</div>
+								<div class='col-xs-4 col-md-4'>
+									<form action='verDatos.php' method='POST' enctype='multipart/form-data'>
+										<input class=hidden name='user' value='".$row['solicitud_user']."'></input>
+										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
+									</form>
+								</div>
+								<div class='col-xs-4 col-md-4'>
+								</div>
+							</div>
+						";
+				}
+				if ($row['estado'] == 'finalizada'){
+					echo"
+							<div class='row'>
+								<div class='col-xs-4 col-md-4'>
+								</div>
+								<div class='col-xs-2 col-md-2'>
+									<form action='verDatos.php' method='POST' enctype='multipart/form-data'>
+										<input class=hidden name='user' value='".$row['anuncio_user']."'></input>
+										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
+									</form>
+								</div>
+								<div class='col-xs-2 col-md-2'>	
+									<form action='' method='POST' enctype='multipart/form-data'>
+										<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
+										<input class=hidden name='tipo' value='huesped'></input>
+										<center><button type='submit' class='btn22'>Calificar Huésped</button></center>
+									</form>
+								</div>
+								<div class='col-xs-4 col-md-4'>
+								</div>
+							</div>
+						";
+				}
 				echo "
 						</div>
 						<div class='col-xs-2 col-md-2'>
@@ -260,6 +299,46 @@
 									<input class=hidden name='solic' value='".$row2['solicitud_ID']."'></input>
 									<center><button type='submit' class='btn22'>Cancelar solicitud</button></center>
 								</form>
+							</div>
+					";
+				}
+				if ($row2['estado'] == 'activa'){
+					echo"
+							<div class='row'>
+								<div class='col-xs-4 col-md-4'>
+								</div>
+								<div class='col-xs-4 col-md-4'>
+									<form action='verDatos.php' method='POST' enctype='multipart/form-data'>
+										<input class=hidden name='user' value='".$row2['anuncio_user']."'></input>
+										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
+									</form>
+								</div>
+								<div class='col-xs-4 col-md-4'>
+								</div>
+							</div>
+					";
+				}
+				if ($row2['estado'] == 'finalizada'){
+					echo"
+							<div class='row'>
+								<div class='col-xs-4 col-md-4'>
+								</div>
+								<div class='col-xs-2 col-md-2'>
+									<form action='verDatos.php' method='POST' enctype='multipart/form-data'>
+										<input class=hidden name='user' value='".$row2['anuncio_user']."'></input>
+										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
+									</form>
+								</div>
+								<div class='col-xs-2 col-md-2'>	
+									<form action='' method='POST' enctype='multipart/form-data'>
+										<input class=hidden name='solic' value='".$row2['solicitud_ID']."'></input>
+										<input class=hidden name='IDanuncio' value='".$row2['ID_anuncio']."'></input> 
+										<input class=hidden name='tipo' value='hospedaje'></input>
+										<center><button type='submit' class='btn22'>Calificar Hospedaje</button></center>
+									</form>
+								</div>
+								<div class='col-xs-4 col-md-4'>
+								</div>
 							</div>
 					";
 				}

@@ -253,6 +253,13 @@
 			return ($conec->ejecutarSQL($consulta));
 		}
 		
+		public function solicitudesTodas(){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT *	FROM solicitud_reserva");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		
 		public function levantarSolicitud($id){
 			$conec = new dbManager();
 			$conec->conectar();	
