@@ -10,7 +10,6 @@
 		protected $imagen;
 		protected $user;
 		protected $date;
-
 		public function levantarProv(){
 			$conec = new dbManager();
 			$conec->conectar();
@@ -92,7 +91,7 @@
 						WHERE 	(1=(CASE WHEN $tipo=-1 THEN 1 ELSE 0 END) OR anuncio.ID_tipo_hospedaje=$tipo)
 						AND 	(1=(CASE WHEN $provincia=-1 THEN 1 ELSE 0 END) OR ciudad.ID_provincia=$provincia)
 						AND 	(1=(CASE WHEN $ciudad=-1 THEN 1 ELSE 0 END) OR ciudad.ID=$ciudad)
-						AND 	(1=(CASE WHEN $capacidad=-1 THEN 1 ELSE 0 END) OR anuncio.capacidad>=$capacidad)
+						AND 	(1=(CASE WHEN $capacidad=-1 THEN 1 ELSE 0 END) OR anuncio.capacidad=$capacidad)
 						ORDER BY anuncio.ID DESC";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
@@ -124,7 +123,7 @@
 		public function preguntasEnviadas($idUser){
 			$conec = new dbManager();
 			$conec->conectar();	
-			$consulta = ("SELECT *,pregunta.ID as pregunta_ID	
+			$consulta = ("SELECT *,pregunta.ID as pregunta_ID, pregunta.fecha AS pregunta_fecha	
 									FROM pregunta 
 									INNER JOIN anuncio ON pregunta.ID_anuncio = anuncio.ID
 									WHERE pregunta.ID_usuario='$idUser';");
@@ -223,7 +222,8 @@
 		public function preguntasRecibidas($idUser){
 			$conec = new dbManager();
 			$conec->conectar();	
-			$consulta = ("SELECT *, pregunta.ID as pregunta_ID	FROM pregunta 
+			$consulta = ("SELECT *, pregunta.ID as pregunta_ID, pregunta.fecha AS pregunta_fecha
+									FROM pregunta 
 									INNER JOIN anuncio ON pregunta.ID_anuncio = anuncio.ID
 									INNER JOIN usuario ON anuncio.ID_usuario = usuario.ID
 									WHERE anuncio.ID_usuario='$idUser';");
@@ -250,6 +250,13 @@
 									INNER JOIN usuario ON solicitud_reserva.ID_usuario = usuario.ID
 									WHERE anuncio.ID_usuario='$idUser'
 									ORDER BY solicitud_reserva.ID DESC;");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		
+		public function solicitudesTodas(){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT *	FROM solicitud_reserva");
 			return ($conec->ejecutarSQL($consulta));
 		}
 		
@@ -307,7 +314,18 @@
 			return ($conec->ejecutarSQL($consulta));
 		}
 
-
+		public function solicitudEstadoActiva($id){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("UPDATE solicitud_reserva SET estado='activa' WHERE ID='$id'");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		public function solicitudEstadoFinalizada($id){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("UPDATE solicitud_reserva SET estado='finalizada' WHERE ID='$id'");
+			return ($conec->ejecutarSQL($consulta));
+		}
 		public function notificarPregunta($id){
 			$conec = new dbManager();
 			$conec->conectar();
@@ -412,7 +430,7 @@
 		public function levantarPreguntasAnuncio($idAnuncio){
  			$conec = new dbManager();
  			$conec->conectar(); 
-			$consulta = "SELECT *, pregunta.ID AS pregunta_ID, anuncio.ID_usuario AS autor_ID, pregunta.ID_usuario AS pregunta_ID_usuario
+			$consulta = "SELECT *, pregunta.ID AS pregunta_ID, anuncio.ID_usuario AS autor_ID, pregunta.ID_usuario AS pregunta_ID_usuario, pregunta.fecha AS pregunta_fecha
  							FROM pregunta 
  								INNER JOIN usuario ON pregunta.ID_usuario=usuario.ID 
  								INNER JOIN anuncio ON pregunta.ID_anuncio=anuncio.ID
@@ -420,7 +438,6 @@
  			$resultSQL = $conec->ejecutarSQL($consulta);
  			return $resultSQL;
  		}
-
 		public function publicarRespuesta($idPregunta, $respuesta){
 			$date = date("Y-m-d H:i:s");
 			$conec = new dbManager();
@@ -429,11 +446,10 @@
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
-
 		public function levantarRespuestaAnuncio($idPregunta){
 			$conec = new dbManager();
 			$conec->conectar();
-			$consulta = "SELECT *, respuesta.texto AS respuesta_texto
+			$consulta = "SELECT *, respuesta.ID AS respuesta_ID, respuesta.texto AS respuesta_texto, respuesta.fecha AS respuesta_fecha
 							FROM respuesta 
 								INNER JOIN pregunta ON respuesta.ID_pregunta=pregunta.ID
 								INNER JOIN anuncio ON pregunta.ID_anuncio=anuncio.ID
@@ -450,7 +466,6 @@
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
-
 		public function activarAnuncio($idAnuncio){
 			$conec = new dbManager();
 			$conec->conectar();
@@ -458,5 +473,31 @@
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
+		public function levantarReserva($idSolicitud){
+			$conec=new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * FROM reserva where ID_solicitud='$idSolicitud'";
+			$resultSQL = $conec->ejecutarSQL($consulta);
+			return $resultSQL;
+		}
+		public function enviarCalificacion($idReserva, $puntaje, $comentario){
+			$conec=new dbManager();
+			$conec->conectar();
+			$consulta = ("INSERT INTO calificacion(comentario, puntaje, ID_reserva) VALUES ('$comentario', '$puntaje', '$idReserva')");
+			$resultSQL = $conec->ejecutarSQL($consulta);
+			return $resultSQL;
+		}
+		public function levantarCalifAnuncio($idReserva){
+			$conec=new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT *, calificacion.ID AS calificacion_ID, calificacion.comentario AS calificacion_comentario
+							FROM calificacion 
+								INNER JOIN reserva ON calificacion.ID_reserva=reserva.ID
+																
+							WHERE ID_reserva=$idReserva";
+			$resultSQL = $conec->ejecutarSQL($consulta);
+			return $resultSQL;
+		}
+		
 	}
 ?>

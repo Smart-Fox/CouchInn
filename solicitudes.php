@@ -11,15 +11,15 @@
 	<script type="text/javascript">
 		function showRec(){
 			document.getElementById('recibidas').style.display = 'inline';
-			$("#rec").addClass("selected");
+			$("#rec2").addClass("selected");
 			document.getElementById('enviadas').style.display = 'none';
-			$("#env").removeClass("selected");		
+			$("#env2").removeClass("selected");		
 		}
 		function showEnv(){
 			document.getElementById('enviadas').style.display = 'inline';
-			$("#env").addClass("selected");
+			$("#env2").addClass("selected");
 			document.getElementById('recibidas').style.display = 'none';
-			$("#rec").removeClass("selected");				
+			$("#rec2").removeClass("selected");				
 		}
 	</script>
 </head>
@@ -68,12 +68,20 @@
 				</div>
 				<div class='col-xs-2 col-md-2'>
 					<div class='centered'>
-						<button type=button id='env' class='btn2' onclick='showEnv();'>Solicitudes enviadas</button>
+						<form action='solicitudes.php' method='POST' enctype='multipart/form-data'>
+							<input class=hidden name='tipo' value='enviadas'>
+							<button type='submit' class='btn2' id='env2'>Solicitudes enviadas</button>
+						</form>
+						<button type=button id='env' class='hidden' onclick='showEnv();'>
 					</div>
 				</div>
 				<div class='col-xs-2 col-md-2'>
 					<div class='centered'>
-						<button type=button id='rec' class='btn2' onclick='showRec();'>Solicitudes recibidas</button>
+						<form action='solicitudes.php' method='POST' enctype='multipart/form-data'>
+							<input class=hidden name='tipo' value='recibidas'>
+							<button type='submit' class='btn2' id='rec2'>Solicitudes recibidas</button>
+						</form>
+						<button type=button id='rec' class='hidden' onclick='showRec();'>
 					</div>
 				</div>
 				<div class='col-xs-4 col-md-4'>
@@ -86,6 +94,7 @@
 			while($row = $solic->fetch_assoc()){
 				$inicial = date("d/m/Y", strtotime($row['fecha_inicio']));
 				$final = date("d/m/Y", strtotime($row['fecha_fin']));
+				$fecha = date("d/m/Y H:i", strtotime($row['fecha_solicitud']));
 				if($row['cantidad_personas']==1){
 					$persona='persona';
 				}else{
@@ -103,10 +112,9 @@
 										<div class='col-xs-12 col-md-12'>
 											<strong><span class='content'>".$row['Titulo']."</span></strong>
 											<br>
-											<span class='content'>Reserva para ".$row['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.", pedida por ".$row['Username']." el ".$row['fecha_solicitud'].".</span>
+											<span class='content'>Reserva para ".$row['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.", pedida por ".$row['Username']." <br> ".$fecha.".</span>
 											<br>
-											<span class='content'>".$row['comentario']."</span>
-											<br>
+											<p class='text'>".$row['comentario']."</p>
 											<span class='content'>Estado: ".$row['estado']."</span>
 										</div>
 									</button>
@@ -167,6 +175,45 @@
 						</center>
 					";
 				}
+				if ($row['estado'] == 'activa'){
+					echo"
+							<div class='row'>
+								<div class='col-xs-4 col-md-4'>
+								</div>
+								<div class='col-xs-4 col-md-4'>
+									<form action='verDatos.php' method='POST' enctype='multipart/form-data'>
+										<input class=hidden name='user' value='".$row['solicitud_user']."'></input>
+										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
+									</form>
+								</div>
+								<div class='col-xs-4 col-md-4'>
+								</div>
+							</div>
+						";
+				}
+				if ($row['estado'] == 'finalizada'){
+					echo"
+							<div class='row'>
+								<div class='col-xs-4 col-md-4'>
+								</div>
+								<div class='col-xs-2 col-md-2'>
+									<form action='verDatos.php' method='POST' enctype='multipart/form-data'>
+										<input class=hidden name='user' value='".$row['anuncio_user']."'></input>
+										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
+									</form>
+								</div>
+								<div class='col-xs-2 col-md-2'>	
+									<form action='' method='POST' enctype='multipart/form-data'>
+										<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
+										<input class=hidden name='tipo' value='huesped'></input>
+										<center><button type='submit' class='btn22'>Calificar Huésped</button></center>
+									</form>
+								</div>
+								<div class='col-xs-4 col-md-4'>
+								</div>
+							</div>
+						";
+				}
 				echo "
 						</div>
 						<div class='col-xs-2 col-md-2'>
@@ -197,6 +244,7 @@
 			while($row2 = $solic2->fetch_assoc()){
 				$inicial = date("d/m/Y", strtotime($row2['fecha_inicio']));
 				$final = date("d/m/Y", strtotime($row2['fecha_fin']));
+				$fecha = date("d/m/Y H:i", strtotime($row2['fecha_solicitud']));
 				if($row2['cantidad_personas']==1){
 					$persona='persona';
 				}else{
@@ -214,10 +262,9 @@
 										<div class='col-xs-12 col-md-12'>
 											<strong><span class='content'>".$row2['Titulo']."</span></strong>
 											<br>
-											<span class='content'>Reserva para ".$row2['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.".</span>
+											<span class='content'>Reserva para ".$row2['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.".<br> ".$fecha."</span>
 											<br>
-											<span class='content'>".$row2['comentario']."</span>
-											<br>
+											<p class='text'>".$row2['comentario']."</p>
 											<span class='content'>Estado: ".$row2['estado']."</span>
 										</div>
 									</button>
@@ -252,6 +299,46 @@
 									<input class=hidden name='solic' value='".$row2['solicitud_ID']."'></input>
 									<center><button type='submit' class='btn22'>Cancelar solicitud</button></center>
 								</form>
+							</div>
+					";
+				}
+				if ($row2['estado'] == 'activa'){
+					echo"
+							<div class='row'>
+								<div class='col-xs-4 col-md-4'>
+								</div>
+								<div class='col-xs-4 col-md-4'>
+									<form action='verDatos.php' method='POST' enctype='multipart/form-data'>
+										<input class=hidden name='user' value='".$row2['anuncio_user']."'></input>
+										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
+									</form>
+								</div>
+								<div class='col-xs-4 col-md-4'>
+								</div>
+							</div>
+					";
+				}
+				if ($row2['estado'] == 'finalizada'){
+					echo"
+							<div class='row'>
+								<div class='col-xs-4 col-md-4'>
+								</div>
+								<div class='col-xs-2 col-md-2'>
+									<form action='verDatos.php' method='POST' enctype='multipart/form-data'>
+										<input class=hidden name='user' value='".$row2['anuncio_user']."'></input>
+										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
+									</form>
+								</div>
+								<div class='col-xs-2 col-md-2'>	
+									<form action='' method='POST' enctype='multipart/form-data'>
+										<input class=hidden name='solic' value='".$row2['solicitud_ID']."'></input>
+										<input class=hidden name='IDanuncio' value='".$row2['ID_anuncio']."'></input> 
+										<input class=hidden name='tipo' value='hospedaje'></input>
+										<center><button type='submit' class='btn22'>Calificar Hospedaje</button></center>
+									</form>
+								</div>
+								<div class='col-xs-4 col-md-4'>
+								</div>
 							</div>
 					";
 				}

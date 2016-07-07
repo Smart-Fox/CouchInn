@@ -45,38 +45,43 @@
 			}
 			echo"
 										<a href=# id='notificationLink'>
-											<button class='btn22' type='button' onclick='getNotificaciones(".$_SESSION['id'].");'>
+											<button class='btn22' type='button'>
 												<img src='theme/images/notif.png' width=30>
 											</button>
 										</a>
 										<div id='notificationContainer'>
 											<div id='notificationTitle'>Notificaciones</div>
 											<div id='notificationsBody' class='notifications'>";
+												if ($cant==0){
+													echo "
+														<span>No hay nuevas notificaciones</span>
+													";
+												}
 												while ($row1=$preg->fetch_assoc()){
 													echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
 																<input class='hidden' name='anunc' value='".$row1['anuncio_ID']."'>
-																<button type='submit' class='btn22'>Recibió una nueva pregunta</button>
+																<button type='submit' class='btn222'>Recibió una nueva pregunta</button>
 															</form>
 													";
 												}
 												while ($row2=$resp->fetch_assoc()){
 													echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
 																<input class='hidden' name='anunc' value='".$row2['anuncio_ID']."'>
-																<button type='submit' class='btn22'>Una pregunta fue respondida</button>
+																<button type='submit' class='btn222'>Una pregunta fue respondida</button>
 															</form>
 													";
 												}
 												while ($row3=$solic->fetch_assoc()){
 													echo "	<form action='solicitudes.php' method='POST' enctype='multipart/form-data'>
 																<input class='hidden' name='tipo' value='recibidas'>
-																<button type='submit' class='btn22'>Recibió una nueva solicitud de hospedaje</button>
+																<button type='submit' class='btn222'>Recibió una nueva solicitud de hospedaje</button>
 															</form>
 													";
 												}
 												while ($row4=$solicResp->fetch_assoc()){
 													echo "	<form action='solicitudes.php' method='POST' enctype='multipart/form-data'>
 																<input class='hidden' name='tipo' value='enviadas'>
-																<button type='submit' class='btn22'>Una solicitud de hospedaje fue respondida</button>
+																<button type='submit' class='btn222'>Una solicitud de hospedaje fue respondida</button>
 															</form>
 													";
 												}
