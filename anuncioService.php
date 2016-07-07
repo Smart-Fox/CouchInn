@@ -250,7 +250,7 @@
 									INNER JOIN anuncio ON solicitud_reserva.ID_anuncio = anuncio.ID
 									INNER JOIN usuario ON solicitud_reserva.ID_usuario = usuario.ID
 									WHERE anuncio.ID_usuario='$idUser'
-									ORDER BY solicitud_reserva.ID DESC;");
+									ORDER BY solicitud_reserva.estado;");
 			return ($conec->ejecutarSQL($consulta));
 		}
 		

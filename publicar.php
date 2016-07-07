@@ -53,7 +53,7 @@
 						<select id='tipo' class="form-control custom" name="tipo" required>
 							<option selected="true" disabled="disabled" value=""> Seleccionar </option>
 							<?php
-								include('anuncioService.php');
+								include_once('anuncioService.php');
 								$serv = new aService();
 								$tipos = $serv->levantarTipos();
 								while ($row = $tipos->fetch_assoc()){
