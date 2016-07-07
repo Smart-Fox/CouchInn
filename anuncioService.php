@@ -1,5 +1,5 @@
 <?php
-	include('dbManager.php');
+	include_once('dbManager.php');
 	
 	class aService{
 		protected $titulo;
