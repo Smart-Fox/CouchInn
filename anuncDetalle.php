@@ -86,12 +86,14 @@
 											</form>
 									"; 
 								}else{
+									$aux = $serv->sinCalificacionesPendientes($_SESSION['id']);
+									if ($aux == true) {
 									echo "
 											<form action='reservar.php' method='POST' enctype='multipart/form-data'>
 												<input class='hidden' name='anunc' value= ". $id .">
 												<button type='submit' class='btn22'>Reservar</button> 
 											</form>
-									";
+									";}
 								}
 							?>
 						</div>

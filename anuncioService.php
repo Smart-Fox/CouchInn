@@ -480,13 +480,7 @@
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
-		public function enviarCalificacion($idReserva, $puntaje, $comentario){
-			$conec=new dbManager();
-			$conec->conectar();
-			$consulta = ("INSERT INTO calificacion(comentario, puntaje, ID_reserva) VALUES ('$comentario', '$puntaje', '$idReserva')");
-			$resultSQL = $conec->ejecutarSQL($consulta);
-			return $resultSQL;
-		}
+		
 		public function levantarCalifAnuncio($idReserva){
 			$conec=new dbManager();
 			$conec->conectar();
@@ -497,6 +491,44 @@
 							WHERE ID_reserva=$idReserva";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
+		}
+		public function isCalificadoHospedaje($idSolicitud){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT reserva.ID_calificacion_visitante FROM reserva WHERE reserva.ID_solicitud = $idSolicitud";
+			$res = $conec->ejecutarSQL($consulta);
+			$aux = $res->fetch_assoc();
+			return ($aux['ID_calificacion_visitante'] != NULL);
+
+		}
+		public function sinCalificacionesPendientes($idUser){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * FROM reserva WHERE reserva.ID_solicitud IN ( SELECT solicitud_reserva.ID FROM  solicitud_reserva WHERE solicitud_reserva.ID_usuario = $idUser AND solicitud_reserva.estado LIKE '%finalizada%' ) AND reserva.ID_calificacion_visitante IS NULL";
+			$res = $conec->ejecutarSQL($consulta);
+			$row = $res->fetch_assoc();
+			if (sizeof($row) > 0) {
+				return false;
+			} else { return true;}
+
+
+		}
+
+		public function calificarHospedaje($comment,$puntaje,$res){
+			$conec = new dbManager();
+			$conec->conectar();
+			// $res es el id de la solicitud de reserva
+			$consulta = "SELECT reserva.ID FROM reserva WHERE reserva.ID_solicitud = $res";
+			$idreserva = $conec->ejecutarSQL($consulta);
+			$row = $idreserva->fetch_assoc();
+			$aux = $row['ID'];
+			$consulta = "INSERT INTO `calificacion`(`comentario`, `puntaje`, `ID_reserva`, `Visto`) VALUES ('$comment', $puntaje, $aux, 0)";
+			$respuesta = $conec->ejecutarSQL($consulta);
+			$idcalificacion = $conec->lastId();
+			$consulta = "UPDATE `reserva` SET `ID_calificacion_visitante`= $idcalificacion WHERE reserva.ID_solicitud = $res";
+			$respuesta = $conec->ejecutarSQL($consulta); 
+
+
 		}
 		
 	}
