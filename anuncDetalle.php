@@ -86,12 +86,14 @@
 											</form>
 									"; 
 								}else{
+									$aux = $serv->sinCalificacionesPendientes($_SESSION['id']);
+									if ($aux == true) {
 									echo "
 											<form action='reservar.php' method='POST' enctype='multipart/form-data'>
 												<input class='hidden' name='anunc' value= ". $id .">
 												<button type='submit' class='btn22'>Reservar</button> 
 											</form>
-									";
+									";}
 								}
 							?>
 						</div>
@@ -130,6 +132,7 @@
 		
 		</div>
 			<?php
+
 					$preg1 = $serv->levantarPreguntasAnuncio($row['ID_anuncio']);
 					if($_SESSION['id']!=$row['usuario_ID']){
 						echo "<br><h2>Preguntas al usuario</h2><br>";
