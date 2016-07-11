@@ -102,45 +102,51 @@
 			}); 
 		});
 	</script>
-	<form action='reportePago.php' method='POST'>
-		<div class='row' id='modTH'>
-			<div id='vertcentered' class='col-xs-3 col-md-3'>
-				Reporte de pagos recibidos
+	<center>
+	<div class='reportes'>
+		<form action='reportePago.php' method='POST'>
+			<div class='row' id='modTH'>
+				<h2>Reporte de pagos recibidos entre dos fechas</h2>
 			</div>
-			<div class='col-xs-3 col-md-3'>
-				<div class='row'>
-					<input type="text"  class="form-control" placeholder="Inicio" name="inicial1" id="inicial1" autocomplete='off' required>
+			<div class='row'>
+				<div class='col-xs-4 col-md-4'>
+				</div>
+				<div class='col-xs-2 col-md-2'>
+					<input type="text"  class="form-control" placeholder="Fecha inicial" name="inicial1" id="inicial1" autocomplete='off' required>
+				</div>
+				<div class='col-xs-2 col-md-2'>
+					<input type="text"  class="form-control" placeholder="Fecha final" name="final1" id="final1" autocomplete='off' required>
+				</div>
+				<div class='col-xs-4 col-md-4'>
 				</div>
 			</div>
-			<div class='col-xs-3 col-md-3'>
-				<div class='row'>
-					<input type="text"  class="form-control" placeholder="Fin" name="final1" id="final1" autocomplete='off' required>
+			<div class='row'>
+				<button type='submit' class='btn3'>Ver reporte</button>
+			</div>
+		</form>
+	</div>
+	<div class='reportes'>
+		<form action='reporteReservas.php' method='POST'>
+			<div class='row' id='modTH'>
+				<h2>Reporte de solicitudes de reservas entre dos fechas</h2>
+			</div>
+			<div class='row'>
+				<div class='col-xs-4 col-md-4'>
+				</div>
+				<div class='col-xs-2 col-md-2'>
+					<input type="text"  class="form-control" placeholder="Fecha inicial" name="inicial2" id="inicial2" autocomplete='off' required>
+				</div>
+				<div class='col-xs-2 col-md-2'>
+					<input type="text"  class="form-control" placeholder="Fecha final" name="final2" id="final2" autocomplete='off' required>
+				</div>
+				<div class='col-xs-4 col-md-4'>
 				</div>
 			</div>
-			<div class='col-xs-3 col-md-3' id='leftaligned'>
-				<button type='submit' class='btn3'>Aceptar</button>
+			<div class='row'>
+				<button type='submit' class='btn3'>Ver reporte</button>
 			</div>
-		</div>
-	</form>
-	<form action='reporteReservas.php' method='POST'>
-		<div class='row' id='modTH'>
-			<div id='vertcentered' class='col-xs-3 col-md-3'>
-				Reporte de solicitudes de reservas
-			</div>
-			<div class='col-xs-3 col-md-3'>
-				<div class='row'>
-					<input type="text"  class="form-control" placeholder="Inicio" name="inicial2" id="inicial2" autocomplete='off' required>
-				</div>
-			</div>
-			<div class='col-xs-3 col-md-3'>
-				<div class='row'>
-					<input type="text"  class="form-control" placeholder="Fin" name="final2" id="final2" autocomplete='off' required>
-				</div>
-			</div>
-			<div class='col-xs-3 col-md-3' id='leftaligned'>
-				<button type='submit' class='btn3'>Aceptar</button>
-			</div>
-		</div>
-	</form>
+		</form>
+	</div>
+	</center>
 </body>
 </html>
