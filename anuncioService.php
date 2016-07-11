@@ -10,7 +10,6 @@
 		protected $imagen;
 		protected $user;
 		protected $date;
-
 		public function levantarProv(){
 			$conec = new dbManager();
 			$conec->conectar();
@@ -92,7 +91,7 @@
 						WHERE 	(1=(CASE WHEN $tipo=-1 THEN 1 ELSE 0 END) OR anuncio.ID_tipo_hospedaje=$tipo)
 						AND 	(1=(CASE WHEN $provincia=-1 THEN 1 ELSE 0 END) OR ciudad.ID_provincia=$provincia)
 						AND 	(1=(CASE WHEN $ciudad=-1 THEN 1 ELSE 0 END) OR ciudad.ID=$ciudad)
-						AND 	(1=(CASE WHEN $capacidad=-1 THEN 1 ELSE 0 END) OR anuncio.capacidad>=$capacidad)
+						AND 	(1=(CASE WHEN $capacidad=-1 THEN 1 ELSE 0 END) OR anuncio.capacidad=$capacidad)
 						ORDER BY anuncio.ID DESC";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
@@ -254,6 +253,13 @@
 			return ($conec->ejecutarSQL($consulta));
 		}
 		
+		public function solicitudesTodas(){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT *	FROM solicitud_reserva");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		
 		public function levantarSolicitud($id){
 			$conec = new dbManager();
 			$conec->conectar();	
@@ -308,6 +314,18 @@
 			return ($conec->ejecutarSQL($consulta));
 		}
 
+		public function solicitudEstadoActiva($id){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("UPDATE solicitud_reserva SET estado='activa' WHERE ID='$id'");
+			return ($conec->ejecutarSQL($consulta));
+		}
+		public function solicitudEstadoFinalizada($id){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("UPDATE solicitud_reserva SET estado='finalizada' WHERE ID='$id'");
+			return ($conec->ejecutarSQL($consulta));
+		}
 		public function notificarPregunta($id){
 			$conec = new dbManager();
 			$conec->conectar();
@@ -420,7 +438,6 @@
  			$resultSQL = $conec->ejecutarSQL($consulta);
  			return $resultSQL;
  		}
-
 		public function publicarRespuesta($idPregunta, $respuesta){
 			$date = date("Y-m-d H:i:s");
 			$conec = new dbManager();
@@ -429,11 +446,10 @@
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
-
 		public function levantarRespuestaAnuncio($idPregunta){
 			$conec = new dbManager();
 			$conec->conectar();
-			$consulta = "SELECT *, respuesta.texto AS respuesta_texto, respuesta.fecha AS respuesta_fecha
+			$consulta = "SELECT *, respuesta.ID AS respuesta_ID, respuesta.texto AS respuesta_texto, respuesta.fecha AS respuesta_fecha
 							FROM respuesta 
 								INNER JOIN pregunta ON respuesta.ID_pregunta=pregunta.ID
 								INNER JOIN anuncio ON pregunta.ID_anuncio=anuncio.ID
@@ -450,7 +466,6 @@
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
-
 		public function activarAnuncio($idAnuncio){
 			$conec = new dbManager();
 			$conec->conectar();
@@ -458,5 +473,63 @@
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
+		public function levantarReserva($idSolicitud){
+			$conec=new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * FROM reserva where ID_solicitud='$idSolicitud'";
+			$resultSQL = $conec->ejecutarSQL($consulta);
+			return $resultSQL;
+		}
+		
+		public function levantarCalifAnuncio($idReserva){
+			$conec=new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT *, calificacion.ID AS calificacion_ID, calificacion.comentario AS calificacion_comentario
+							FROM calificacion 
+								INNER JOIN reserva ON calificacion.ID_reserva=reserva.ID
+																
+							WHERE ID_reserva=$idReserva";
+			$resultSQL = $conec->ejecutarSQL($consulta);
+			return $resultSQL;
+		}
+		public function isCalificadoHospedaje($idSolicitud){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT reserva.ID_calificacion_visitante FROM reserva WHERE reserva.ID_solicitud = $idSolicitud";
+			$res = $conec->ejecutarSQL($consulta);
+			$aux = $res->fetch_assoc();
+			return ($aux['ID_calificacion_visitante'] != NULL);
+
+		}
+		public function sinCalificacionesPendientes($idUser){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * FROM reserva WHERE reserva.ID_solicitud IN ( SELECT solicitud_reserva.ID FROM  solicitud_reserva WHERE solicitud_reserva.ID_usuario = $idUser AND solicitud_reserva.estado LIKE '%finalizada%' ) AND reserva.ID_calificacion_visitante IS NULL";
+			$res = $conec->ejecutarSQL($consulta);
+			$row = $res->fetch_assoc();
+			if (sizeof($row) > 0) {
+				return false;
+			} else { return true;}
+
+
+		}
+
+		public function calificarHospedaje($comment,$puntaje,$res){
+			$conec = new dbManager();
+			$conec->conectar();
+			// $res es el id de la solicitud de reserva
+			$consulta = "SELECT reserva.ID FROM reserva WHERE reserva.ID_solicitud = $res";
+			$idreserva = $conec->ejecutarSQL($consulta);
+			$row = $idreserva->fetch_assoc();
+			$aux = $row['ID'];
+			$consulta = "INSERT INTO `calificacion`(`comentario`, `puntaje`, `ID_reserva`, `Visto`) VALUES ('$comment', $puntaje, $aux, 0)";
+			$respuesta = $conec->ejecutarSQL($consulta);
+			$idcalificacion = $conec->lastId();
+			$consulta = "UPDATE `reserva` SET `ID_calificacion_visitante`= $idcalificacion WHERE reserva.ID_solicitud = $res";
+			$respuesta = $conec->ejecutarSQL($consulta); 
+
+
+		}
+		
 	}
 ?>
