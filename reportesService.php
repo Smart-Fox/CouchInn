@@ -2,7 +2,11 @@
 	
 	include_once('dbManager.php');
 	
-	public function reportePremium($inicial, $final){
+	public function reportePagos($inicial, $final){
+		$inicial=date_create($inicial);
+		$inicial=date_format($inicial,"Y-m-d");
+		$final=date_create($final);
+		$final=date_format($final,"Y-m-d");
 		$conec = new dbManager();
 		$conec->conectar();	
 		$consulta = ("SELECT *	FROM pago
@@ -11,7 +15,11 @@
 		return ($conec->ejecutarSQL($consulta));
 	}
 	
-	public function reporteReserva($inicial, $final){
+	public function reporteReservas($inicial, $final){
+		$inicial=date_create($inicial);
+		$inicial=date_format($inicial,"Y-m-d");
+		$final=date_create($final);
+		$final=date_format($final,"Y-m-d");
 		$conec = new dbManager();
 		$conec->conectar();	
 		$consulta = ("SELECT *	FROM solicitud_reserva
