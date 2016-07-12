@@ -199,10 +199,14 @@
 										<input class=hidden name='user' value='".$row['anuncio_user']."'></input>
 										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
 									</form>
-								</div>
-								<div class='col-xs-2 col-md-2'>	
-									<form action='' method='POST' enctype='multipart/form-data'>
+								</div>";
+								$aux = $serv->isCalificadoHuesped($row['solicitud_ID']);
+								if($aux == false){
+								echo "<div class='col-xs-2 col-md-2'>	
+									<form action='calificarHuesped.php' method='POST' enctype='multipart/form-data'>
 										<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
+										<input class=hidden name='user' value='".$row['solicitud_user']."'></input> 
+										<input class=hidden name='anun' value='".$row['ID_anuncio']."'></input> 
 										<input class=hidden name='tipo' value='huesped'></input>
 										<center><button type='submit' class='btn22'>Calificar Huésped</button></center>
 									</form>
@@ -210,7 +214,7 @@
 								<div class='col-xs-4 col-md-4'>
 								</div>
 							</div>
-						";
+						";}
 				}
 				echo "
 						</div>
