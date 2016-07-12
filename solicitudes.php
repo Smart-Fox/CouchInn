@@ -38,7 +38,6 @@
 						echo "
 							<script type='text/javascript'>
 								window.onload = function mostrarR(){
-									console.log('hola');
 									document.getElementById('rec').click();
 								}	
 							</script>
@@ -49,7 +48,6 @@
 						echo "
 							<script type='text/javascript'>
 								window.onload = function mostrarE(){
-									console.log('hola');
 									document.getElementById('env').click();
 								}	
 							</script>
@@ -175,7 +173,6 @@
 						</center>
 					";
 				}
-
 				if ($row['estado'] == 'activa'){
 					echo"
 							<div class='row'>
@@ -192,7 +189,6 @@
 							</div>
 						";
 				}
-
 				if ($row['estado'] == 'finalizada'){
 					echo"
 							<div class='row'>
@@ -203,10 +199,15 @@
 										<input class=hidden name='user' value='".$row['anuncio_user']."'></input>
 										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
 									</form>
-								</div>
-								<div class='col-xs-2 col-md-2'>	
-									<form action='' method='POST' enctype='multipart/form-data'>
+								</div>";
+
+								$aux = $serv->isCalificadoHuesped($row['solicitud_ID']);
+								if($aux == false){
+								echo "<div class='col-xs-2 col-md-2'>	
+									<form action='calificarHuesped.php' method='POST' enctype='multipart/form-data'>
 										<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
+										<input class=hidden name='user' value='".$row['solicitud_user']."'></input> 
+										<input class=hidden name='anun' value='".$row['ID_anuncio']."'></input> 
 										<input class=hidden name='tipo' value='huesped'></input>
 										<center><button type='submit' class='btn22'>Calificar Huésped</button></center>
 									</form>
@@ -214,10 +215,8 @@
 								<div class='col-xs-4 col-md-4'>
 								</div>
 							</div>
-						";
+						";}
 				}
-
-
 				echo "
 						</div>
 						<div class='col-xs-2 col-md-2'>
@@ -306,7 +305,6 @@
 							</div>
 					";
 				}
-
 				if ($row2['estado'] == 'activa'){
 					echo"
 							<div class='row'>
@@ -323,7 +321,6 @@
 							</div>
 					";
 				}
-
 				if ($row2['estado'] == 'finalizada'){
 					echo"
 							<div class='row'>
@@ -334,11 +331,13 @@
 										<input class=hidden name='user' value='".$row2['anuncio_user']."'></input>
 										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
 									</form>
-								</div>
-								<div class='col-xs-2 col-md-2'>	
-									<form action='' method='POST' enctype='multipart/form-data'>
+								</div>";
+					$aux = $serv->isCalificadoHospedaje($row2['solicitud_ID']);
+					if ($aux == false) {
+						echo	"<div class='col-xs-2 col-md-2'>	
+									<form action='calificarAnuncio.php' method='POST' enctype='multipart/form-data'>
 										<input class=hidden name='solic' value='".$row2['solicitud_ID']."'></input>
-										<input class=hidden name='IDanuncio' value='".$row2['ID_anuncio']."'></input> 
+										<input class=hidden name='anunc' value='".$row2['ID_anuncio']."'></input> 
 										<input class=hidden name='tipo' value='hospedaje'></input>
 										<center><button type='submit' class='btn22'>Calificar Hospedaje</button></center>
 									</form>
@@ -346,11 +345,8 @@
 								<div class='col-xs-4 col-md-4'>
 								</div>
 							</div>
-					";
-
+					";}
 				}
-
-
 				echo"
 						</div>
 						<div class='col-xs-2 col-md-2'>
