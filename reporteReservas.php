@@ -25,7 +25,7 @@
 		}else{
 			header('Location:index.html');
 		}
-		if((isset($_POST['inicial1']))&&(isset($_POST['final1']))){
+		if((isset($_POST['inicial2']))&&(isset($_POST['final2']))){
 			include_once('reportesService.php');
 			$inicial = $_POST['inicial2'];
 			$final = $_POST['final2'];
@@ -41,60 +41,56 @@
 				echo"	
 							<div class='row'>
 								<strong>
-								<div class='col-xs-3 col-md-3'>
+								<div class='col-xs-2 col-md-2'>
+									<span>Fecha de la solicitud</span>
+								</div>
+								<div class='col-xs-2 col-md-2'>
+									<span>Anuncio</span>
 								</div>
 								<div class='col-xs-2 col-md-2'>
 									<span>Usuario</span>
 								</div>
 								<div class='col-xs-2 col-md-2'>
-									<span>Fecha del pago</span>
+									<span>Fecha inicial</span>
 								</div>
 								<div class='col-xs-2 col-md-2'>
-									<span>Monto</span>
+									<span>Fecha final</span>
 								</div>
-								<div class='col-xs-3 col-md-3'>
+								<div class='col-xs-2 col-md-2'>
+									<span>Estado de la solicitud</span>
 								</div>
 								</strong>
 							</div>
 				";
 				while($row = $res->fetch_assoc()){
-					$fecha = date("d/m/Y", strtotime($row['fecha']));
+					$fecha = date("d/m/Y", strtotime($row['fecha_solicitud']));
+					$fechainicial=date("d/m/Y", strtotime($row['fecha_inicio']));
+					$fechafinal=date("d/m/Y", strtotime($row['fecha_fin']));
 					echo"
 							<div class='row'>
-								<div class='col-xs-3 col-md-3'>
+								<div class='col-xs-2 col-md-2'>
+									<span>".$fecha."</span>
+								</div>
+								<div class='col-xs-2 col-md-2'>
+									<span>".$row['Titulo']."</span>
 								</div>
 								<div class='col-xs-2 col-md-2'>
 									<span>".$row['Username']."</span>
 								</div>
 								<div class='col-xs-2 col-md-2'>
-									<span>".$fecha."</span>
+									<span>".$fechainicial."</span>
 								</div>
 								<div class='col-xs-2 col-md-2'>
-									<span>$".$row['monto']."</span>
+									<span>".$fechafinal."</span>
 								</div>
-								<div class='col-xs-3 col-md-3'>
+								<div class='col-xs-2 col-md-2'>
+									<span>".$row['estado']."</span>
 								</div>
 							</div>
 					";
 				}
-				echo "
-					<div class='row'>
-						<div class='col-xs-3 col-md-3'>
-						</div>
-						<div class='col-xs-2 col-md-2'>
-						</div>
-						<div class='col-xs-2 col-md-2'>
-							<span>Total recaudado:</span>
-						</div>
-						<div class='col-xs-2 col-md-2'>
-							<span>$".$total."</span>
-						</div>
-						<div class='col-xs-3 col-md-3'>
-						</div>
-					</div>
-				";
 			}else{
-				echo "No hay pagos registrados entre las fechas solicitadas.";
+				echo "No hay solicitudes registradas entre las fechas solicitadas.";
 			}
 		?>
 	</div>
