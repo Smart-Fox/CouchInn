@@ -499,9 +499,7 @@
 			$consulta = "SELECT ID FROM reserva WHERE ID_solicitud = '$res'";
 			$idreserva = $conec->ejecutarSQL($consulta);
 			$row = $idreserva->fetch_assoc();
-			//var_dump($row['ID']);
-			$aux = $row['ID'];
-			$consulta = "INSERT INTO calificacion(comentario, puntaje, ID_reserva, Visto) VALUES ('$comment', '$puntaje', '$aux', '0')";
+			$consulta = "INSERT INTO calificacion(comentario, puntaje, Visto) VALUES ('$comment', '$puntaje', '0')";
 			$respuesta = $conec->ejecutarSQL($consulta);
 			$idcalificacion = $conec->lastId();
 			$consulta = "UPDATE reserva SET ID_calificacion_visitante = '$idcalificacion' WHERE ID_solicitud = '$res'";
@@ -517,7 +515,7 @@
 			$row = $idreserva->fetch_assoc();
 			//var_dump($row['ID']);
 			$aux = $row['ID'];
-			$consulta = "INSERT INTO calificacion(comentario, puntaje, ID_reserva, Visto) VALUES ('$comment', '$puntaje', '$aux', '0')";
+			$consulta = "INSERT INTO calificacion(comentario, puntaje, Visto) VALUES ('$comment', '$puntaje', '0')";
 			$respuesta = $conec->ejecutarSQL($consulta);
 			$idcalificacion = $conec->lastId();
 			$consulta = "UPDATE reserva SET ID_calificacion_dueño = '$idcalificacion' WHERE ID_solicitud = '$res'";
