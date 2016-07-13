@@ -14,6 +14,8 @@
 			$solicResp=$serv->notificarRespuestaSolicitud($id);
 			$califAnunc=$serv->notificarCalificacionAnuncio($id);
 			$califUser=$serv->notificarCalificacionUser($id);
+			$califPendAnunc=$serv->notificarCalificacionPendienteAnuncio($id);
+			$califPendUser=$serv->notificarCalificacionPendienteUser($id);
 			$cant=($preg->num_rows+$resp->num_rows+$solic->num_rows+$solicResp->num_rows+$califAnunc->num_rows+$califUser->num_rows);
 			echo "	
 					<script type='text/javascript'>

@@ -361,7 +361,30 @@
 									AND calificacion.Visto=0";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
-		}		
+		}
+		public function notificarCalificacionPendienteUser($id){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * 	FROM reserva
+									INNER JOIN solicitud_reserva on reserva.ID_solicitud=solicitud_reserva.ID
+									WHERE solicitud_reserva.ID_usuario=$id 
+									AND solicitud_reserva.estado='Finalizada'
+									AND reserva.ID_calificacion_visitante=NULL;"
+			$resultSQL = $conec->ejecutarSQL($consulta);
+			return $resultSQL;
+		}
+		public function notificarCalificacionPendienteAnuncio($id){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * 	FROM reserva
+									INNER JOIN solicitud_reserva on reserva.ID_solicitud=solicitud_reserva.ID
+									INNER JOIN anuncio on anuncio.ID=solicitud_reserva.ID_anuncio
+									WHERE anuncio.ID_usuario=$id 
+									AND solicitud_reserva.estado='Finalizada'
+									AND reserva.ID_calificacion_dueño=NULL;"
+			$resultSQL = $conec->ejecutarSQL($consulta);
+			return $resultSQL;
+		}
 		public function notificarRespuestaSolicitud($id){
 			$conec = new dbManager();
 			$conec->conectar();
