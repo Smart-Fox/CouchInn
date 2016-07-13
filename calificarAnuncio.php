@@ -37,20 +37,18 @@
 			<h1 style="margin:0">Calificar hospedaje</h1>
 			<form action="calificar.php" method="POST" >
 				<div class='row'>
-				<div style="float:left;width:60%;margin-right:30px;margin-left: 30px">
-						<span class='labelform2'>Comentario:</span><br>
+					<div>
+						<span class='labelform2'>Comentario:</span>
 						<textarea style="height:100px" type="text" name='desc' id='desc' placeholder='Cualquier información que considere relevante' required></textarea>
-				</div>
-				<div style="float:left;width:15%">
-							<span class='labelform2'>Definir puntaje (1-5) </span>
-						<input type="number" name = 'puntaje' id='puntaje' min="1" max="5" placeholder="Ej: 3" required>
-						<input type="range" value="0" step="1" id="backing4">
+					</div>
+					<div>
+						<span class='labelform2'>Puntaje:</span>
+						<input type="range" value="0" step="1" id="backing4" required>
 						<div class="rateit" data-rateit-backingfld="#backing4" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
 						</div>
-				</div>
+					</div>
 					<input class=hidden name='tipo' value='hospedaje'></input>
 					<input class=hidden name='reserva' value=<?php echo "'".$_POST['solic']."'"?>></input>
-
 					</div>
 				<button type="submit" class="btn">Enviar</button>
 			</form>
