@@ -91,22 +91,22 @@
 												}
 												while ($row5=$califAnunc->fetch_assoc()){
 													echo "	
-														<span>Un anuncio recibió una nueva calificación.</span>
+														<span>Un anuncio recibió una nueva calificación</span><br>
 													";
 												}
 												while ($row6=$califUser->fetch_assoc()){
 													echo "	
-														<span>Recibió una nueva calificación como huésped.</span>
+														<span>Recibió una nueva calificación como huésped</span><br>
 													";
 												}
 												while ($row7=$califPendAnunc->fetch_assoc()){
 													echo "	
-														<span>Tiene un usuario pendiente de calificación por la estadía.</span>
+														<span>Tiene una calificación pendiente</span><br>
 													";
 												}
 												while ($row8=$califPendUser->fetch_assoc()){
 													echo "
-														<span>Tiene un anuncio pendiente de calificación por su estadía.</span>
+														<span>Tiene una calificación pendiente</span><br>
 													";
 												}
 			echo"
