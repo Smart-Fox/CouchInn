@@ -16,7 +16,7 @@
 			$califUser=$serv->notificarCalificacionUser($id);
 			$califPendAnunc=$serv->notificarCalificacionPendienteAnuncio($id);
 			$califPendUser=$serv->notificarCalificacionPendienteUser($id);
-			$cant=($preg->num_rows+$resp->num_rows+$solic->num_rows+$solicResp->num_rows+$califAnunc->num_rows+$califUser->num_rows);
+			$cant=($preg->num_rows+$resp->num_rows+$solic->num_rows+$solicResp->num_rows+$califAnunc->num_rows+$califUser->num_rows+$califPendAnunc->num_rows+$califPendUser->num_rows);
 			echo "	
 					<script type='text/javascript'>
 						$(document).ready(function()
@@ -87,6 +87,26 @@
 																<input class='hidden' name='tipo' value='enviadas'>
 																<button type='submit' class='btn222'>Una solicitud de hospedaje fue respondida</button>
 															</form>
+													";
+												}
+												while ($row5=$califAnunc->fetch_assoc()){
+													echo "	
+														<span>Un anuncio recibió una nueva calificación.</span>
+													";
+												}
+												while ($row6=$califUser->fetch_assoc()){
+													echo "	
+														<span>Recibió una nueva calificación como huésped.</span>
+													";
+												}
+												while ($row7=$califPendAnunc->fetch_assoc()){
+													echo "	
+														<span>Tiene un usuario pendiente de calificación por la estadía.</span>
+													";
+												}
+												while ($row8=$califPendUser->fetch_assoc()){
+													echo "
+														<span>Tiene un anuncio pendiente de calificación por su estadía.</span>
 													";
 												}
 			echo"
