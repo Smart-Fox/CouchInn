@@ -41,11 +41,16 @@
 			<div class='row row-titulo'>
 				<div class='col-xs-1 col-md-1'>
 				</div>
-				<div class='col-xs-10 col-md-10'>
+				<div class='col-xs-9 col-md-9'>
 					<h1><strong><span> <?php echo $row['Titulo'];?></span></strong></h1>
 				</div>
-				<div class='col-xs-1 col-md-1'>
-			</div>
+				<div class='col-xs-2 col-md-2'>
+					<form action='verCalificAnuncio.php' method='POST' enctype='multipart/form-data'>
+						<input class='hidden' name='anunc' value=<?php echo "$id" ?>>
+						<button type='submit' class="btn22"><h2><strong><span> <?php echo "Calificación";?></span></strong> </h2></button>
+					</form>
+				</div>
+				<h2><strong><span class=''><?php  echo $serv->levantarPuntajePromedio($id);  ?></span></strong></h2>
 			</div>
 			<div class='row row-anuncio'>
 				<div class='col-xs-6 col-md-6 col-anunc'>
@@ -189,10 +194,17 @@
 											</div>
 											<div class='col-xs-6 col-md-6'>
 												<span class='content'>".$rowResp['respuesta_texto']."</span>
+<<<<<<< HEAD
 											</div>
 											<div class='col-xs-2 col-md-2'>
 												<span class='content'>".$fecha."</span>
 											</div>
+=======
+											</div>
+											<div class='col-xs-2 col-md-2'>
+												<span class='content'>".$fecha."</span>
+											</div>
+>>>>>>> origin/matias-new
 											<div class='col-xs-1 col-md-1'>
 											</div>
 										</div>
