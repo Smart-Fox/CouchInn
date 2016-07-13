@@ -563,5 +563,73 @@
 			$consulta = "UPDATE reserva SET ID_calificacion_dueño = '$idcalificacion' WHERE ID_solicitud = '$res'";
 			$respuesta = $conec->ejecutarSQL($consulta);
 		}
+
+
+		public function levantarCalificacionesAnuncio($idAnuncio){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * FROM anuncio 
+										INNER JOIN solicitud_reserva ON solicitud_reserva.ID_anuncio=anuncio.ID
+										INNER JOIN reserva ON reserva.ID_solicitud= solicitud_reserva.ID
+										INNER JOIN calificacion ON calificacion.ID = reserva.ID_calificacion_visitante
+							WHERE anuncio.ID = '$idAnuncio'";
+			return $conec->ejecutarSQL($consulta);
+		}
+
+		public function levantarCalificacionesUsuario($idUsuario){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * FROM usuario 
+										INNER JOIN solicitud_reserva ON usuario.ID=solicitud_reserva.ID_usuario
+										INNER JOIN reserva ON reserva.ID_solicitud= solicitud_reserva.ID
+										INNER JOIN calificacion ON calificacion.ID = reserva.ID_calificacion_dueño
+							WHERE usuario.ID = $idUsuario";
+			return $conec->ejecutarSQL($consulta);
+		}
+
+		public function levantarPuntajePromedioAnuncio($idAnuncio){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * FROM anuncio 
+										INNER JOIN solicitud_reserva ON solicitud_reserva.ID_anuncio=anuncio.ID
+										INNER JOIN reserva ON reserva.ID_solicitud= solicitud_reserva.ID
+										INNER JOIN calificacion ON calificacion.ID = reserva.ID_calificacion_visitante
+							WHERE anuncio.ID = '$idAnuncio'";
+			$anuncios = $conec->ejecutarSQL($consulta);
+			$cantComent = 0;
+			$puntaje = 0;
+			if ($anuncios->num_rows>0){
+				while ($row = $anuncios->fetch_assoc()) {
+				 	$cantComent = $cantComent + 1;
+				 	$puntaje = $puntaje + $row['puntaje'];
+				 }
+				 return($puntaje/$cantComent);
+			 }else{
+			 	return "--";
+			 }	 		
+		}
+
+		public function levantarPuntajePromedioUsuario($idUsuario){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * FROM usuario 
+										INNER JOIN solicitud_reserva ON usuario.ID=solicitud_reserva.ID_usuario
+										INNER JOIN reserva ON reserva.ID_solicitud= solicitud_reserva.ID
+										INNER JOIN calificacion ON calificacion.ID = reserva.ID_calificacion_dueño
+							WHERE usuario.ID = $idUsuario";
+			$anuncios = $conec->ejecutarSQL($consulta);
+			$cantComent = 0;
+			$puntaje = 0;
+			if ($anuncios->num_rows>0){
+				while ($row = $anuncios->fetch_assoc()) {
+				 	$cantComent = $cantComent + 1;
+				 	$puntaje = $puntaje + $row['puntaje'];
+				 }
+				 return($puntaje/$cantComent);
+			 }else{
+			 	return "--";
+			 }	 		
+		}
+
 	}
 ?>
