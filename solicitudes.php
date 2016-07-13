@@ -108,6 +108,7 @@
 									<input class=hidden name='anunc' value=\"".$row['ID_anuncio']."\"></input>
 									<button type='submit' class='buttonlink2'>
 										<div class='col-xs-12 col-md-12'>
+											<input class='hidden' name='idsol' value='".$row['solicitud_ID']."'>
 											<strong><span class='content'>".$row['Titulo']."</span></strong>
 											<br>
 											<span class='content'>Reserva para ".$row['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.", pedida por ".$row['Username']." <br> ".$fecha.".</span>

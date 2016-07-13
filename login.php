@@ -1,5 +1,7 @@
 <?php
 	include_once('anuncioService.php');
+	echo "hola";
+	die();
 	include_once('userService.php');
 	if (!empty($_POST['usuario']) and !empty($_POST['password'])) {
 			$user = $_POST['usuario'];
