@@ -5,8 +5,10 @@
 	<title>Calificando anuncio</title>
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel='stylesheet' href='theme/rateit.css'/>
 	<link rel='stylesheet' href='style.css'/>
 	<script src="js/jquery.min.js"></script>
+	<script src="theme/jquery.rateit.min.js"></script>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 </head>
 <body>
@@ -42,6 +44,9 @@
 				<div style="float:left;width:15%">
 							<span class='labelform2'>Definir puntaje (1-5) </span>
 						<input type="number" name = 'puntaje' id='puntaje' min="1" max="5" placeholder="Ej: 3" required>
+						<input type="range" value="0" step="1" id="backing4">
+						<div class="rateit" data-rateit-backingfld="#backing4" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
+						</div>
 				</div>
 					<input class=hidden name='tipo' value='hospedaje'></input>
 					<input class=hidden name='reserva' value=<?php echo "'".$_POST['solic']."'"?>></input>
