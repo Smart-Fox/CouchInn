@@ -12,7 +12,9 @@
 			$resp=$serv->notificarRespuesta($id);
 			$solic=$serv->notificarSolicitud($id);
 			$solicResp=$serv->notificarRespuestaSolicitud($id);
-			$cant=($preg->num_rows+$resp->num_rows+$solic->num_rows+$solicResp->num_rows);
+			$califAnunc=$serv->notificarCalificacionAnuncio($id);
+			$califUser=$serv->notificarCalificacionUser($id);
+			$cant=($preg->num_rows+$resp->num_rows+$solic->num_rows+$solicResp->num_rows+$califAnunc->num_rows+$califUser->num_rows);
 			echo "	
 					<script type='text/javascript'>
 						$(document).ready(function()
