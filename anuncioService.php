@@ -369,7 +369,7 @@
 									INNER JOIN solicitud_reserva on reserva.ID_solicitud=solicitud_reserva.ID
 									WHERE solicitud_reserva.ID_usuario=$id 
 									AND solicitud_reserva.estado='Finalizada'
-									AND reserva.ID_calificacion_visitante=NULL;"
+									AND (reserva.ID_calificacion_visitante IS NULL)";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
@@ -381,7 +381,7 @@
 									INNER JOIN anuncio on anuncio.ID=solicitud_reserva.ID_anuncio
 									WHERE anuncio.ID_usuario=$id 
 									AND solicitud_reserva.estado='Finalizada'
-									AND reserva.ID_calificacion_dueño=NULL;"
+									AND (reserva.ID_calificacion_dueño IS NULL)";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
 		}
