@@ -537,14 +537,14 @@
 			$conec = new dbManager();
 			$conec->conectar();
 			$consulta = "SELECT * FROM usuario 
-										INNER JOIN solicitud_reserva ON usuario_ID=solicitud_reserva.ID_usuario
-										INNER JOIN reserva ON reserva.ID = solicitud_reserva.ID_reserva
+										INNER JOIN solicitud_reserva ON usuario.ID=solicitud_reserva.ID_usuario
+										INNER JOIN reserva ON reserva.ID_solicitud= solicitud_reserva.ID
 										INNER JOIN calificacion ON calificacion.ID = reserva.ID_calificacion_dueño
 							WHERE usuario.ID = $idUsuario";
 			return $conec->ejecutarSQL($consulta);
 		}
 
-		public function levantarPuntajePromedio($idAnuncio){
+		public function levantarPuntajePromedioAnuncio($idAnuncio){
 			$conec = new dbManager();
 			$conec->conectar();
 			$consulta = "SELECT * FROM anuncio 
@@ -563,9 +563,29 @@
 				 return($puntaje/$cantComent);
 			 }else{
 			 	return "--";
-			 }
-			 
-			
+			 }	 		
+		}
+
+		public function levantarPuntajePromedioUsuario($idUsuario){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * FROM usuario 
+										INNER JOIN solicitud_reserva ON usuario.ID=solicitud_reserva.ID_usuario
+										INNER JOIN reserva ON reserva.ID_solicitud= solicitud_reserva.ID
+										INNER JOIN calificacion ON calificacion.ID = reserva.ID_calificacion_dueño
+							WHERE usuario.ID = $idUsuario";
+			$anuncios = $conec->ejecutarSQL($consulta);
+			$cantComent = 0;
+			$puntaje = 0;
+			if ($anuncios->num_rows>0){
+				while ($row = $anuncios->fetch_assoc()) {
+				 	$cantComent = $cantComent + 1;
+				 	$puntaje = $puntaje + $row['puntaje'];
+				 }
+				 return($puntaje/$cantComent);
+			 }else{
+			 	return "--";
+			 }	 		
 		}
 	}
 ?>

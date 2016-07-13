@@ -17,6 +17,7 @@
 			if(isset($_SESSION['usuario'])){
 			if(isset($_POST['anun'])){
 				$id=$_POST['user'];
+				
 				$service = new cabecera($_SESSION['usuario']);
 				$service->buildHeader();
 				$serv = new aService();
@@ -46,6 +47,7 @@
 				</div>
 					<input class=hidden name='tipo' value='huesped'></input>
 					<input class=hidden name='reserva' value=<?php echo "'".$_POST['solic']."'"?>></input>
+					
 
 					</div>
 				<button type="submit" class="btn">Enviar</button>

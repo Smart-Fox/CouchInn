@@ -50,7 +50,7 @@
 						<button type='submit' class="btn22"><h2><strong><span> <?php echo "Calificación";?></span></strong> </h2></button>
 					</form>
 				</div>
-				<h2><strong><span class=''><?php  echo $serv->levantarPuntajePromedio($id);  ?></span></strong></h2>
+				<h2><strong><span class=''><?php  echo $serv->levantarPuntajePromedioAnuncio($id);  ?></span></strong></h2>
 			</div>
 			<div class='row row-anuncio'>
 				<div class='col-xs-6 col-md-6 col-anunc'>

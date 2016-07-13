@@ -8,8 +8,6 @@
 	<link rel='stylesheet' href='style.css'/>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 	<script src="js/jquery.min.js"></script>
-	<script type="text/javascript" src= "js/objeto.js"></script>
-	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
 </head>
 <body>
 	<?php
@@ -57,7 +55,6 @@
 										Tipo Usuario:	<strong><span class='titulo2'>".$tipo."</span></strong>
 									</h3>
 									<a href='editUser.php'><button class='btn22'>Editar</button></a>
-									
 								</div>
 							</div>
 						</div>
@@ -103,10 +100,10 @@
 											<input class=hidden name='anunc' value=\"".$row['anuncio_ID']."\">
 												<button type='submit' class='buttonlink'>
 													<div class='row'>
-														<div class='col-xs-4 col-md-4'>
-															<img src= img/".$row['enlace']." class=imgAnun align='center'>
+														<div class='col-xs-3 col-md-3' id='img'>
+															<img src= img/".$row['enlace']." class='imgAnun'>
 														</div>
-														<div class='col-xs-8 col-md-8'>
+														<div class='col-xs-9 col-md-9'>
 															<h2>
 																<strong><span class='titulo'>".$row['Titulo']."</span></strong>
 															</h2>
@@ -118,34 +115,35 @@
 										<div class='col-xs-2 col-md-2'>
 										</div>
 									</div>
-								</form>";
+								</form>
+						";
 					}else{
-						if ($row['activo'] == '1'){		// si no es el mismo del anuncio se publican solo las que están activas
-
+						if ($row['activo'] == '1'){	
 							echo "	<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
-									<div class='row'>
-										<div class='col-xs-2 col-md-2'>
-										</div>
-										<div class='col-xs-8 col-md-8 anuncio'>
-											<input class=hidden name='anunc' value=\"".$row['anuncio_ID']."\">
-												<button type='submit' class='buttonlink'>
-													<div class='row'>
-														<div class='col-xs-4 col-md-4'>
-															<img src= img/".$row['enlace']." class=imgAnun align='center'>
+										<div class='row'>
+											<div class='col-xs-2 col-md-2'>
+											</div>
+											<div class='col-xs-8 col-md-8 anuncio'>
+												<input class=hidden name='anunc' value=\"".$row['anuncio_ID']."\">
+													<button type='submit' class='buttonlink'>
+														<div class='row'>
+															<div class='col-xs-3 col-md-3' id='img'>
+																<img src= img/".$row['enlace']." class='imgAnun'>
+															</div>
+															<div class='col-xs-9 col-md-9'>
+																<h2>
+																	<strong><span class='titulo'>".$row['Titulo']."</span></strong>
+																</h2>
+															</div>
 														</div>
-														<div class='col-xs-8 col-md-8'>
-															<h2>
-																<strong><span class='titulo'>".$row['Titulo']."</span></strong>
-															</h2>
-														</div>
-													</div>
-												</button>
-											</input>
+													</button>
+												</input>
+											</div>
+											<div class='col-xs-2 col-md-2'>
+											</div>
 										</div>
-										<div class='col-xs-2 col-md-2'>
-										</div>
-									</div>
-								</form>";
+									</form>
+								";
 						}
 					}
 				}

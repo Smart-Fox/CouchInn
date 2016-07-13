@@ -8,10 +8,6 @@
 	<link rel='stylesheet' href='style.css'/>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 	<script src="js/jquery.min.js"></script>
-	<script type="text/javascript" src= "js/objeto.js"></script>
-	<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
-	<script type="text/javascript">
-	</script>
 </head>
 <body>
 	<?php
@@ -94,9 +90,29 @@
 		}
 		if($bool){
 			if ($row['ID_usuario']==$idUser){
-				header('Location: solicitudes.php');
+				echo "	
+				<form id='back1' action='solicitudes.php' method='POST' enctype='multipart/form-data'>
+					<input class='hidden' name='tipo' value='enviadas'>	
+				</form>
+				<script type='text/javascript'>
+					function submitForm() {
+						document.getElementById('back1').submit();
+					}
+					window.onload = submitForm;
+				</script>
+				";
 			}else{
-				header('Location: solicitudes.php');
+				echo "	
+				<form id='back2' action='solicitudes.php' method='POST' enctype='multipart/form-data'>
+					<input class='hidden' name='tipo' value='recibidas'>	
+				</form>
+				<script type='text/javascript'>
+					function submitForm() {
+						document.getElementById('back2').submit();
+					}
+					window.onload = submitForm;
+				</script>
+				";
 			}
 		}
 	?>

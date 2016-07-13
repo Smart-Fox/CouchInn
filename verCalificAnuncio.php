@@ -78,6 +78,8 @@
 											</div>
 								";
 									}
+
+									echo "<strong><u>PUNTAJE PROMEDIO: ".$serv->levantarPuntajePromedioAnuncio($idAnun)."</u></strong>";
 								}else{
 
 									echo "<center>

@@ -12,8 +12,6 @@ var cambiarCiudad = function(tipo){
 			if (tipo=="p") {
 			while (sel.length>1){
 				sel.remove(1);
-				console.log("hola");
-				console.log(tipo);
 			}} else { 
 				while (sel.length>=1){
 				sel.remove(0);

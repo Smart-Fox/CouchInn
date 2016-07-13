@@ -10,6 +10,7 @@
 	<script src='ajax/jquery.min.js'></script>
 	<script src='ajax/jquery.validate.min.js'></script>
 	<script type="text/javascript" src="js/jquery-1.2.6.min.js"></script>
+	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript">
 		window.onload = function () {
 			document.getElementById("pass").onchange = validatePassword;
