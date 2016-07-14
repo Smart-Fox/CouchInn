@@ -5,8 +5,10 @@
 	<title>Detalle de anuncio</title>
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel='stylesheet' href='theme/rateit.css'/>
 	<link rel='stylesheet' href='style.css'/>
 	<script src="js/jquery.min.js"></script>
+	<script src="theme/jquery.rateit.min.js"></script>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 	<script>
 		window.onload = function(){
@@ -42,17 +44,12 @@
 			<div class='row row-titulo'>
 				<div class='col-xs-1 col-md-1'>
 				</div>
-				<div class='col-xs-9 col-md-9'>
+				<div class='col-xs-10 col-md-10'>
 					<h1><strong><span> <?php echo $row['Titulo'];?></span></strong></h1>
 				</div>
-				<div class='col-xs-2 col-md-2'>
-					<form action='verCalificAnuncio.php' method='POST' enctype='multipart/form-data'>
-						<input class='hidden' name='anunc' value=<?php echo "$id" ?>>
-						<button type='submit' class="btn22"><h2><strong><span> <?php echo "Calificación";?></span></strong> </h2></button>
-					</form>
+				<div class='col-xs-1 col-md-1'>
 				</div>
-				<h2><strong><span class=''><?php  echo $serv->levantarPuntajePromedioAnuncio($id);  ?></span></strong></h2>
-			</div>
+				</div>
 			<div class='row row-anuncio'>
 				<div class='col-xs-6 col-md-6 col-anunc'>
 					<img src=<?php echo "img/".$row['enlace'];?> class='imgDet'>	
@@ -67,6 +64,13 @@
 							$persona='personas';
 						}
 						echo "
+								<div class='top'>
+									<form action='verCalificAnuncio.php' method='POST' enctype='multipart/form-data'>
+										<input class='hidden' name='anunc' value='".$id."'>
+										<button type='submit' class='btn222'><span><b>Calificación</b></span></button>
+									</form>
+									<div class='rateit' data-rateit-value='".$serv->levantarPuntajePromedioAnuncio($id)."' data-rateit-readonly='true' data-rateit-step='0.1' data-rateit-resetable='false'  data-rateit-ispreset='true'></div>
+								</div>
 								<div class='contenido'>
 									<p>".$row['tipo_hospedaje_Nombre']." para ".$row['Capacidad']." ".$persona." en ".$row['ciudad_nombre'].", ".$row['provincia_Nombre'].".</p>
 									<p>".$row['Descripcion']."</p>
