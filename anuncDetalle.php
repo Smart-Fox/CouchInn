@@ -28,6 +28,7 @@
 				$serv = new aService();
 				$anun = $serv->levantarAnuncio($id);
 				$row = $anun->fetch_assoc();
+
 				$fecha=date('d/m/Y H:i', strtotime($row['Fecha']));
 			}else{
 				header('Location:pagPrinc.php');

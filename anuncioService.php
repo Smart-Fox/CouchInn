@@ -587,5 +587,18 @@
 			 	return "--";
 			 }	 		
 		}
+
+		public function levantarUsuarioCalificador($idCalificacion){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * FROM calificacion	
+										INNER JOIN reserva ON reserva.ID_calificacion_visitante = calificacion.ID
+										INNER JOIN solicitud_reserva ON reserva.ID_solicitud = solicitud_reserva.ID
+										INNER JOIN usuario ON usuario.ID = solicitud_reserva.ID_usuario
+							WHERE calificacion.ID = '$idCalificacion'";
+			
+			return $conec->ejecutarSQL($consulta);
+
+		}
 	}
 ?>

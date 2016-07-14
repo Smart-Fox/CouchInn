@@ -24,7 +24,7 @@
 			$anun = $serv->levantarAnuncio($idAnun);
 			$row = $anun->fetch_assoc();
 			$calif = $serv->levantarCalificacionesAnuncio($idAnun);
-			
+
 			$id=$_SESSION['id'];
 			
 		}else{
@@ -34,21 +34,27 @@
 	?>
 
 	<center>
-			<h1 >COMENTARIOS</h1>
+			<h1 >CALIFICACIÓN HOSPEDAJE</h1>
 		<div class="" style="">
-			
+				
 			
 				<div class='row'>
 					<div style="float:left;width:60%;margin-right:30px;margin-left: 30px">
 							<?php 
 								if($calif->num_rows>0){
+									//$r = $calif->fetch_assoc();
+									//var_dump($calif->fetch_assoc());
+									
+									//var_dump($usuarioQueCalifico->fetch_assoc());
 									while ($rowComent = $calif->fetch_assoc()){
-										//var_dump($rowComent);
+										$usuarioQueCalifico = $serv->levantarUsuarioCalificador($rowComent['ID_calificacion_visitante']);
+										$rowUsCal = $usuarioQueCalifico->fetch_assoc();
 										echo "		
 											<div class='row'>
 												<div class='col-xs-2 col-md-2'>
 												</div>
 												<div class='col-xs-8 col-md-8 anuncio'>
+												Usuario: <b>".$rowUsCal['Username']."</b>
 													<div class='row'>
 														<br>
 														<div class='col-xs-1 col-md-1'>
@@ -75,7 +81,7 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> <br>
 								";
 									}
 
