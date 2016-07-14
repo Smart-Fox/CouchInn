@@ -503,8 +503,7 @@
 			$conec->conectar();
 			$consulta = "SELECT *, calificacion.ID AS calificacion_ID, calificacion.comentario AS calificacion_comentario
 							FROM calificacion 
-								INNER JOIN reserva ON calificacion.ID_reserva=reserva.ID
-																
+							INNER JOIN reserva ON calificacion.ID_reserva=reserva.ID
 							WHERE ID_reserva=$idReserva";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
@@ -525,7 +524,7 @@
 			$aux = $res->fetch_assoc();
 			return ($aux['ID_calificacion_dueño'] != NULL);
 		}
-		/*public function sinCalificacionesPendientes($idUser){
+		public function sinCalificacionesPendientes($idUser){
 			$conec = new dbManager();
 			$conec->conectar();
 			$consulta = "SELECT * FROM reserva WHERE reserva.ID_solicitud IN ( SELECT solicitud_reserva.ID FROM  solicitud_reserva WHERE solicitud_reserva.ID_usuario = $idUser AND solicitud_reserva.estado LIKE '%finalizada%' ) AND reserva.ID_calificacion_visitante IS NULL";
@@ -534,7 +533,7 @@
 			if (sizeof($row) > 0) {
 				return false;
 			} else { return true;}
-		}*/
+		}
 		public function calificarHospedaje($comment,$puntaje,$res){
 			$conec = new dbManager();
 			$conec->conectar();
