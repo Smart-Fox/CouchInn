@@ -250,7 +250,7 @@
 		public function levantarSolicitud($id){
 			$conec = new dbManager();
 			$conec->conectar();	
-			$consulta = ("SELECT * 	FROM solicitud_reserva WHERE ID='$id';");
+			$consulta = ("SELECT * FROM solicitud_reserva WHERE ID='$id';");
 			return ($conec->ejecutarSQL($consulta));
 		}		
 		public function levantarSolicitudesFecha($inicial, $final, $idS, $idA){

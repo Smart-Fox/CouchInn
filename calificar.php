@@ -7,10 +7,10 @@
 	$service = new aService();
 	if ($t == 'hospedaje') {
 		$r = $service->calificarHospedaje($comment,$puntaje,$res);
-		header('Location: pagPrinc.php');
+		header('Location: exitoCalif.php');
 
 	} else {
 		$r = $service->calificarHuesped($comment,$puntaje,$res);
-		header('Location: pagPrinc.php');
+		header('Location: exitoCalif.php');
 	}
 ?>

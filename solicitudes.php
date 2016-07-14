@@ -104,133 +104,17 @@
 						</div>
 						<div class='col-xs-8 col-md-8 anuncio'>
 							<div class='row'>
-								<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
-									<input class=hidden name='anunc' value=\"".$row['ID_anuncio']."\"></input>
+								<form action='solicitudDetalle.php' method='POST' enctype='multipart/form-data'>
 									<button type='submit' class='buttonlink2'>
 										<div class='col-xs-12 col-md-12'>
+											<input class='hidden' name='idsol' value='".$row['solicitud_ID']."'>
+											<input class='hidden' name='tipo' value='".$_POST['tipo']."'>
 											<strong><span class='content'>".$row['Titulo']."</span></strong>
 											<br>
-											<span class='content'>Reserva para ".$row['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.", pedida por ".$row['Username']." <br> ".$fecha.".</span>
-											<br>
-											<p class='text'>".$row['comentario']."</p>
 											<span class='content'>Estado: ".$row['estado']."</span>
-										</div>
-									</button>
-								</form>
-							</div>";
-				if ($row['estado']=='aceptada'){
-					echo"
-						<div class='row'>
-							<div class='col-xs-4 col-md-4'>
-							</div>
-							<div class='col-xs-2 col-md-2'>
-								<form action='verDatos.php' method='POST' enctype='multipart/form-data'>
-									<input class=hidden name='user' value='".$row['solicitud_user']."'></input>
-									<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
+										</div></button>
 								</form>
 							</div>
-							<div class='col-xs-2 col-md-2'>	
-								<form action='cancelarSolic.php' method='POST' enctype='multipart/form-data'>
-									<input class=hidden name='resp' value='cancelar'></input>
-									<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
-									<center><button type='submit' class='btn22'>Cancelar reserva</button></center>
-								</form>
-							</div>
-							<div class='col-xs-4 col-md-4'>
-							</div>
-						</div>
-					";
-				}
-				if ($row['estado']=='pendiente'){
-					echo"
-						<center>
-							<div class='row'>
-								<div class='col-xs-3 col-md-3'>
-								</div>
-								<div class='col-xs-2 col-md-2'>
-									<form method='POST' action='verPerfil.php'>
-										<input class='hidden' name='id' value='".$row['solicitud_user']."'>
-										<button class='btn22' type='submit'>Ver perfil</button>
-									</form>
-								</div>
-								<div class='col-xs-2 col-md-2'>
-									<form action='responderSolicitud.php' method='POST' enctype='multipart/form-data'>
-										<input class=hidden name='resp' value='aceptar'></input>
-										<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
-										<button type='submit' class='btn22'>Aceptar</button>
-									</form>
-								</div>
-								<div class='col-xs-2 col-md-2'>
-									<form action='responderSolicitud.php' method='POST' enctype='multipart/form-data'>
-										<input class=hidden name='resp' value='rechazar'></input>
-										<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
-										<button type='submit' class='btn22'>Rechazar</button>
-									</form>
-								</div>
-								<div class='col-xs-3 col-md-3'>
-									<form action='verCalificUsuario.php' method='POST' enctype='multipart/form-data'>
-										<input class=hidden name='solicUser' value='".$row['solicitud_user']."'></input>
-										<input class=hidden name='usuarioQueCalifica' value='".$row['ID_usuario']."'></input>
-										<button type='submit' class='btn22'>Ver calificación ".$row['Username']."</button>
-									</form>
-								</div>
-							</div>
-						</center>
-					";
-				}
-				if ($row['estado'] == 'activa'){
-					echo"
-							<div class='row'>
-								<div class='col-xs-4 col-md-4'>
-								</div>
-								<div class='col-xs-4 col-md-4'>
-									<form action='verDatos.php' method='POST' enctype='multipart/form-data'>
-										<input class=hidden name='user' value='".$row['solicitud_user']."'></input>
-										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
-									</form>
-								</div>
-								<div class='col-xs-4 col-md-4'>
-								</div>
-							</div>
-						";
-				}
-				if ($row['estado'] == 'finalizada'){
-					echo"
-							<div class='row'>
-								<div class='col-xs-4 col-md-4'>
-								</div>
-								<div class='col-xs-2 col-md-2'>
-									<form action='verDatos.php' method='POST' enctype='multipart/form-data'>
-										<input class=hidden name='user' value='".$row['anuncio_user']."'></input>
-										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
-									</form>
-								</div>
-					";
-					$aux = $serv->isCalificadoHuesped($row['solicitud_ID']);
-						if($aux == false){
-							echo "<div class='col-xs-2 col-md-2'>	
-									<form action='calificarHuesped.php' method='POST' enctype='multipart/form-data'>
-										<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
-										<input class=hidden name='user' value='".$row['solicitud_user']."'></input> 
-										<input class=hidden name='anun' value='".$row['ID_anuncio']."'></input> 
-										<input class=hidden name='tipo' value='huesped'></input>
-										<center><button type='submit' class='btn22'>Calificar Huésped</button></center>
-									</form>
-								</div>
-								<div class='col-xs-4 col-md-4'>
-								</div>
-							</div>
-							";
-						}else{
-							echo "	<div class='col-xs-2 col-md-2'>	
-									</div>
-									<div class='col-xs-4 col-md-4'>
-									</div>
-								</div>
-							";
-						}
-				}
-				echo "
 						</div>
 						<div class='col-xs-2 col-md-2'>
 						</div>
@@ -257,7 +141,6 @@
 		$solic2 = $serv->solicitudesEnviadas($id);
 		echo "<div id='enviadas'>";
 		if($solic2->num_rows>0){
-			
 			while($row2 = $solic2->fetch_assoc()){
 				$inicial = date("d/m/Y", strtotime($row2['fecha_inicio']));
 				$final = date("d/m/Y", strtotime($row2['fecha_fin']));
@@ -273,103 +156,17 @@
 						</div>
 						<div class='col-xs-8 col-md-8 anuncio'>
 							<div class='row'>
-								<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
-									<input class=hidden name='anunc' value=\"".$row2['ID_anuncio']."\"></input>
+								<form action='solicitudDetalle.php' method='POST' enctype='multipart/form-data'>
 									<button type='submit' class='buttonlink2'>
 										<div class='col-xs-12 col-md-12'>
+											<input class='hidden' name='idsol' value='".$row2['solicitud_ID']."'>
+											<input class='hidden' name='tipo' value='".$_POST['tipo']."'>
 											<strong><span class='content'>".$row2['Titulo']."</span></strong>
 											<br>
-											<span class='content'>Reserva para ".$row2['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.".<br> ".$fecha."</span>
-											<br>
-											<p class='text'>".$row2['comentario']."</p>
 											<span class='content'>Estado: ".$row2['estado']."</span>
-										</div>
-									</button>
-								</form>
-							</div>";
-				if ($row2['estado']=='aceptada'){
-					echo"
-							<div class='row'>
-								<div class='col-xs-4 col-md-4'>
-								</div>
-								<div class='col-xs-2 col-md-2'>
-									<form action='verDatos.php' method='POST' enctype='multipart/form-data'>
-										<input class=hidden name='user' value='".$row2['anuncio_user']."'></input>
-										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
-									</form>
-								</div>
-								<div class='col-xs-2 col-md-2'>	
-									<form action='cancelarSolic.php' method='POST' enctype='multipart/form-data'>
-										<input class=hidden name='solic' value='".$row2['solicitud_ID']."'></input>
-										<center><button type='submit' class='btn22'>Cancelar reserva</button></center>
-									</form>
-								</div>
-								<div class='col-xs-4 col-md-4'>
-								</div>
-							</div>
-					";
-				}
-				if ($row2['estado']=='pendiente'){
-					echo"
-							<div class='row'>
-								<form action='cancelarSolic.php' method='POST' enctype='multipart/form-data'>
-									<input class=hidden name='solic' value='".$row2['solicitud_ID']."'></input>
-									<center><button type='submit' class='btn22'>Cancelar solicitud</button></center>
+										</div></button>
 								</form>
 							</div>
-					";
-				}
-				if ($row2['estado'] == 'activa'){
-					echo"
-							<div class='row'>
-								<div class='col-xs-4 col-md-4'>
-								</div>
-								<div class='col-xs-4 col-md-4'>
-									<form action='verDatos.php' method='POST' enctype='multipart/form-data'>
-										<input class=hidden name='user' value='".$row2['anuncio_user']."'></input>
-										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
-									</form>
-								</div>
-								<div class='col-xs-4 col-md-4'>
-								</div>
-							</div>
-					";
-				}
-				if ($row2['estado'] == 'finalizada'){
-					echo"
-							<div class='row'>
-								<div class='col-xs-4 col-md-4'>
-								</div>
-								<div class='col-xs-2 col-md-2'>
-									<form action='verDatos.php' method='POST' enctype='multipart/form-data'>
-										<input class=hidden name='user' value='".$row2['anuncio_user']."'></input>
-										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
-									</form>
-								</div>";
-					$aux = $serv->isCalificadoHospedaje($row2['solicitud_ID']);
-					if ($aux == false) {
-						echo	"<div class='col-xs-2 col-md-2'>	
-									<form action='calificarAnuncio.php' method='POST' enctype='multipart/form-data'>
-										<input class=hidden name='solic' value='".$row2['solicitud_ID']."'></input>
-										<input class=hidden name='anunc' value='".$row2['ID_anuncio']."'></input> 
-										<input class=hidden name='tipo' value='hospedaje'></input>
-										<center><button type='submit' class='btn22'>Calificar Hospedaje</button></center>
-									</form>
-								</div>
-								<div class='col-xs-4 col-md-4'>
-								</div>
-							</div>
-					";}
-					else{
-							echo "	<div class='col-xs-2 col-md-2'>	
-									</div>
-									<div class='col-xs-4 col-md-4'>
-									</div>
-								</div>
-							";
-						}
-				}
-				echo"
 						</div>
 						<div class='col-xs-2 col-md-2'>
 						</div>
