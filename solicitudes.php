@@ -204,11 +204,11 @@
 										<input class=hidden name='user' value='".$row['anuncio_user']."'></input>
 										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
 									</form>
-								</div>";
-
-								$aux = $serv->isCalificadoHuesped($row['solicitud_ID']);
-								if($aux == false){
-								echo "<div class='col-xs-2 col-md-2'>	
+								</div>
+					";
+					$aux = $serv->isCalificadoHuesped($row['solicitud_ID']);
+						if($aux == false){
+							echo "<div class='col-xs-2 col-md-2'>	
 									<form action='calificarHuesped.php' method='POST' enctype='multipart/form-data'>
 										<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
 										<input class=hidden name='user' value='".$row['solicitud_user']."'></input> 
@@ -220,7 +220,15 @@
 								<div class='col-xs-4 col-md-4'>
 								</div>
 							</div>
-						";}
+							";
+						}else{
+							echo "	<div class='col-xs-2 col-md-2'>	
+									</div>
+									<div class='col-xs-4 col-md-4'>
+									</div>
+								</div>
+							";
+						}
 				}
 				echo "
 						</div>
@@ -248,9 +256,8 @@
 		echo "</div>";
 		$solic2 = $serv->solicitudesEnviadas($id);
 		echo "<div id='enviadas'>";
-
 		if($solic2->num_rows>0){
-
+			
 			while($row2 = $solic2->fetch_assoc()){
 				$inicial = date("d/m/Y", strtotime($row2['fecha_inicio']));
 				$final = date("d/m/Y", strtotime($row2['fecha_fin']));
@@ -353,6 +360,14 @@
 								</div>
 							</div>
 					";}
+					else{
+							echo "	<div class='col-xs-2 col-md-2'>	
+									</div>
+									<div class='col-xs-4 col-md-4'>
+									</div>
+								</div>
+							";
+						}
 				}
 				echo"
 						</div>
