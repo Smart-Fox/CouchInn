@@ -15,12 +15,10 @@
 	<?php
 		include('header.php');
 		include('anuncioService.php');
-		include('cuentaOptions.php');
 		session_start();
 		if(isset($_SESSION['usuario'])){
 			$service = new cabecera($_SESSION['usuario']);
 			$service->buildHeader();
-			$display=new cuentaMenu();
 			$serv = new aService();
 			$idAnun=$_POST['anunc'];
 			$anun = $serv->levantarAnuncio($idAnun);

@@ -572,11 +572,12 @@
 		public function levantarCalificacionesUsuario($idUsuario){
 			$conec = new dbManager();
 			$conec->conectar();
-			$consulta = "SELECT * FROM usuario 
-										INNER JOIN solicitud_reserva ON usuario.ID=solicitud_reserva.ID_usuario
-										INNER JOIN reserva ON reserva.ID_solicitud= solicitud_reserva.ID
-										INNER JOIN calificacion ON calificacion.ID = reserva.ID_calificacion_dueño
-							WHERE usuario.ID = $idUsuario";
+			$consulta = "SELECT * FROM solicitud_reserva 
+										INNER JOIN anuncio ON anuncio.ID=solicitud_reserva.ID_anuncio
+										INNER JOIN usuario ON anuncio.ID_usuario=usuario.ID
+										INNER JOIN reserva ON reserva.ID_solicitud=solicitud_reserva.ID
+										INNER JOIN calificacion ON calificacion.ID=reserva.ID_calificacion_dueño
+							WHERE solicitud_reserva.ID_usuario=$idUsuario";
 			return $conec->ejecutarSQL($consulta);
 		}
 
