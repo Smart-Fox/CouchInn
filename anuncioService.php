@@ -538,7 +538,6 @@
 		public function calificarHospedaje($comment,$puntaje,$res){
 			$conec = new dbManager();
 			$conec->conectar();
-			// $res es el id de la solicitud de reserva
 			$consulta = "SELECT ID FROM reserva WHERE ID_solicitud = '$res'";
 			$idreserva = $conec->ejecutarSQL($consulta);
 			$row = $idreserva->fetch_assoc();
@@ -551,12 +550,9 @@
 		public function calificarHuesped($comment,$puntaje,$res){
 			$conec = new dbManager();
 			$conec->conectar();
-			// $res es el id de la solicitud de reserva
 			$consulta = "SELECT ID FROM reserva WHERE ID_solicitud = '$res'";
 			$idreserva = $conec->ejecutarSQL($consulta);
 			$row = $idreserva->fetch_assoc();
-			//var_dump($row['ID']);
-			$aux = $row['ID'];
 			$consulta = "INSERT INTO calificacion(comentario, puntaje, Visto) VALUES ('$comment', '$puntaje', '0')";
 			$respuesta = $conec->ejecutarSQL($consulta);
 			$idcalificacion = $conec->lastId();
