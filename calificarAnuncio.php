@@ -44,12 +44,9 @@
 				<div style="float:left;width:15%">
 							<span class='labelform2'>Definir puntaje (1-5) </span>
 						<input type="number" name = 'puntaje' id='puntaje' min="1" max="5" placeholder="Ej: 3" required>
-<<<<<<< HEAD
 						<input type="range" value="0" step="1" id="backing4">
 						<div class="rateit" data-rateit-backingfld="#backing4" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
 						</div>
-=======
->>>>>>> origin/matias-new
 				</div>
 					<input class=hidden name='tipo' value='hospedaje'></input>
 					<input class=hidden name='reserva' value=<?php echo "'".$_POST['solic']."'"?>></input>

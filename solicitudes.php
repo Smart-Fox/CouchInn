@@ -104,22 +104,18 @@
 						</div>
 						<div class='col-xs-8 col-md-8 anuncio'>
 							<div class='row'>
-								<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
-									<input class=hidden name='anunc' value=\"".$row['ID_anuncio']."\"></input>
+								<form action='solicitudDetalle.php' method='POST' enctype='multipart/form-data'>
 									<button type='submit' class='buttonlink2'>
 										<div class='col-xs-12 col-md-12'>
 											<input class='hidden' name='idsol' value='".$row['solicitud_ID']."'>
+											<input class='hidden' name='tipo' value='".$_POST['tipo']."'>
 											<strong><span class='content'>".$row['Titulo']."</span></strong>
 											<br>
-											<span class='content'>Reserva para ".$row['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.", pedida por ".$row['Username']." <br> ".$fecha.".</span>
-											<br>
-											<p class='text'>".$row['comentario']."</p>
 											<span class='content'>Estado: ".$row['estado']."</span>
-										</div>
-									</button>
+										</div></button>
 								</form>
 							</div>";
-				if ($row['estado']=='aceptada'){
+				/*if ($row['estado']=='aceptada'){
 					echo"
 						<div class='row'>
 							<div class='col-xs-4 col-md-4'>
@@ -221,7 +217,7 @@
 								</div>
 							</div>
 						";}
-				}
+				}*/
 				echo "
 						</div>
 						<div class='col-xs-2 col-md-2'>
@@ -266,21 +262,18 @@
 						</div>
 						<div class='col-xs-8 col-md-8 anuncio'>
 							<div class='row'>
-								<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
-									<input class=hidden name='anunc' value=\"".$row2['ID_anuncio']."\"></input>
+								<form action='solicitudDetalle.php' method='POST' enctype='multipart/form-data'>
 									<button type='submit' class='buttonlink2'>
 										<div class='col-xs-12 col-md-12'>
+											<input class='hidden' name='idsol' value='".$row2['solicitud_ID']."'>
+											<input class='hidden' name='tipo' value='".$_POST['tipo']."'>
 											<strong><span class='content'>".$row2['Titulo']."</span></strong>
 											<br>
-											<span class='content'>Reserva para ".$row2['cantidad_personas']." ".$persona.", entre el ".$inicial." y el ".$final.".<br> ".$fecha."</span>
-											<br>
-											<p class='text'>".$row2['comentario']."</p>
 											<span class='content'>Estado: ".$row2['estado']."</span>
-										</div>
-									</button>
+										</div></button>
 								</form>
 							</div>";
-				if ($row2['estado']=='aceptada'){
+				/*if ($row2['estado']=='aceptada'){
 					echo"
 							<div class='row'>
 								<div class='col-xs-4 col-md-4'>
@@ -353,7 +346,7 @@
 								</div>
 							</div>
 					";}
-				}
+				}*/
 				echo"
 						</div>
 						<div class='col-xs-2 col-md-2'>
