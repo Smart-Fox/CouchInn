@@ -43,12 +43,12 @@
 					</div>
 					<div>
 						<span class='labelform2'>Puntaje:</span>
-						<input type="range" value="0" step="1" id="backing4" required>
-						<div class="rateit" data-rateit-backingfld="#backing4" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
+						<input type="range" value="0" step="1" name='puntaje' id="puntaje" required>
+						<div class="rateit" data-rateit-backingfld="#puntaje" data-rateit-step='1' data-rateit-resetable="false"  data-rateit-ispreset="true">
 						</div>
 					</div>
 					<input class=hidden name='tipo' value='hospedaje'></input>
-					<input class=hidden name='reserva' value=<?php echo "'".$_POST['solic']."'"?>></input>
+					<input class=hidden name='reserva' value='<?php echo $_POST['solic']; ?>'></input>
 					</div>
 				<button type="submit" class="btn">Enviar</button>
 			</form>
