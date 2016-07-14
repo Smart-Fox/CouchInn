@@ -5,9 +5,12 @@
 	$res = $_POST['reserva'];
 	$t = $_POST['tipo'];
 	$service = new aService();
-	if ($t == "hospedaje") {
+	if ($t == 'hospedaje') {
 		$r = $service->calificarHospedaje($comment,$puntaje,$res);
+		header('Location: pagPrinc.php');
+
 	} else {
 		$r = $service->calificarHuesped($comment,$puntaje,$res);
+		header('Location: pagPrinc.php');
 	}
 ?>

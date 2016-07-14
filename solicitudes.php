@@ -168,6 +168,11 @@
 									</form>
 								</div>
 								<div class='col-xs-3 col-md-3'>
+									<form action='verCalificUsuario.php' method='POST' enctype='multipart/form-data'>
+										<input class=hidden name='solicUser' value='".$row['solicitud_user']."'></input>
+										<input class=hidden name='usuarioQueCalifica' value='".$row['ID_usuario']."'></input>
+										<button type='submit' class='btn22'>Ver calificación ".$row['Username']."</button>
+									</form>
 								</div>
 							</div>
 						</center>
@@ -200,6 +205,7 @@
 										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
 									</form>
 								</div>";
+
 								$aux = $serv->isCalificadoHuesped($row['solicitud_ID']);
 								if($aux == false){
 								echo "<div class='col-xs-2 col-md-2'>	
@@ -242,7 +248,9 @@
 		echo "</div>";
 		$solic2 = $serv->solicitudesEnviadas($id);
 		echo "<div id='enviadas'>";
+
 		if($solic2->num_rows>0){
+
 			while($row2 = $solic2->fetch_assoc()){
 				$inicial = date("d/m/Y", strtotime($row2['fecha_inicio']));
 				$final = date("d/m/Y", strtotime($row2['fecha_fin']));
