@@ -122,7 +122,8 @@
 			$consulta = ("SELECT *,pregunta.ID as pregunta_ID, pregunta.fecha AS pregunta_fecha	
 									FROM pregunta 
 									INNER JOIN anuncio ON pregunta.ID_anuncio = anuncio.ID
-									WHERE pregunta.ID_usuario='$idUser';");
+									WHERE pregunta.ID_usuario='$idUser'
+									ORDER BY pregunta.ID;");
 			return ($conec->ejecutarSQL($consulta));
 		}		
 		public function marcarPregLeida($id){
@@ -215,7 +216,8 @@
 									FROM pregunta 
 									INNER JOIN anuncio ON pregunta.ID_anuncio = anuncio.ID
 									INNER JOIN usuario ON anuncio.ID_usuario = usuario.ID
-									WHERE anuncio.ID_usuario='$idUser';");
+									WHERE anuncio.ID_usuario='$idUser'
+									ORDER BY pregunta.ID;");
 			return ($conec->ejecutarSQL($consulta));
 		}		
 		public function solicitudesEnviadas($idUser){
