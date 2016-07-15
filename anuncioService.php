@@ -226,8 +226,8 @@
 			$consulta = ("SELECT *, solicitud_reserva.ID as solicitud_ID, anuncio.ID_usuario as anuncio_user
 									FROM solicitud_reserva 
 									INNER JOIN anuncio ON solicitud_reserva.ID_anuncio = anuncio.ID
-									WHERE solicitud_reserva.ID_usuario='$idUser'
-									ORDER BY solicitud_reserva.ID DESC;");
+									WHERE solicitud_reserva.ID_usuario='$idUser' AND solicitud_reserva.ID NOT IN (SELECT ID_solicitud FROM reserva)
+									ORDER BY solicitud_reserva.estado ASC, solicitud_reserva.ID DESC;");
 			return ($conec->ejecutarSQL($consulta));
 		}		
 		public function solicitudesRecibidas($idUser){
@@ -237,8 +237,32 @@
 									FROM solicitud_reserva 
 									INNER JOIN anuncio ON solicitud_reserva.ID_anuncio = anuncio.ID
 									INNER JOIN usuario ON solicitud_reserva.ID_usuario = usuario.ID
+									WHERE anuncio.ID_usuario='$idUser' 
+									AND solicitud_reserva.ID NOT IN (SELECT ID_solicitud FROM reserva)
+									ORDER BY solicitud_reserva.estado ASC, solicitud_reserva.ID DESC;");
+			return ($conec->ejecutarSQL($consulta));
+		}		
+		public function reservasEnviadas($idUser){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT *, solicitud_reserva.ID as solicitud_ID, anuncio.ID_usuario as anuncio_user
+									FROM solicitud_reserva 
+									INNER JOIN anuncio ON solicitud_reserva.ID_anuncio = anuncio.ID
+									WHERE solicitud_reserva.ID_usuario='$idUser'
+									AND solicitud_reserva.ID IN (SELECT ID_solicitud FROM reserva)
+									ORDER BY solicitud_reserva.estado ASC, solicitud_reserva.fecha_fin DESC;");
+			return ($conec->ejecutarSQL($consulta));
+		}		
+		public function reservasRecibidas($idUser){
+			$conec = new dbManager();
+			$conec->conectar();	
+			$consulta = ("SELECT *,	solicitud_reserva.ID as solicitud_ID, solicitud_reserva.ID_usuario as solicitud_user, anuncio.ID_usuario as anuncio_user
+									FROM solicitud_reserva 
+									INNER JOIN anuncio ON solicitud_reserva.ID_anuncio = anuncio.ID
+									INNER JOIN usuario ON solicitud_reserva.ID_usuario = usuario.ID
 									WHERE anuncio.ID_usuario='$idUser'
-									ORDER BY solicitud_reserva.ID DESC;");
+									AND solicitud_reserva.ID IN (SELECT ID_solicitud FROM reserva)
+									ORDER BY solicitud_reserva.estado ASC, solicitud_reserva.fecha_fin DESC;");
 			return ($conec->ejecutarSQL($consulta));
 		}		
 		public function solicitudesTodas(){
@@ -392,10 +416,21 @@
 			$conec->conectar();
 			$consulta = "SELECT * 	FROM solicitud_reserva
 									WHERE solicitud_reserva.ID_usuario=$id
-									AND solicitud_reserva.Visto_huesped=0";
+									AND solicitud_reserva.Visto_huesped=0 
+									AND solicitud_reserva.ID NOT IN (SELECT ID_solicitud FROM reserva)";
 			$resultSQL = $conec->ejecutarSQL($consulta);
 			return $resultSQL;
-		}		
+		}
+		public function notificarRespuestaReserva($id){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * 	FROM solicitud_reserva
+									WHERE solicitud_reserva.ID_usuario=$id
+									AND solicitud_reserva.Visto_huesped=0
+									AND solicitud_reserva.ID IN (SELECT ID_solicitud FROM reserva)";
+			$resultSQL = $conec->ejecutarSQL($consulta);
+			return $resultSQL;
+		}
 		public function levantarAnuncio($idAnuncio){
 			$conec = new dbManager();
 			$conec->conectar();
@@ -526,16 +561,6 @@
 			$aux = $res->fetch_assoc();
 			return ($aux['ID_calificacion_dueño'] != NULL);
 		}
-		public function sinCalificacionesPendientes($idUser){
-			$conec = new dbManager();
-			$conec->conectar();
-			$consulta = "SELECT * FROM reserva WHERE reserva.ID_solicitud IN ( SELECT solicitud_reserva.ID FROM  solicitud_reserva WHERE solicitud_reserva.ID_usuario = $idUser AND solicitud_reserva.estado LIKE '%finalizada%' ) AND reserva.ID_calificacion_visitante IS NULL";
-			$res = $conec->ejecutarSQL($consulta);
-			$row = $res->fetch_assoc();
-			if (sizeof($row) > 0) {
-				return false;
-			} else { return true;}
-		}
 		public function calificarHospedaje($comment,$puntaje,$res){
 			$conec = new dbManager();
 			$conec->conectar();
@@ -570,7 +595,6 @@
 							WHERE anuncio.ID = '$idAnuncio'";
 			return $conec->ejecutarSQL($consulta);
 		}
-
 		public function levantarCalificacionesUsuario($idUsuario){
 			$conec = new dbManager();
 			$conec->conectar();
@@ -582,7 +606,6 @@
 							WHERE solicitud_reserva.ID_usuario=$idUsuario";
 			return $conec->ejecutarSQL($consulta);
 		}
-
 		public function levantarPuntajePromedioAnuncio($idAnuncio){
 			$conec = new dbManager();
 			$conec->conectar();
@@ -604,7 +627,6 @@
 			 	return "--";
 			 }	 		
 		}
-
 		public function levantarPuntajePromedioUsuario($idUsuario){
 			$conec = new dbManager();
 			$conec->conectar();
@@ -626,7 +648,6 @@
 			 	return "--";
 			 }	 		
 		}
-
 		public function levantarUsuarioCalificador($idCalificacion){
 			$conec = new dbManager();
 			$conec->conectar();

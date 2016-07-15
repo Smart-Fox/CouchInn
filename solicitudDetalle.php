@@ -63,75 +63,16 @@
 			<div class='row'>
 				<?php
 					if ($tipo =='enviadas'){
-						if ($row['estado']=='aceptada'){
-							echo"
-									<div class='col-xs-4 col-md-4'>
-									</div>
-									<div class='col-xs-2 col-md-2'>
-										<form action='verDatos.php' method='POST' enctype='multipart/form-data'>
-											<input class=hidden name='user' value='".$host_row['ID_usuario']."'></input>
-											<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
-										</form>
-									</div>
-									<div class='col-xs-2 col-md-2'>	
-										<form action='cancelarSolic.php' method='POST' enctype='multipart/form-data'>
-											<input class=hidden name='resp' value='cancelar'></input>
-											<input class=hidden name='solic' value='".$row['ID']."'></input>
-											<center><button type='submit' class='btn22'>Cancelar reserva</button></center>
-										</form>
-									</div>
-									<div class='col-xs-4 col-md-4'>
-									</div>
-								</div>
-							";
-						}elseif ($row['estado']=='pendiente'){
+						if ($row['estado']=='pendiente'){
 							echo"
 									<form action='cancelarSolic.php' method='POST' enctype='multipart/form-data'>
 										<input class=hidden name='solic' value='".$row['ID']."'></input>
 										<center><button type='submit' class='btn22'>Cancelar solicitud</button></center>
 									</form>
 							";
-						}elseif ($row['estado'] == 'activa'){
-							echo"
-									<form action='verDatos.php' method='POST' enctype='multipart/form-data'>
-										<input class=hidden name='user' value='".$host_row['ID']."'></input>
-										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
-									</form>
-							";
-						}elseif ($row['estado'] == 'finalizada'){
-							$aux = $serv->isCalificadoHospedaje($row['solicitud_ID']);
-							if ($aux == false) {
-								echo"	<form action='calificarAnuncio.php' method='POST' enctype='multipart/form-data'>
-											<input class=hidden name='solic' value='".$row['solicitud_ID']."'></input>
-											<input class=hidden name='anunc' value='".$row['ID_anuncio']."'></input> 
-											<input class=hidden name='tipo' value='hospedaje'></input>
-											<center><button type='submit' class='btn22'>Calificar Hospedaje</button></center>
-										</form>
-								";
-							}
 						}
 					}elseif ($tipo == 'recibidas' ) {
-						if ($row['estado']=='aceptada'){
-							echo"
-									<div class='col-xs-4 col-md-4'>
-									</div>
-									<div class='col-xs-2 col-md-2'>
-										<form action='verDatos.php' method='POST' enctype='multipart/form-data'>
-											<input class=hidden name='user' value='".$row['ID_usuario']."'></input>
-											<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
-										</form>
-									</div>
-									<div class='col-xs-2 col-md-2'>	
-										<form action='cancelarSolic.php' method='POST' enctype='multipart/form-data'>
-											<input class=hidden name='resp' value='cancelar'></input>
-											<input class=hidden name='solic' value='".$row['ID']."'></input>
-											<center><button type='submit' class='btn22'>Cancelar reserva</button></center>
-										</form>
-									</div>
-									<div class='col-xs-4 col-md-4'>
-									</div>
-							";
-						}elseif ($row['estado']=='pendiente'){
+						if ($row['estado']=='pendiente'){
 							echo"
 									<div class='col-xs-2 col-md-2'>
 									</div>
@@ -165,24 +106,6 @@
 									<div class='col-xs-2 col-md-2'>
 									</div>
 							";
-						} elseif ($row['estado'] == 'activa'){
-							echo"	<form action='verDatos.php' method='POST' enctype='multipart/form-data'>
-										<input class=hidden name='user' value='".$row['ID_usuario']."'></input>
-										<center><button type='submit' class='btn22'>Ver datos del usuario</button></center>
-									</form>
-								";
-						} elseif ($row['estado'] == 'finalizada'){
-							$aux = $serv->isCalificadoHuesped($row['ID']);
-							if($aux == false){
-								echo "	<form action='calificarHuesped.php' method='POST' enctype='multipart/form-data'>
-											<input class=hidden name='solic' value='".$row['ID']."'></input>
-											<input class=hidden name='user' value='".$row['ID_usuario']."'></input> 
-											<input class=hidden name='anun' value='".$row['ID_anuncio']."'></input> 
-											<input class=hidden name='tipo' value='huesped'></input>
-											<center><button type='submit' class='btn22'>Calificar Huésped</button></center>
-										</form>
-								";
-							}
 						}
 					}
 				?>

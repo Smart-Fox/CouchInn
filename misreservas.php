@@ -66,18 +66,18 @@
 				</div>
 				<div class='col-xs-2 col-md-2'>
 					<div class='centered'>
-						<form action='solicitudes.php' method='POST' enctype='multipart/form-data'>
+						<form action='misreservas.php' method='POST' enctype='multipart/form-data'>
 							<input class=hidden name='tipo' value='enviadas'>
-							<button type='submit' class='btn2' id='env2'>Solicitudes enviadas</button>
+							<button type='submit' class='btn2' id='env2'>Reservas solicitadas</button>
 						</form>
 						<button type=button id='env' class='hidden' onclick='showEnv();'>
 					</div>
 				</div>
 				<div class='col-xs-2 col-md-2'>
 					<div class='centered'>
-						<form action='solicitudes.php' method='POST' enctype='multipart/form-data'>
+						<form action='misreservas.php' method='POST' enctype='multipart/form-data'>
 							<input class=hidden name='tipo' value='recibidas'>
-							<button type='submit' class='btn2' id='rec2'>Solicitudes recibidas</button>
+							<button type='submit' class='btn2' id='rec2'>Reservas recibidas</button>
 						</form>
 						<button type=button id='rec' class='hidden' onclick='showRec();'>
 					</div>
@@ -87,7 +87,7 @@
 			</div>
 			<br>
 		";
-		$solic = $serv->solicitudesRecibidas($id);
+		$solic = $serv->reservasRecibidas($id);
 		echo "<div id='recibidas'>";
 		if($solic->num_rows>0){
 			while($row = $solic->fetch_assoc()){
@@ -109,7 +109,7 @@
 									<span>Estado: ".$row['estado']."</span>
 								</div>
 								<div class='col-xs-2 col-md-2'>
-									<form action='solicitudDetalle.php' method='POST' enctype='multipart/form-data'>
+									<form action='reservaDetalle.php' method='POST' enctype='multipart/form-data'>
 										<button type='submit' class='btn222'>
 											<input class='hidden' name='idsol' value='".$row['solicitud_ID']."'>
 											<input class='hidden' name='tipo' value='".$_POST['tipo']."'>
@@ -132,7 +132,7 @@
 						</div>
 						<div class='col-xs-8 col-md-8'>
 							<br>
-							<strong><span class='titulo2'>No hay solicitudes recibidas</span></strong>
+							<strong><span class='titulo2'>No hay reservas recibidas</span></strong>
 						</div>
 						<div class='col-xs-2 col-md-2'>
 						</div>
@@ -141,7 +141,7 @@
 			";
 		}
 		echo "</div>";
-		$solic2 = $serv->solicitudesEnviadas($id);
+		$solic2 = $serv->reservasEnviadas($id);
 		echo "<div id='enviadas'>";
 		if($solic2->num_rows>0){
 			while($row2 = $solic2->fetch_assoc()){
@@ -163,7 +163,7 @@
 									<span>Estado: ".$row2['estado']."</span>
 								</div>
 								<div class='col-xs-2 col-md-2'>
-									<form action='solicitudDetalle.php' method='POST' enctype='multipart/form-data'>
+									<form action='reservaDetalle.php' method='POST' enctype='multipart/form-data'>
 										<button type='submit' class='btn222'>
 											<input class='hidden' name='idsol' value='".$row2['solicitud_ID']."'>
 											<input class='hidden' name='tipo' value='".$_POST['tipo']."'>
@@ -185,7 +185,7 @@
 						<div class='col-xs-2 col-md-2'>
 						</div>
 						<div class='col-xs-8 col-md-8'>
-							<strong><span class='titulo2'>No hay solicitudes enviadas</span></strong>
+							<strong><span class='titulo2'>No hay reservas solicitadas</span></strong>
 						</div>
 						<div class='col-xs-2 col-md-2'>
 						</div>

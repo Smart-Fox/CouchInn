@@ -25,6 +25,10 @@
 					while($row = $solic->fetch_assoc()){
 						$inicial = date("Y-m-d", strtotime($row['fecha_inicio']));
 						$final = date("Y-m-d", strtotime($row['fecha_fin']));
+						if ($row['estado']=='pendiente'){
+							if ($fecha_actual >=$inicial)
+								$serv->rechazarSolicitud($row['ID']);
+						}
 						if ($row['estado']=='aceptada'){
 							if ($fecha_actual >= $inicial && $fecha_actual <= $final)
 								$serv->solicitudEstadoActiva($row['ID']);
