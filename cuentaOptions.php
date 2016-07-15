@@ -29,6 +29,10 @@
 								</div>
 							</div>
 							<div class='col-xs-2 col-md-2'>
+								<form method='POST' action='verMisCalific.php'>
+									<input class='hidden' name='tipo' value='norm'>
+									<button type=submit class='btn2'>Mis calificaciones</button>
+								</form>
 							</div>
 							<div class='col-xs-2 col-md-2'>
 								<div class='centered'>
