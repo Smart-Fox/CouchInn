@@ -11,15 +11,15 @@
 	<script type="text/javascript">
 		function showRec(){
 			document.getElementById('recibidas').style.display = 'inline';
-			$("#rec2").addClass("selected");
+			$("#rec").addClass("selected");
 			document.getElementById('enviadas').style.display = 'none';
-			$("#env2").removeClass("selected");		
+			$("#env").removeClass("selected");		
 		}
 		function showEnv(){
 			document.getElementById('enviadas').style.display = 'inline';
-			$("#env2").addClass("selected");
+			$("#env").addClass("selected");
 			document.getElementById('recibidas').style.display = 'none';
-			$("#rec2").removeClass("selected");				
+			$("#rec").removeClass("selected");				
 		}
 	</script>
 </head>
@@ -33,26 +33,6 @@
 				if(isset($_POST['tipo'])){
 					$serv = new aService();
 					$id=$_SESSION['id'];
-					if ($_POST['tipo']=='recibidas'){
-						$serv->marcarLeidasSolicAutor($id);
-						echo "
-							<script type='text/javascript'>
-								window.onload = function mostrarR(){
-									document.getElementById('rec').click();
-								}	
-							</script>
-						";
-					}
-					if ($_POST['tipo']=='enviadas'){
-						$serv->marcarLeidasSolicHuesped($id);
-						echo "
-							<script type='text/javascript'>
-								window.onload = function mostrarE(){
-									document.getElementById('env').click();
-								}	
-							</script>
-						";
-					}
 				}
 			$service = new cabecera($_SESSION['usuario']);
 			$service->buildHeader();
@@ -66,20 +46,12 @@
 				</div>
 				<div class='col-xs-2 col-md-2'>
 					<div class='centered'>
-						<form action='misreservas.php' method='POST' enctype='multipart/form-data'>
-							<input class=hidden name='tipo' value='enviadas'>
-							<button type='submit' class='btn2' id='env2'>Reservas solicitadas</button>
-						</form>
-						<button type=button id='env' class='hidden' onclick='showEnv();'>
+						<button type=button id='env' class='btn2' onclick='showEnv();'>Reservas solicitadas</button>
 					</div>
 				</div>
 				<div class='col-xs-2 col-md-2'>
 					<div class='centered'>
-						<form action='misreservas.php' method='POST' enctype='multipart/form-data'>
-							<input class=hidden name='tipo' value='recibidas'>
-							<button type='submit' class='btn2' id='rec2'>Reservas recibidas</button>
-						</form>
-						<button type=button id='rec' class='hidden' onclick='showRec();'>
+						<button type=button id='rec' onclick='showRec();' class='btn2'>Reservas recibidas</button>
 					</div>
 				</div>
 				<div class='col-xs-4 col-md-4'>
@@ -112,7 +84,7 @@
 									<form action='reservaDetalle.php' method='POST' enctype='multipart/form-data'>
 										<button type='submit' class='btn222'>
 											<input class='hidden' name='idsol' value='".$row['solicitud_ID']."'>
-											<input class='hidden' name='tipo' value='".$_POST['tipo']."'>
+											<input class='hidden' name='tipo' value='recibidas'>
 											<span>Ver detalle</span>
 										</button>
 									</form>
@@ -166,7 +138,7 @@
 									<form action='reservaDetalle.php' method='POST' enctype='multipart/form-data'>
 										<button type='submit' class='btn222'>
 											<input class='hidden' name='idsol' value='".$row2['solicitud_ID']."'>
-											<input class='hidden' name='tipo' value='".$_POST['tipo']."'>
+											<input class='hidden' name='tipo' value='enviadas'>
 											<span>Ver detalle</span>
 										</button>
 									</form>

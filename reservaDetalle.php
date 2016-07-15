@@ -32,6 +32,11 @@
 				$user_row = $user->fetch_assoc();
 				$host = $serv->levantarUsuario($anun_row['ID_usuario']);
 				$host_row = $host->fetch_assoc();
+				if ($tipo=='recibidas'){
+					$serv->marcarLeidaSolicAutor($id);
+				}else{
+					$serv->marcarLeidaSolicHuesped($id);
+				}
 				if($row['cantidad_personas']==1){
 					$persona='persona';
 				}else{
