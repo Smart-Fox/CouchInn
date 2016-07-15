@@ -29,11 +29,28 @@
 		include('anuncioService.php');
 		include('cuentaOptions.php');
 		session_start();
-		if(isset($_SESSION['usuario'])){
-				if(isset($_POST['tipo'])){
-					$serv = new aService();
-					$id=$_SESSION['id'];
-				}
+		if((isset($_SESSION['usuario']))&&(isset($_POST['tipo']))){
+			$tipo=$_POST['tipo'];
+			if($tipo=='recibidas'){
+				echo "	
+					<script type='text/javascript'>
+						window.onload = function mostrarR(){
+							document.getElementById('rec').click();
+						}	
+					</script>
+				";
+			}
+			if($tipo=='enviadas'){
+				echo "	
+					<script type='text/javascript'>
+						window.onload = function mostrarE(){
+							document.getElementById('env').click();
+						}	
+					</script>
+				";
+			}
+			$serv = new aService();
+			$id=$_SESSION['id'];
 			$service = new cabecera($_SESSION['usuario']);
 			$service->buildHeader();
 			$display=new cuentaMenu();
