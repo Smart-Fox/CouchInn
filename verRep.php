@@ -14,8 +14,8 @@
 </head>
 <body>
 	<?php
-		include('header.php');
-		include('adminOptions.php');
+		include_once('header.php');
+		include_once('adminOptions.php');
 		session_start();
 		if((isset($_SESSION['usuario']))&&($_SESSION['type']=="admin")){
 			$service = new cabecera($_SESSION['usuario']);
@@ -104,7 +104,7 @@
 	</script>
 	<center>
 	<div class='reportes'>
-		<form action='reportePago.php' method='POST'>
+		<form action='reportePagos.php' method='POST'>
 			<div class='row' id='modTH'>
 				<h2>Reporte de pagos recibidos entre dos fechas</h2>
 			</div>

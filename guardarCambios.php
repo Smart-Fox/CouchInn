@@ -45,8 +45,7 @@
 				if ($uploadOk == 0) {
 
 				} else {
-					move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)
-					} 
+					move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
 				}
 			}
 		}

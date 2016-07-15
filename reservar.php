@@ -140,7 +140,7 @@
 				</div>
 				<div class='col-xs-3 col-md-3'>
 					<div class='row'>
-						<span class='labelform2'>Cantidad de personas:</span>
+						<span class='labelform2'>Cantidad de personas: (máximo <?php echo $capacidad ?>)</span>
 						<input type="number" name='cantidad' id='cantidad' min="1" max='<?php echo $capacidad ?>' placeholder="Ej: 1" required>
 					</div>
 					<div class='row'>

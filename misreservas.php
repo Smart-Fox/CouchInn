@@ -63,12 +63,12 @@
 				</div>
 				<div class='col-xs-2 col-md-2'>
 					<div class='centered'>
-						<button type=button id='env' class='btn2' onclick='showEnv();'>Solicitudes enviadas</button>
+						<button type=button id='env' class='btn2' onclick='showEnv();'>Reservas solicitadas</button>
 					</div>
 				</div>
 				<div class='col-xs-2 col-md-2'>
 					<div class='centered'>
-						<button type=button id='rec' onclick='showRec();' class='btn2'>Solicitudes recibidas</button>
+						<button type=button id='rec' onclick='showRec();' class='btn2'>Reservas recibidas</button>
 					</div>
 				</div>
 				<div class='col-xs-4 col-md-4'>
@@ -76,7 +76,7 @@
 			</div>
 			<br>
 		";
-		$solic = $serv->solicitudesRecibidas($id);
+		$solic = $serv->reservasRecibidas($id);
 		echo "<div id='recibidas'>";
 		if($solic->num_rows>0){
 			while($row = $solic->fetch_assoc()){
@@ -98,7 +98,7 @@
 									<span>Estado: ".$row['estado']."</span>
 								</div>
 								<div class='col-xs-2 col-md-2'>
-									<form action='solicitudDetalle.php' method='POST' enctype='multipart/form-data'>
+									<form action='reservaDetalle.php' method='POST' enctype='multipart/form-data'>
 										<button type='submit' class='btn222'>
 											<input class='hidden' name='idsol' value='".$row['solicitud_ID']."'>
 											<input class='hidden' name='tipo' value='recibidas'>
@@ -121,7 +121,7 @@
 						</div>
 						<div class='col-xs-8 col-md-8'>
 							<br>
-							<strong><span class='titulo2'>No hay solicitudes recibidas</span></strong>
+							<strong><span class='titulo2'>No hay reservas recibidas</span></strong>
 						</div>
 						<div class='col-xs-2 col-md-2'>
 						</div>
@@ -130,7 +130,7 @@
 			";
 		}
 		echo "</div>";
-		$solic2 = $serv->solicitudesEnviadas($id);
+		$solic2 = $serv->reservasEnviadas($id);
 		echo "<div id='enviadas'>";
 		if($solic2->num_rows>0){
 			while($row2 = $solic2->fetch_assoc()){
@@ -152,7 +152,7 @@
 									<span>Estado: ".$row2['estado']."</span>
 								</div>
 								<div class='col-xs-2 col-md-2'>
-									<form action='solicitudDetalle.php' method='POST' enctype='multipart/form-data'>
+									<form action='reservaDetalle.php' method='POST' enctype='multipart/form-data'>
 										<button type='submit' class='btn222'>
 											<input class='hidden' name='idsol' value='".$row2['solicitud_ID']."'>
 											<input class='hidden' name='tipo' value='enviadas'>
@@ -174,7 +174,7 @@
 						<div class='col-xs-2 col-md-2'>
 						</div>
 						<div class='col-xs-8 col-md-8'>
-							<strong><span class='titulo2'>No hay solicitudes enviadas</span></strong>
+							<strong><span class='titulo2'>No hay reservas solicitadas</span></strong>
 						</div>
 						<div class='col-xs-2 col-md-2'>
 						</div>
