@@ -138,7 +138,7 @@
 												while ($row6=$califUser->fetch_assoc()){
 													echo "	
 														<form action='verCalificUsuario.php' method='POST' enctype='multipart/form-data'>
-															<input class=hidden name='solicUser' value='".$_SESSION['ID']."'></input>
+															<input class=hidden name='solicUser' value='".$_SESSION['id']."'></input>
 															<button type='submit' class='btn222'>Recibió una nueva calificación como huésped</button>
 														</form>
 													";

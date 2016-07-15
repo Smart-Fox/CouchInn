@@ -42,6 +42,9 @@
 							<div class='rateit' data-rateit-value='".$serv->levantarPuntajePromedioUsuario($idUser)."' data-rateit-readonly='true' data-rateit-step='0.1' data-rateit-resetable='false'  data-rateit-ispreset='true'></div>
 					";
 					while ($rowUser = $userCalif->fetch_assoc()){
+						if ($_SESSION['id']==$idUser){
+							$serv->marcarLeidaCalif($rowUser['calificacion_ID']);
+						}
 						$serv->marcarLeidaCalif($rowUser['calificacion_ID']);
 						$fechainicio=date('d/m/Y', strtotime($rowUser['fecha_inicio']));
 						$fechafin=date('d/m/Y', strtotime($rowUser['fecha_fin']));
@@ -86,5 +89,21 @@
 			?>
 		</div>
 	</center>
+	<?php 
+		if(!isset($_POST['loaded'])){
+			echo "	
+				<form id='back' action='verCalificUsuario.php' method='POST' enctype='multipart/form-data'>
+					<input class='hidden' name='loaded' value='true'>
+					<input class='hidden' name='solicUser' value=".$idUser.">	
+				</form>
+				<script type='text/javascript'>
+					function submitForm() {
+						document.getElementById('back').submit();
+					}
+					window.onload = submitForm;
+				</script>
+			";
+		}
+	?>
 </body>
 </html>
