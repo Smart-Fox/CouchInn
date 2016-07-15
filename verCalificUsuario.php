@@ -21,7 +21,6 @@
 			$service->buildHeader();
 			$serv = new aService();
 			$idUser=$_POST['solicUser'];
-			$userCalifica = $_POST['usuarioQueCalifica'];
 			$userCalif=$serv->levantarCalificacionesUsuario($idUser);
 			$id=$_SESSION['id'];
 		}else{
@@ -43,6 +42,7 @@
 							<div class='rateit' data-rateit-value='".$serv->levantarPuntajePromedioUsuario($idUser)."' data-rateit-readonly='true' data-rateit-step='0.1' data-rateit-resetable='false'  data-rateit-ispreset='true'></div>
 					";
 					while ($rowUser = $userCalif->fetch_assoc()){
+						$serv->marcarLeidaCalif($rowUser['calificacion_ID']);
 						$fechainicio=date('d/m/Y', strtotime($rowUser['fecha_inicio']));
 						$fechafin=date('d/m/Y', strtotime($rowUser['fecha_fin']));
 						echo "		

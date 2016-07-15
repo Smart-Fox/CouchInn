@@ -10,13 +10,16 @@
 			$serv = new aService();
 			$preg=$serv->notificarPregunta($id);
 			$resp=$serv->notificarRespuesta($id);
-			$solic=$serv->notificarSolicitud($id);
-			$solicResp=$serv->notificarRespuestaSolicitud($id);
+			$solic=$serv->notificarSolicitud($id); //nueva solicitud recibida
+			$solicResp=$serv->notificarRespuestaSolicitud($id); //solicitud aceptada o rechazada por el dueño
+			$solicCanc=$serv->notificarSolicitudCancelada($id); //solicitud cancelada por el huesped
+			$resCancH=$serv->notificarReservaCanceladaH($id); //reserva cancelada por el huesped
+			$resCancA=$serv->notificarReservaCanceladaA($id); //reserva cancelada por el dueño
 			$califAnunc=$serv->notificarCalificacionAnuncio($id);
 			$califUser=$serv->notificarCalificacionUser($id);
 			$califPendAnunc=$serv->notificarCalificacionPendienteAnuncio($id);
 			$califPendUser=$serv->notificarCalificacionPendienteUser($id);
-			$cant=($preg->num_rows+$resp->num_rows+$solic->num_rows+$solicResp->num_rows+$califAnunc->num_rows+$califUser->num_rows+$califPendAnunc->num_rows+$califPendUser->num_rows);
+			$cant=($preg->num_rows+$resp->num_rows+$solic->num_rows+$solicResp->num_rows+$solicCanc->num_rows+$resCancH->num_rows+$resCancA->num_rows+$califAnunc->num_rows+$califUser->num_rows+$califPendAnunc->num_rows+$califPendUser->num_rows);
 			echo "	
 					<script type='text/javascript'>
 						$(document).ready(function()
@@ -76,37 +79,86 @@
 													";
 												}
 												while ($row3=$solic->fetch_assoc()){
-													echo "	<form action='solicitudes.php' method='POST' enctype='multipart/form-data'>
+													echo "	<form action='solicitudDetalle.php' method='POST' enctype='multipart/form-data'>
+																<input class='hidden' name='idsol' value='".$row3['solicitud_ID']."'>
 																<input class='hidden' name='tipo' value='recibidas'>
 																<button type='submit' class='btn222'>Recibió una nueva solicitud de hospedaje</button>
 															</form>
 													";
 												}
+												while ($row9=$solicCanc->fetch_assoc()){
+													echo "	<form action='solicitudDetalle.php' method='POST' enctype='multipart/form-data'>
+																<input class='hidden' name='idsol' value='".$row9['solicitud_ID']."'>
+																<input class='hidden' name='tipo' value='recibidas'>
+																<button type='submit' class='btn222'>Una solicitud de hospedaje fue cancelada</button>
+															</form>
+													";
+												}
 												while ($row4=$solicResp->fetch_assoc()){
-													echo "	<form action='solicitudes.php' method='POST' enctype='multipart/form-data'>
+													if ($row4['estado']=='aceptada'){
+														echo "	<form action='reservaDetalle.php' method='POST' enctype='multipart/form-data'>
+																	<input class='hidden' name='idsol' value='".$row4['ID']."'>
+																	<input class='hidden' name='tipo' value='enviadas'>
+																	<button type='submit' class='btn222'>Una solicitud de hospedaje fue aceptada</button>
+																</form>
+														";
+													}else{
+														echo "	<form action='solicitudDetalle.php' method='POST' enctype='multipart/form-data'>
+																	<input class='hidden' name='idsol' value='".$row4['ID']."'>
+																	<input class='hidden' name='tipo' value='enviadas'>
+																	<button type='submit' class='btn222'>Una solicitud de hospedaje fue rechazada</button>
+																</form>
+														";
+													}
+												}
+												while ($row10=$resCancH->fetch_assoc()){
+													echo "	<form action='reservaDetalle.php' method='POST' enctype='multipart/form-data'>
+																<input class='hidden' name='idsol' value='".$row10['solicitud_ID']."'>
+																<input class='hidden' name='tipo' value='recibidas'>
+																<button type='submit' class='btn222'>Una reserva fue cancelada</button>
+															</form>
+													";
+												}
+												while ($row11=$resCancA->fetch_assoc()){
+													echo "	<form action='reservaDetalle.php' method='POST' enctype='multipart/form-data'>
+																<input class='hidden' name='idsol' value='".$row11['solicitud_ID']."'>
 																<input class='hidden' name='tipo' value='enviadas'>
-																<button type='submit' class='btn222'>Una solicitud de hospedaje fue respondida</button>
+																<button type='submit' class='btn222'>Una reserva fue cancelada</button>
 															</form>
 													";
 												}
 												while ($row5=$califAnunc->fetch_assoc()){
-													echo "	
-														<span>Un anuncio recibió una nueva calificación</span><br>
+													echo "
+														<form action='verCalificAnuncio.php' method='POST' enctype='multipart/form-data'>
+															<input class='hidden' name='anunc' value='".$row5['anuncio_ID']."'>
+															<button type='submit' class='btn222'>Un anuncio recibió una nueva calificación</button>
+														</form>
 													";
 												}
 												while ($row6=$califUser->fetch_assoc()){
 													echo "	
-														<span>Recibió una nueva calificación como huésped</span><br>
+														<form action='verCalificUsuario.php' method='POST' enctype='multipart/form-data'>
+															<input class=hidden name='solicUser' value='".$_SESSION['ID']."'></input>
+															<button type='submit' class='btn222'>Recibió una nueva calificación como huésped</button>
+														</form>
 													";
 												}
 												while ($row7=$califPendAnunc->fetch_assoc()){
 													echo "	
-														<span>Tiene una calificación pendiente</span><br>
+															<form action='reservaDetalle.php' method='POST' enctype='multipart/form-data'>
+																<input class='hidden' name='idsol' value='".$row7['solicitud_ID']."'>
+																<input class='hidden' name='tipo' value='enviadas'>
+																<button type='submit' class='btn222'>Tiene una calificación pendiente</button>
+															</form>
 													";
 												}
 												while ($row8=$califPendUser->fetch_assoc()){
 													echo "
-														<span>Tiene una calificación pendiente</span><br>
+															<form action='reservaDetalle.php' method='POST' enctype='multipart/form-data'>
+																<input class='hidden' name='idsol' value='".$row8['solicitud_ID']."'>
+																<input class='hidden' name='tipo' value='recibidas'>
+																<button type='submit' class='btn222'>Tiene una calificación pendiente</button>
+															</form>
 													";
 												}
 			echo"

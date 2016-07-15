@@ -38,6 +38,7 @@
 							<div class='rateit' data-rateit-value='".$serv->levantarPuntajePromedioAnuncio($idAnun)."' data-rateit-readonly='true' data-rateit-step='0.1' data-rateit-resetable='false'  data-rateit-ispreset='true'></div>
 					";
 					while ($rowComent = $calif->fetch_assoc()){
+						$serv->marcarLeidaCalif($rowComent['calificacion_ID']);
 						$usuarioQueCalifico = $serv->levantarUsuarioCalificador($rowComent['ID_calificacion_visitante']);
 						$rowUsCal = $usuarioQueCalifico->fetch_assoc();
 						$fechainicio=date('d/m/Y', strtotime($rowComent['fecha_inicio']));
