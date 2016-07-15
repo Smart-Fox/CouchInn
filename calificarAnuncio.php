@@ -43,8 +43,8 @@
 					</div>
 					<div>
 						<span class='labelform2'>Puntaje:</span>
-						<input type="range" value='0' min='1' max='5' name='puntaje' id="puntaje" required>
-						<div class="rateit" data-rateit-backingfld="#puntaje" data-rateit-step='1' data-rateit-resetable="false"  data-rateit-ispreset="true">
+						<input type="rating" name='puntaje' id="puntaje" required>
+						<div class="rateit" data-rateit-backingfld="#puntaje" data-rateit-step='1' data-rateit-resetable="false" data-rateit-ispreset="false">
 						</div>
 					</div>
 					<input class=hidden name='tipo' value='hospedaje'></input>
