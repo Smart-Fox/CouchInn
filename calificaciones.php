@@ -32,11 +32,28 @@
 		include('anuncioService.php');
 		include('cuentaOptions.php');
 		session_start();
-		if(isset($_SESSION['usuario'])){
-				if(isset($_POST['tipo'])){
-					$serv = new aService();
-					$id=$_SESSION['id'];
-				}
+		if((isset($_SESSION['usuario']))&&(isset($_POST['tipo']))){
+			$tipo=$_POST['tipo'];
+			if($tipo=='recibidas'){
+				echo "	
+					<script type='text/javascript'>
+						window.onload = function mostrarR(){
+							document.getElementById('rec').click();
+						}	
+					</script>
+				";
+			}
+			if($tipo=='enviadas'){
+				echo "	
+					<script type='text/javascript'>
+						window.onload = function mostrarE(){
+							document.getElementById('env').click();
+						}	
+					</script>
+				";
+			}
+			$serv = new aService();
+			$id=$_SESSION['id'];
 			$service = new cabecera($_SESSION['usuario']);
 			$service->buildHeader();
 			$display=new cuentaMenu();
@@ -62,11 +79,11 @@
 			</div>
 			<br>
 		";
-		$userCalif=$serv->levantarCalificacionesUsuario($_SESSION['id']);
+		$userCalif=$serv->levantarCalificacionesUsuario($id);
 		echo "<div id='recibidas' class='row'>"; 
 		if($userCalif->num_rows>0){
 			echo "	<strong>Valoración promedio</strong><br>
-					<div class='rateit' data-rateit-value='".$serv->levantarPuntajePromedioUsuario($idUser)."' data-rateit-readonly='true' data-rateit-step='0.1' data-rateit-resetable='false'  data-rateit-ispreset='true'></div>
+					<div class='rateit' data-rateit-value='".$serv->levantarPuntajePromedioUsuario($id)."' data-rateit-readonly='true' data-rateit-step='0.1' data-rateit-resetable='false'  data-rateit-ispreset='true'></div>
 			";
 			while ($rowUser = $userCalif->fetch_assoc()){
 				$serv->marcarLeidaCalif($rowUser['calificacion_ID']);
