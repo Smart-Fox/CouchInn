@@ -26,7 +26,7 @@
 						$inicial = date("Y-m-d", strtotime($row['fecha_inicio']));
 						$final = date("Y-m-d", strtotime($row['fecha_fin']));
 						if ($row['estado']=='pendiente'){
-							if ($fecha_actual >=$inicial)
+							if ($fecha_actual >$inicial)
 								$serv->rechazarSolicitud($row['ID']);
 						}
 						if ($row['estado']=='aceptada'){
