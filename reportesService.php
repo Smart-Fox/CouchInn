@@ -25,7 +25,7 @@
 		$consulta = ("SELECT *	FROM solicitud_reserva
 								INNER JOIN usuario on solicitud_reserva.ID_usuario=usuario.ID
 								INNER JOIN anuncio on solicitud_reserva.ID_anuncio=anuncio.ID
-								WHERE fecha_solicitud<='$final' AND fecha>='$inicial';");
+								WHERE fecha_solicitud<='$final' AND fecha_solicitud>='$inicial';");
 		return ($conec->ejecutarSQL($consulta));
 	}
 	

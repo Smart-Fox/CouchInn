@@ -27,6 +27,10 @@ h1 {
 	color: #96ac3c;
 }
 
+.puntaje{
+	position:relative;
+}
+
 .selected{
 	border: 1px solid #96ac3c !important;
 }
