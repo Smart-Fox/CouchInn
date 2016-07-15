@@ -709,9 +709,19 @@
 										INNER JOIN solicitud_reserva ON reserva.ID_solicitud = solicitud_reserva.ID
 										INNER JOIN usuario ON usuario.ID = solicitud_reserva.ID_usuario
 							WHERE calificacion.ID = '$idCalificacion'";
-			
 			return $conec->ejecutarSQL($consulta);
 
+		}
+		public function levantarCalificadoresDeUnUsuario($idCalificacion){
+			$conec = new dbManager();
+			$conec->conectar();
+			$consulta = "SELECT * FROM calificacion	
+										INNER JOIN reserva ON reserva.ID_calificacion_dueño = calificacion.ID
+										INNER JOIN solicitud_reserva ON reserva.ID_solicitud = solicitud_reserva.ID
+										INNER JOIN anuncio ON solicitud_reserva.ID_anuncio = anuncio.ID
+										INNER JOIN usuario ON usuario.ID = anuncio.ID_usuario
+							WHERE calificacion.ID = '$idCalificacion'";
+			return $conec->ejecutarSQL($consulta);
 		}
 	}
 ?>
