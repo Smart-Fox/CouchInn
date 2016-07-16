@@ -80,6 +80,17 @@
 		echo "<div id='recibidas'>";
 		if($solic->num_rows>0){
 			while($row = $solic->fetch_assoc()){
+				switch ($row['pendiente']){
+					case 'activa':
+						echo "<div class='pendientes'>";
+					break;
+					case 'cancelada':
+						echo "<div class='canceladas'>";
+					break;
+					case 'rechazada':
+						echo "<div class='rechazadas'>";
+					break;
+				}
 				$inicial = date("d/m/Y", strtotime($row['fecha_inicio']));
 				$final = date("d/m/Y", strtotime($row['fecha_fin']));
 				echo "	
@@ -110,7 +121,8 @@
 						</div>
 						<div class='col-xs-2 col-md-2'>
 						</div>
-					</div>	
+					</div>
+				</div>
 				";
 			}
 		}else{
@@ -136,6 +148,17 @@
 		if($solic2->num_rows>0){
 
 			while($row2 = $solic2->fetch_assoc()){
+				switch ($row['pendiente']){
+					case 'activa':
+						echo "<div class='pendientes'>";
+					break;
+					case 'cancelada':
+						echo "<div class='canceladas'>";
+					break;
+					case 'rechazada':
+						echo "<div class='rechazadas'>";
+					break;
+				}
 				$inicial = date("d/m/Y", strtotime($row2['fecha_inicio']));
 				$final = date("d/m/Y", strtotime($row2['fecha_fin']));
 				echo "	
@@ -167,6 +190,7 @@
 						<div class='col-xs-2 col-md-2'>
 						</div>
 					</div>
+				</div>
 				";
 			}
 		}else{

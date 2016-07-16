@@ -383,6 +383,46 @@ select:focus{
     padding: 12px 16px;
 }
 
+.btn123 {
+    background: transparent;
+    border: none;
+	text-align: center;
+	display: inline-block;
+    color: #96ac3c;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px 5px;
+	border-radius:0px;
+}
+
+.barra123{
+	border-bottom: 1px solid #96ac3c;
+	margin-top:-13px;
+	margin-bottom:10px;
+	margin-left:30px;
+	margin-right:30px;
+}
+
+.barra1234{
+	border-bottom: 1px solid #96ac3c;
+	margin-top:-10px;
+	margin-bottom:-7px;
+	margin-left:30px;
+	margin-right:30px;
+}
+
+.btn1234 {
+    background: transparent;
+	border-radius:0px;
+    border: none;
+	text-align: center;
+	display: inline-block;
+    color: #96ac3c;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px 5px;
+}
+
 .btn22 {
     background: transparent;
     border: none;
