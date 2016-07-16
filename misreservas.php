@@ -2,33 +2,110 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Solicitudes</title>
+	<title>Reservas</title>
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel='stylesheet' href='style.css'/>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	<script src="js/public_smo_scripts.js"></script>
 	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript">
 		function showRec(){
 			document.getElementById('recibidas').style.display = 'inline';
 			$("#rec").addClass("selected");
 			document.getElementById('enviadas').style.display = 'none';
-			$("#env").removeClass("selected");		
+			$("#env").removeClass("selected");
+			changecss('#envi','display','none');
+			changecss('#recib','display','inline');
+			changecss('.activas','display','inline');
+			changecss('.aceptadas','display','inline');
+			changecss('.canceladas','display','inline');
+			changecss('.finalizadas','display','inline');	
+			$("#act").removeClass("selected");
+			$("#acp").removeClass("selected");
+			$("#canc").removeClass("selected");	
+			$("#fin").removeClass("selected");			
 		}
 		function showEnv(){
 			document.getElementById('enviadas').style.display = 'inline';
 			$("#env").addClass("selected");
 			document.getElementById('recibidas').style.display = 'none';
-			$("#rec").removeClass("selected");				
+			$("#rec").removeClass("selected");
+			changecss('#recib','display','none');
+			changecss('#envi','display','inline');
+			changecss('.activas','display','inline');
+			changecss('.aceptadas','display','inline');
+			changecss('.canceladas','display','inline');
+			changecss('.finalizadas','display','inline');
+			$("#act2").removeClass("selected");
+			$("#acp2").removeClass("selected");
+			$("#canc2").removeClass("selected");	
+			$("#fin2").removeClass("selected");	
+		}
+		function activas(){
+			changecss('.activas','display','inline');
+			changecss('.aceptadas','display','none');
+			changecss('.canceladas','display','none');
+			changecss('.finalizadas','display','none');
+			$("#act").addClass("selected");
+			$("#acp").removeClass("selected");
+			$("#canc").removeClass("selected");	
+			$("#fin").removeClass("selected");	
+			$("#act2").addClass("selected");
+			$("#acp2").removeClass("selected");
+			$("#canc2").removeClass("selected");	
+			$("#fin2").removeClass("selected");	
+		}
+		function aceptadas(){
+			changecss('.activas','display','none');
+			changecss('.aceptadas','display','inline');
+			changecss('.canceladas','display','none');
+			changecss('.finalizadas','display','none');
+			$("#act").removeClass("selected");
+			$("#acp").addClass("selected");
+			$("#canc").removeClass("selected");	
+			$("#fin").removeClass("selected");	
+			$("#act2").removeClass("selected");
+			$("#acp2").addClass("selected");
+			$("#canc2").removeClass("selected");	
+			$("#fin2").removeClass("selected");	
+		}
+		function canceladas(){
+			changecss('.activas','display','none');
+			changecss('.aceptadas','display','none');
+			changecss('.canceladas','display','inline');
+			changecss('.finalizadas','display','none');
+			$("#act").removeClass("selected");
+			$("#acp").removeClass("selected");
+			$("#canc").addClass("selected");	
+			$("#fin").removeClass("selected");	
+			$("#act2").removeClass("selected");
+			$("#acp2").removeClass("selected");
+			$("#canc2").addClass("selected");	
+			$("#fin2").removeClass("selected");	
+		}
+		function finalizadas(){
+			changecss('.activas','display','none');
+			changecss('.aceptadas','display','none');
+			changecss('.canceladas','display','none');
+			changecss('.finalizadas','display','inline');
+			$("#act").removeClass("selected");
+			$("#acp").removeClass("selected");
+			$("#canc").removeClass("selected");	
+			$("#fin").addClass("selected");	
+			$("#act2").removeClass("selected");
+			$("#acp2").removeClass("selected");
+			$("#canc2").removeClass("selected");	
+			$("#fin2").addClass("selected");	
 		}
 	</script>
 </head>
 <body>
 	<?php
-		include('header.php');
-		include('anuncioService.php');
-		include('cuentaOptions.php');
 		session_start();
+		include_once('header.php');
+		include_once('anuncioService.php');
+		include_once('cuentaOptions.php');
 		if((isset($_SESSION['usuario']))&&(isset($_POST['tipo']))){
 			$tipo=$_POST['tipo'];
 			if($tipo=='recibidas'){
@@ -59,27 +136,69 @@
 		}
 		echo "
 			<div class='row'>
-				<div class='col-xs-4 col-md-4'>
-				</div>
-				<div class='col-xs-2 col-md-2'>
-					<div class='centered'>
-						<button type=button id='env' class='btn2' onclick='showEnv();'>Reservas solicitadas</button>
+				<div class='barra1234'>
+					<div class='col-xs-4 col-md-4'>
 					</div>
-				</div>
-				<div class='col-xs-2 col-md-2'>
-					<div class='centered'>
-						<button type=button id='rec' onclick='showRec();' class='btn2'>Reservas recibidas</button>
+					<div class='col-xs-2 col-md-2'>
+						<div class='centered'>
+							<button type=button id='env' class='btn1234' onclick='showEnv();'>Reservas solicitadas</button>
+						</div>
 					</div>
-				</div>
-				<div class='col-xs-4 col-md-4'>
+					<div class='col-xs-2 col-md-2'>
+						<div class='centered'>
+							<button type=button id='rec' onclick='showRec();' class='btn1234'>Reservas recibidas</button>
+						</div>
+					</div>
+					<div class='col-xs-4 col-md-4'>
+					</div>
 				</div>
 			</div>
 			<br>
 		";
 		$solic = $serv->reservasRecibidas($id);
-		echo "<div id='recibidas'>";
+		echo "
+			<div id='recibidas'>
+				<div class='row' id='recib'>
+					<div class='barra123'>
+						<div class='col-xs-3 col-md-3'>
+							<div class='centered'>
+								<button type=button id='act' class='btn123' onclick='activas();'>Activas</button>
+							</div>
+						</div>
+						<div class='col-xs-3 col-md-3'>
+							<div class='centered'>
+								<button type=button id='acp' class='btn123' onclick='aceptadas();'>Aceptadas</button>
+							</div>
+						</div>
+						<div class='col-xs-3 col-md-3'>
+							<div class='centered'>
+								<button type=button id='canc' onclick='canceladas();' class='btn123'>Canceladas</button>
+							</div>
+						</div>
+						<div class='col-xs-3 col-md-3'>
+							<div class='centered'>
+								<button type=button id='fin' onclick='finalizadas();' class='btn123'>Finalizadas</button>
+							</div>
+						</div>
+					</div>
+				</div>
+		";
 		if($solic->num_rows>0){
 			while($row = $solic->fetch_assoc()){
+				switch ($row['estado']){
+					case 'activa':
+						echo "<div class='activas'>";
+					break;
+					case 'aceptada':
+						echo "<div class='aceptadas'>";
+					break;
+					case 'cancelada':
+						echo "<div class='canceladas'>";
+					break;
+					case 'finalizada':
+						echo "<div class='finalizadas'>";
+					break;
+				}
 				$inicial = date("d/m/Y", strtotime($row['fecha_inicio']));
 				$final = date("d/m/Y", strtotime($row['fecha_fin']));
 				echo "	
@@ -110,7 +229,8 @@
 						</div>
 						<div class='col-xs-2 col-md-2'>
 						</div>
-					</div>	
+					</div>
+				</div>
 				";
 			}
 		}else{
@@ -131,9 +251,49 @@
 		}
 		echo "</div>";
 		$solic2 = $serv->reservasEnviadas($id);
-		echo "<div id='enviadas'>";
+		echo "
+			<div id='enviadas'>
+				<div class='row' id='envi'>
+					<div class='barra123'>
+						<div class='col-xs-3 col-md-3'>
+							<div class='centered'>
+								<button type=button id='act2' class='btn123' onclick='activas();'>Activas</button>
+							</div>
+						</div>
+						<div class='col-xs-3 col-md-3'>
+							<div class='centered'>
+								<button type=button id='acp2' class='btn123' onclick='aceptadas();'>Aceptadas</button>
+							</div>
+						</div>
+						<div class='col-xs-3 col-md-3'>
+							<div class='centered'>
+								<button type=button id='canc2' onclick='canceladas();' class='btn123'>Canceladas</button>
+							</div>
+						</div>
+						<div class='col-xs-3 col-md-3'>
+							<div class='centered'>
+								<button type=button id='fin2' onclick='finalizadas();' class='btn123'>Finalizadas</button>
+							</div>
+						</div>
+					</div>
+				</div>
+		";
 		if($solic2->num_rows>0){
 			while($row2 = $solic2->fetch_assoc()){
+				switch ($row2['estado']){
+					case 'activa':
+						echo "<div class='activas'>";
+					break;
+					case 'aceptada':
+						echo "<div class='aceptadas'>";
+					break;
+					case 'cancelada':
+						echo "<div class='canceladas'>";
+					break;
+					case 'finalizada':
+						echo "<div class='finalizadas'>";
+					break;
+				}
 				$inicial = date("d/m/Y", strtotime($row2['fecha_inicio']));
 				$final = date("d/m/Y", strtotime($row2['fecha_fin']));
 				echo "	
@@ -165,6 +325,7 @@
 						<div class='col-xs-2 col-md-2'>
 						</div>
 					</div>
+				</div>
 				";
 			}
 		}else{
