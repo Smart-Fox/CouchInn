@@ -77,8 +77,14 @@
 								<div class='col-xs-2 col-md-2'>
 								</div>
 							</div>
+
 					";	
 				}
+					echo "
+					<form action='anuncDetalle.php' method='POST' enctype='multipart/form-data'>
+					<input class=hidden name='anunc' value='".$idAnun."'>
+					<center><button type='submit' class='btn22'>Volver</button></center>
+				</form>";
 			?>
 		</div>
 	</center>

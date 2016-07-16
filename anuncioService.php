@@ -635,6 +635,7 @@
 			$consulta = "UPDATE reserva SET ID_calificacion_dueño = '$idcalificacion' WHERE ID_solicitud = '$res'";
 			$respuesta = $conec->ejecutarSQL($consulta);
 		}
+
 		public function levantarCalificacionesAnuncio($idAnuncio){
 			$conec = new dbManager();
 			$conec->conectar();

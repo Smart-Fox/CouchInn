@@ -28,6 +28,7 @@
 			if(isset($_SESSION['usuario'])){
 			if(isset($_POST['anun'])){
 				$id=$_POST['user'];
+				
 				$service = new cabecera($_SESSION['usuario']);
 				$service->buildHeader();
 				$serv = new aService();
