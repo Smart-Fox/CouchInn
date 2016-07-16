@@ -130,7 +130,7 @@
 												while ($row5=$califAnunc->fetch_assoc()){
 													echo "
 														<form action='calificaciones.php' method='POST' enctype='multipart/form-data'>
-															<input class=hidden name='tipo' value='enviadas'></input>
+															<input class=hidden name='tipo' value='nenviadas'></input>
 															<button type='submit' class='btn222'>Un anuncio recibió una nueva calificación</button>
 														</form>
 													";
@@ -138,7 +138,7 @@
 												while ($row6=$califUser->fetch_assoc()){
 													echo "	
 														<form action='calificaciones.php' method='POST' enctype='multipart/form-data'>
-															<input class=hidden name='tipo' value='recibidas'></input>
+															<input class=hidden name='tipo' value='nrecibidas'></input>
 															<button type='submit' class='btn222'>Recibió una nueva calificación como huésped</button>
 														</form>
 													";
