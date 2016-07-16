@@ -81,7 +81,6 @@
 								<div class='col-xs-8 col-md-8'>
 									<br>
 									<strong><span class='titulo2'>No hay calificaciones para este usuario</span></strong>
-
 								</div>
 								<div class='col-xs-2 col-md-2'>
 								</div>
@@ -89,7 +88,6 @@
 						</center>
 					";	
 				}
-
 				echo "
 					<form action='solicitudDetalle.php' method='POST' enctype='multipart/form-data'>
 					<input class=hidden name='idsol' value='".$idsol."'>
@@ -105,7 +103,6 @@
 					<input class='hidden' name='loaded' value='true'>
 					<input class='hidden' name='solicUser' value=".$idUser.">
 					<input class='hidden' name='retsol' value=".$idsol.">
-
 				</form>
 				<script type='text/javascript'>
 					function submitForm() {

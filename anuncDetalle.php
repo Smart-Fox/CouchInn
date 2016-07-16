@@ -140,6 +140,7 @@
 		
 		</div>
 			<?php
+
 					$preg1 = $serv->levantarPreguntasAnuncio($row['ID_anuncio']);
 					if($_SESSION['id']!=$row['usuario_ID']){
 						echo "<br><h2>Preguntas al usuario</h2><br>";

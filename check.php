@@ -3,9 +3,7 @@
 if(isSet($_POST['username'])){
 	$username = $_POST['username'];
 
-
-	$db = new mysqli('localhost', 'root', 'admin', 'couchinn') or die ('Cannot connect to db');
-
+	$db = new mysqli('localhost', 'root', '', 'couchinn') or die ('Cannot connect to db');
 
 	$sql_check = $db->query("SELECT username FROM usuario WHERE username = '".$username."';");
 
