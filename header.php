@@ -121,7 +121,7 @@
 												}
 												while ($row11=$resCancA->fetch_assoc()){
 													echo "	<form action='reservaDetalle.php' method='POST' enctype='multipart/form-data'>
-																<input class='hidden' name='idsol' value='".$row11['solicitud_ID']."'>
+																<input class='hidden' name='idsol' value='".$row11['ID']."'>
 																<input class='hidden' name='tipo' value='enviadas'>
 																<button type='submit' class='btn222'>Una reserva fue cancelada</button>
 															</form>
